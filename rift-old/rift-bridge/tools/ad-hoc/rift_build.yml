@@ -1,0 +1,24 @@
+# rift_build.yml - Declarative build configuration
+languages:
+  cpp:
+    toolchain: "//toolchains:cpp_toolchain"
+    compiler_flags: ["-std=c++17", "-O2"]
+    emscripten_config:
+      version: "3.1.44"
+      optimization: "-O3"
+      export_functions: ["_main", "_process_rift"]
+  
+  python:
+    version: "3.9"
+    entry_points: ["src/python/bindings"]
+    wasm_support: true
+  
+  wasm:
+    binary_toolkit: "wabt"
+    validation: true
+    text_format_support: true
+  
+  ecmascript:
+    target: "es2020"
+    module_format: "esm"
+    bundler: "webpack"

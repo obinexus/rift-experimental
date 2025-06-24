@@ -1,0 +1,25 @@
+// .riftrc - Zero-trust policy configuration
+{
+  "security_policies": {
+    "webassembly": {
+      "trusted_origins": ["https://rift-compiler.dev"],
+      "execution_limits": {
+        "memory_max": "100MB",
+        "computation_timeout": "30s",
+        "cpu_quota": "50%"
+      },
+      "isolation_level": "strict",
+      "detach_mode_enabled": true,
+      "monitoring": {
+        "real_time_telemetry": true,
+        "violation_logging": true,
+        "anomaly_detection": "ml-based"
+      }
+    },
+    "csp_integration": {
+      "script_src": "'self' 'wasm-unsafe-eval'",
+      "wasm_eval": "strict-dynamic",
+      "hash_validation": true
+    }
+  }
+}

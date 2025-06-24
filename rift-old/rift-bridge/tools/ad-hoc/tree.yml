@@ -1,0 +1,228 @@
+# RIFT-Bridge Ad-Hoc Script Dependency Tree
+# OBINexus Phase 1 - Waterfall Methodology Implementation
+# Technical Architecture: riftlang.exe → .so.a → rift.exe → gosilang
+# Build Stack: nlink → polybuild
+
+metadata:
+  project: "OBINexus RIFT-Bridge"
+  version: "1.0.0-phase1"
+  methodology: "waterfall"
+  compliance: "zero-trust"
+  toolchain_flow: "riftlang.exe → .so.a → rift.exe → gosilang"
+  build_stack: "nlink → polybuild"
+
+# Script Dependency Graph - Tree-Based Resolution
+scripts:
+  # Foundation Scripts - Infrastructure Setup
+  foundation_setup:
+    path: "scripts/foundation_setup.sh"
+    stage: 0
+    depends_on: []
+    permissions: "0755"
+    governance_policy: "zero_trust_mode=enabled"
+    description: "Core infrastructure and directory structure setup"
+    hooks:
+      pre: ["validate_environment", "check_dependencies"]
+      post: ["verify_directories", "log_completion"]
+
+  # Stage 0: Tokenizer - riftlang.exe Entry Point
+  stage_tokenizer:
+    path: "scripts/stage_tokenizer.sh"
+    stage: 0
+    depends_on: ["foundation_setup"]
+    permissions: "0755"
+    governance_policy: "stage_isolation=strict"
+    description: "RIFT language tokenization stage - riftlang.exe"
+    compilation:
+      target: "riftlang.exe"
+      output_format: "executable"
+      wasm_support: true
+    hooks:
+      pre: ["validate_source_files", "check_tokenizer_deps"]
+      post: ["verify_tokenizer_output", "generate_stage_metadata"]
+
+  # Stage 1: Parser - AST Generation
+  stage_parser:
+    path: "scripts/stage_parser.sh"
+    stage: 1
+    depends_on: ["stage_tokenizer"]
+    permissions: "0755"
+    governance_policy: "ast_validation=enabled"
+    description: "Abstract Syntax Tree generation and parsing"
+    compilation:
+      target: "librift_parser.so.a"
+      output_format: "static_library"
+      optimization_level: "O3"
+    hooks:
+      pre: ["validate_tokenizer_output", "check_parser_grammar"]
+      post: ["verify_ast_structure", "validate_parsing_completeness"]
+
+  # Stage 2: Semantic Analyzer - Type Checking
+  stage_semantic_analyzer:
+    path: "scripts/stage_semantic_analyzer.sh"
+    stage: 2
+    depends_on: ["stage_parser"]
+    permissions: "0755"
+    governance_policy: "type_safety=strict"
+    description: "Semantic analysis and type checking"
+    compilation:
+      target: "librift_semantic.so.a"
+      output_format: "static_library"
+      validation: "strict_typing"
+    hooks:
+      pre: ["validate_ast_input", "check_type_definitions"]
+      post: ["verify_semantic_correctness", "generate_symbol_table"]
+
+  # Stage 3: Code Generation - rift.exe Output
+  stage_code_generation:
+    path: "scripts/stage_code_generation.sh"
+    stage: 3
+    depends_on: ["stage_semantic_analyzer"]
+    permissions: "0755"
+    governance_policy: "code_gen_validation=enabled"
+    description: "Code generation and rift.exe compilation"
+    compilation:
+      target: "rift.exe"
+      output_format: "executable"
+      linking: "static"
+    hooks:
+      pre: ["validate_semantic_output", "check_codegen_templates"]
+      post: ["verify_executable_integrity", "test_basic_execution"]
+
+  # Stage 4: GoSilang Integration - Final Toolchain Step
+  stage_gosilang_integration:
+    path: "scripts/stage_gosilang_integration.sh"
+    stage: 4
+    depends_on: ["stage_code_generation"]
+    permissions: "0755"
+    governance_policy: "interop_validation=strict"
+    description: "GoSilang integration and final toolchain validation"
+    compilation:
+      target: "gosilang"
+      output_format: "hybrid_runtime"
+      interop: "go_rift_bridge"
+    hooks:
+      pre: ["validate_rift_exe", "check_go_environment"]
+      post: ["verify_interop_functionality", "validate_complete_pipeline"]
+
+  # Build Orchestration Scripts - PolyBuild Integration
+  polybuild_setup:
+    path: "scripts/polybuild_setup.sh"
+    stage: -1
+    depends_on: ["foundation_setup"]
+    permissions: "0755"
+    governance_policy: "build_system_validation=enabled"
+    description: "PolyBuild orchestration and CMake integration"
+    build_system:
+      type: "polybuild"
+      cmake_integration: true
+      nlink_support: true
+    hooks:
+      pre: ["validate_cmake_config", "check_polybuild_deps"]
+      post: ["verify_build_system", "generate_build_metadata"]
+
+  # NLink Integration - Build Stack Component
+  nlink_integration:
+    path: "scripts/nlink_integration.sh"
+    stage: -1
+    depends_on: ["polybuild_setup"]
+    permissions: "0755"
+    governance_policy: "linking_validation=strict"
+    description: "NLink integration for build stack orchestration"
+    linking:
+      type: "nlink"
+      static_libs: true
+      dynamic_resolution: true
+    hooks:
+      pre: ["validate_polybuild_output", "check_nlink_config"]
+      post: ["verify_linking_correctness", "test_library_resolution"]
+
+  # WebAssembly Compilation Pipeline
+  wasm_compilation:
+    path: "scripts/wasm_compilation.sh"
+    stage: 5
+    depends_on: ["stage_gosilang_integration", "nlink_integration"]
+    permissions: "0755"
+    governance_policy: "wasm_security=sandbox_strict"
+    description: "WebAssembly compilation for browser governance"
+    wasm:
+      emscripten_version: "3.1.44"
+      optimization: "O3"
+      security_model: "zero_trust"
+      sandbox: "strict"
+    hooks:
+      pre: ["validate_complete_pipeline", "check_emscripten_env"]
+      post: ["verify_wasm_integrity", "test_browser_compatibility"]
+
+# Hook Definitions - Modular Execution Framework
+hooks:
+  # Pre-execution hooks
+  validate_environment:
+    script: "hooks/pre/validate_environment.sh"
+    description: "Comprehensive development environment validation"
+    required_tools: ["clang", "emcc", "cmake", "ar", "ranlib"]
+
+  check_dependencies:
+    script: "hooks/pre/check_dependencies.sh"
+    description: "Dependency resolution and availability checking"
+    
+  validate_source_files:
+    script: "hooks/pre/validate_source_files.sh"
+    description: "Source file integrity and syntax validation"
+
+  # Post-execution hooks
+  verify_directories:
+    script: "hooks/post/verify_directories.sh"
+    description: "Directory structure and permission verification"
+
+  log_completion:
+    script: "hooks/post/log_completion.sh"
+    description: "Execution logging and metadata generation"
+
+  generate_stage_metadata:
+    script: "hooks/post/generate_stage_metadata.sh"
+    description: "Stage-specific metadata and artifact cataloging"
+
+# Permission Elevation Model
+permissions:
+  default_script_mode: "0755"
+  hook_script_mode: "0750"
+  metadata_file_mode: "0644"
+  log_file_mode: "0644"
+  
+  elevation_rules:
+    - pattern: "scripts/*.sh"
+      mode: "0755"
+      reason: "Executable scripts require execution permissions"
+    
+    - pattern: "hooks/*/*.sh"
+      mode: "0750"
+      reason: "Hook scripts require restricted execution permissions"
+    
+    - pattern: "*.yml"
+      mode: "0644"
+      reason: "Configuration files require read-only access"
+
+# Governance Policies - Zero-Trust Framework
+governance:
+  zero_trust_mode: true
+  stage_isolation: "strict"
+  validation_required: true
+  audit_logging: true
+  
+  policies:
+    script_execution:
+      require_validation: true
+      permission_check: true
+      dependency_resolution: true
+      hook_execution: true
+    
+    compilation:
+      security_scanning: true
+      output_verification: true
+      integrity_checking: true
+    
+    wasm_deployment:
+      sandbox_enforcement: true
+      permission_model: "zero_trust"
+      browser_compatibility: "strict"

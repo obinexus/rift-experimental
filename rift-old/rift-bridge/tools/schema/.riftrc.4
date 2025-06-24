@@ -1,0 +1,38 @@
+# .riftrc.4 - Optimizer Stage Governance  
+version: "1.0"
+stage:
+  id: 4
+  name: "optimizer"
+  trust_level: "trusted"
+  
+governance:
+  input_validation:
+    ir_complexity_limit: 50000
+    optimization_passes_max: 10
+    memory_limit: "128MB"
+    
+  security:
+    sandbox: true
+    network_access: false
+    filesystem_access: "read_only"
+    zero_trust_mode: enabled
+    
+  compilation:
+    llvm_target: "wasm32-unknown-emscripten"
+    optimization_level: "O3"
+    debug_symbols: true
+    
+  # Critical: Detach mode support for trust flow halt
+  detach_mode_enabled: true
+  semverx_lock: true
+  
+  trust_flow:
+    halt_on_completion: true
+    human_approval_required: false
+    checkpoint_creation: true
+    
+  security:
+    attestation_required: true
+    signing_key: "${RIFT_SIGNING_KEY}"
+    hash_validation: true
+

@@ -1,0 +1,49 @@
+# .github/workflows/ci.yml
+name: RIFT-Bridge CI/CD
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        build_type: [Debug, Release]
+    
+    runs-on: ${{ matrix.os }}
+    
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        submodules: recursive
+    
+    - name: Setup RIFT-Bridge environment
+      run: ./tools/setup.sh --ci
+    
+    - name: Configure CMake
+      run: |
+        cmake -B build -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
+              -DRIFT_BUILD_TESTS=ON \
+              -DRIFT_ENABLE_WASM=ON
+    
+    - name: Build
+      run: cmake --build build --config ${{ matrix.build_type }}
+    
+    - name: Run Tests
+      run: |
+        cd build
+        ctest --output-on-failure --parallel 4
+    
+    - name: WebAssembly Validation
+      run: |
+        wasm-validate build/obj/final/rift_bridge.wasm
+        node test/integration/wasm-validation.js
+    
+    - name: Governance Policy Tests
+      run: |
+        python 
+        test/integration/governance_tests.py
