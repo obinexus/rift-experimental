@@ -1,0 +1,282 @@
+# =============================================================================
+# MASTER MAKEFILE - Makefile.master
+# RIFT Concurrency Governance - Modular Build System
+# Aegis Development Team - Waterfall Implementation
+# =============================================================================
+
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror -std=c11 -D_GNU_SOURCE
+CFLAGS += -z noexecstack -fstack-protector-strong -fpie
+CFLAGS += -DRIFT_TELEMETRY_ENABLED -DRIFT_DEBUG_MODE
+
+# Debug and Release configurations
+DEBUG_FLAGS = -g -O0 -DDEBUG -fsanitize=thread -fsanitize=address
+RELEASE_FLAGS = -O2 -DNDEBUG -flto
+
+# Linker flags for security hardening
+LDFLAGS = -pie -Wl,-z,relro,-z,now
+LDFLAGS += -lpthread -lrt
+
+# Directory structure
+COMMON_DIR = common
+SIMULATED_DIR = simulated
+TRUE_CONCURRENCY_DIR = true_concurrency
+TEST_DIR = tests
+BUILD_DIR = build
+
+# Common source files
+COMMON_SOURCES = $(COMMON_DIR)/rift_telemetry.c $(COMMON_DIR)/rift_governance.c
+COMMON_OBJECTS = $(BUILD_DIR)/rift_telemetry.o $(BUILD_DIR)/rift_governance.o
+
+# Build targets
+.PHONY: all clean debug release test simulated true_concurrency
+.PHONY: test-simulated test-true install security-check
+
+# Default target builds both modules in release mode
+all: release
+
+# Debug build configuration
+debug: CFLAGS += $(DEBUG_FLAGS)
+debug: simulated_debug true_concurrency_debug
+
+# Release build configuration  
+release: CFLAGS += $(RELEASE_FLAGS)
+release: simulated_release true_concurrency_release
+
+# Create build directory
+$(BUILD_DIR):
+	mkdir -p $(BUILD_DIR)
+
+# Common object files
+$(BUILD_DIR)/%.o: $(COMMON_DIR)/%.c | $(BUILD_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# =============================================================================
+# SIMULATED CONCURRENCY MODULE BUILD
+# =============================================================================
+
+SIMULATED_SOURCES = $(SIMULATED_DIR)/rift_simulated.c $(SIMULATED_DIR)/rift_simulated_scheduler.c
+SIMULATED_OBJECTS = $(BUILD_DIR)/rift_simulated.o $(BUILD_DIR)/rift_simulated_scheduler.o
+SIMULATED_TARGET = $(BUILD_DIR)/rift_simulated_concurrency
+
+simulated_debug simulated_release: $(SIMULATED_TARGET)
+
+$(SIMULATED_TARGET): $(COMMON_OBJECTS) $(SIMULATED_OBJECTS)
+	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@
+
+$(BUILD_DIR)/rift_simulated.o: $(SIMULATED_DIR)/rift_simulated.c | $(BUILD_DIR)
+	$(CC) $(CFLAGS) -I$(COMMON_DIR) -c $< -o $@
+
+$(BUILD_DIR)/rift_simulated_scheduler.o: $(SIMULATED_DIR)/rift_simulated_scheduler.c | $(BUILD_DIR)
+	$(CC) $(CFLAGS) -I$(COMMON_DIR) -c $< -o $@
+
+# =============================================================================
+# TRUE CONCURRENCY MODULE BUILD
+# =============================================================================
+
+TRUE_CONCURRENCY_SOURCES = $(TRUE_CONCURRENCY_DIR)/rift_true_concurrency.c \
+                           $(TRUE_CONCURRENCY_DIR)/rift_process_hierarchy.c \
+                           $(TRUE_CONCURRENCY_DIR)/rift_memory_governance.c
+
+TRUE_CONCURRENCY_OBJECTS = $(BUILD_DIR)/rift_true_concurrency.o \
+                           $(BUILD_DIR)/rift_process_hierarchy.o \
+                           $(BUILD_DIR)/rift_memory_governance.o
+
+TRUE_CONCURRENCY_TARGET = $(BUILD_DIR)/rift_true_concurrency
+
+true_concurrency_debug true_concurrency_release: $(TRUE_CONCURRENCY_TARGET)
+
+$(TRUE_CONCURRENCY_TARGET): $(COMMON_OBJECTS) $(TRUE_CONCURRENCY_OBJECTS)
+	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@
+
+$(BUILD_DIR)/rift_true_concurrency.o: $(TRUE_CONCURRENCY_DIR)/rift_true_concurrency.c | $(BUILD_DIR)
+	$(CC) $(CFLAGS) -I$(COMMON_DIR) -c $< -o $@
+
+$(BUILD_DIR)/rift_process_hierarchy.o: $(TRUE_CONCURRENCY_DIR)/rift_process_hierarchy.c | $(BUILD_DIR)
+	$(CC) $(CFLAGS) -I$(COMMON_DIR) -c $< -o $@
+
+$(BUILD_DIR)/rift_memory_governance.o: $(TRUE_CONCURRENCY_DIR)/rift_memory_governance.c | $(BUILD_DIR)
+	$(CC) $(CFLAGS) -I$(COMMON_DIR) -c $< -o $@
+
+# =============================================================================
+# TESTING FRAMEWORK
+# =============================================================================
+
+TEST_SIMULATED = $(BUILD_DIR)/test_simulated
+TEST_TRUE_CONCURRENCY = $(BUILD_DIR)/test_true_concurrency
+
+test: test-simulated test-true
+
+test-simulated: $(TEST_SIMULATED)
+	@echo "=== Running Simulated Concurrency Tests ==="
+	./$(TEST_SIMULATED)
+	@echo "=== Simulated Concurrency Tests Complete ==="
+
+test-true: $(TEST_TRUE_CONCURRENCY)
+	@echo "=== Running True Concurrency Tests ==="
+	./$(TEST_TRUE_CONCURRENCY)
+	@echo "=== True Concurrency Tests Complete ==="
+
+$(TEST_SIMULATED): $(TEST_DIR)/test_simulated.c $(COMMON_OBJECTS) $(SIMULATED_OBJECTS)
+	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@
+
+$(TEST_TRUE_CONCURRENCY): $(TEST_DIR)/test_true_concurrency.c $(COMMON_OBJECTS) $(TRUE_CONCURRENCY_OBJECTS)
+	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@
+
+# =============================================================================
+# SECURITY AND VALIDATION
+# =============================================================================
+
+security-check: $(SIMULATED_TARGET) $(TRUE_CONCURRENCY_TARGET)
+	@echo "=== Running Security Validation ==="
+	@echo "Checking for executable stack..."
+	@readelf -l $(SIMULATED_TARGET) | grep STACK | grep -q RWE || echo "V Simulated: No executable stack"
+	@readelf -l $(TRUE_CONCURRENCY_TARGET) | grep STACK | grep -q RWE || echo "V True Concurrency: No executable stack"
+	@echo "Checking for RELRO..."
+	@readelf -l $(SIMULATED_TARGET) | grep -q "GNU_RELRO" && echo "V Simulated: RELRO enabled"
+	@readelf -l $(TRUE_CONCURRENCY_TARGET) | grep -q "GNU_RELRO" && echo "V True Concurrency: RELRO enabled"
+	@echo "Checking for PIE..."
+	@readelf -h $(SIMULATED_TARGET) | grep -q "Type:[[:space:]]*DYN" && echo "V Simulated: PIE enabled"
+	@readelf -h $(TRUE_CONCURRENCY_TARGET) | grep -q "Type:[[:space:]]*DYN" && echo "V True Concurrency: PIE enabled"
+	@echo "=== Security Validation Complete ==="
+
+# =============================================================================
+# INSTALLATION AND DEPLOYMENT
+# =============================================================================
+
+PREFIX = /usr/local
+BINDIR = $(PREFIX)/bin
+LIBDIR = $(PREFIX)/lib
+INCLUDEDIR = $(PREFIX)/include
+
+install: $(SIMULATED_TARGET) $(TRUE_CONCURRENCY_TARGET)
+	@echo "=== Installing RIFT Concurrency Modules ==="
+	install -d $(BINDIR)
+	install -d $(LIBDIR)
+	install -d $(INCLUDEDIR)/rift
+	install -m 755 $(SIMULATED_TARGET) $(BINDIR)/
+	install -m 755 $(TRUE_CONCURRENCY_TARGET) $(BINDIR)/
+	install -m 644 $(COMMON_DIR)/*.h $(INCLUDEDIR)/rift/
+	install -m 644 $(SIMULATED_DIR)/*.h $(INCLUDEDIR)/rift/
+	install -m 644 $(TRUE_CONCURRENCY_DIR)/*.h $(INCLUDEDIR)/rift/
+	@echo "=== Installation Complete ==="
+
+# =============================================================================
+# CLEANUP AND MAINTENANCE
+# =============================================================================
+
+clean:
+	@echo "=== Cleaning Build Artifacts ==="
+	rm -rf $(BUILD_DIR)
+	rm -f $(SIMULATED_DIR)/*.o $(TRUE_CONCURRENCY_DIR)/*.o $(COMMON_DIR)/*.o
+	rm -f $(TEST_DIR)/*.o
+	@echo "=== Cleanup Complete ==="
+
+distclean: clean
+	rm -f $(SIMULATED_TARGET) $(TRUE_CONCURRENCY_TARGET)
+	rm -f $(TEST_SIMULATED) $(TEST_TRUE_CONCURRENCY)
+
+# =============================================================================
+# INDIVIDUAL MODULE MAKEFILES
+# =============================================================================
+
+# simulated/Makefile - Simulated Concurrency Module
+simulated/Makefile:
+	@echo "# Simulated Concurrency Module Makefile" > $@
+	@echo "# Generated by Master Makefile" >> $@
+	@echo "" >> $@
+	@echo "include ../Makefile.master" >> $@
+	@echo "" >> $@
+	@echo "default: simulated_release" >> $@
+	@echo "" >> $@
+	@echo "debug: simulated_debug" >> $@
+	@echo "release: simulated_release" >> $@
+	@echo "test: test-simulated" >> $@
+	@echo "clean:" >> $@
+	@echo "\trm -f *.o ../$(BUILD_DIR)/rift_simulated*" >> $@
+
+# true_concurrency/Makefile - True Concurrency Module  
+true_concurrency/Makefile:
+	@echo "# True Concurrency Module Makefile" > $@
+	@echo "# Generated by Master Makefile" >> $@
+	@echo "" >> $@
+	@echo "include ../Makefile.master" >> $@
+	@echo "" >> $@
+	@echo "default: true_concurrency_release" >> $@
+	@echo "" >> $@
+	@echo "debug: true_concurrency_debug" >> $@
+	@echo "release: true_concurrency_release" >> $@
+	@echo "test: test-true" >> $@
+	@echo "clean:" >> $@
+	@echo "\trm -f *.o ../$(BUILD_DIR)/rift_true_concurrency*" >> $@
+
+# Generate individual module makefiles
+generate-makefiles: simulated/Makefile true_concurrency/Makefile
+	@echo "=== Generated Individual Module Makefiles ==="
+
+# =============================================================================
+# DEVELOPMENT UTILITIES
+# =============================================================================
+
+# Format source code using clang-format
+format:
+	@echo "=== Formatting Source Code ==="
+	find . -name "*.c" -o -name "*.h" | xargs clang-format -i
+	@echo "=== Code Formatting Complete ==="
+
+# Static analysis using cppcheck
+analyze:
+	@echo "=== Running Static Analysis ==="
+	cppcheck --enable=all --std=c11 --platform=unix64 \
+		--suppress=missingIncludeSystem \
+		$(COMMON_DIR)/ $(SIMULATED_DIR)/ $(TRUE_CONCURRENCY_DIR)/
+	@echo "=== Static Analysis Complete ==="
+
+# Memory leak detection using valgrind
+valgrind-test: debug
+	@echo "=== Running Valgrind Memory Tests ==="
+	valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all \
+		--track-origins=yes --verbose ./$(TEST_SIMULATED)
+	valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all \
+		--track-origins=yes --verbose ./$(TEST_TRUE_CONCURRENCY)
+	@echo "=== Valgrind Tests Complete ==="
+
+# Thread sanitizer testing
+thread-test: debug
+	@echo "=== Running Thread Sanitizer Tests ==="
+	TSAN_OPTIONS="halt_on_error=1" ./$(TEST_TRUE_CONCURRENCY)
+	@echo "=== Thread Sanitizer Tests Complete ==="
+
+# Performance profiling
+profile: release
+	@echo "=== Running Performance Profiling ==="
+	perf record -g ./$(TRUE_CONCURRENCY_TARGET)
+	perf report
+	@echo "=== Performance Profiling Complete ==="
+
+# Help target
+help:
+	@echo "RIFT Concurrency Governance - Build System"
+	@echo "=========================================="
+	@echo ""
+	@echo "Available targets:"
+	@echo "  all              - Build both modules in release mode"
+	@echo "  debug            - Build both modules in debug mode"
+	@echo "  release          - Build both modules in release mode"
+	@echo "  simulated_debug  - Build simulated concurrency module (debug)"
+	@echo "  simulated_release- Build simulated concurrency module (release)"
+	@echo "  true_concurrency_debug - Build true concurrency module (debug)"
+	@echo "  true_concurrency_release - Build true concurrency module (release)"
+	@echo "  test             - Run all tests"
+	@echo "  test-simulated   - Run simulated concurrency tests"
+	@echo "  test-true        - Run true concurrency tests" 
+	@echo "  security-check   - Validate security hardening"
+	@echo "  install          - Install to system directories"
+	@echo "  clean            - Remove build artifacts"
+	@echo "  distclean        - Remove all generated files"
+	@echo "  format           - Format source code"
+	@echo "  analyze          - Run static analysis"
+	@echo "  valgrind-test    - Run memory leak tests"
+	@echo "  thread-test      - Run thread sanitizer tests"
+	@echo "  profile          - Run performance profiling"
+	@echo "  help             - Show this help message"

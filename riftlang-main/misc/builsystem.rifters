@@ -1,0 +1,126 @@
+<#
+.SYNOPSIS
+    Configures build environment for RIFTers Ecosystem with V: drive integration
+.DESCRIPTION
+    Establishes standardized build pipeline for cross-module compilation, 
+    configures Sublime Text integration, and initializes module dependencies
+.NOTES
+    Author: Nnamdi Okpala
+    Module: BuildSystem.RIFTers
+    Version: 1.0.2
+#>
+
+# Environment Configuration Parameters
+$CONFIG = @{
+    BuildOutputPath = "V:\BuildOutputs"
+    IncludePath = "V:\Includes"
+    SublimeBuildPath = "$env:APPDATA\Sublime Text\Packages\User"
+    ModuleMappings = @{
+        "RIFTLang" = "R:"
+        "GOSILang" = "U:"
+        "NLINK" = "T:"
+        "RIFTersWay" = "V:"
+    }
+}
+
+# Initialize Directory Structure
+function Initialize-BuildEnvironment {
+    [CmdletBinding()]
+    param()
+    
+    Write-Output "Initializing RIFTers build environment..."
+    
+    # Create build outputs directory with appropriate permissions
+    if (-not (Test-Path -Path $CONFIG.BuildOutputPath)) {
+        New-Item -ItemType Directory -Path $CONFIG.BuildOutputPath -Force | Out-Null
+        Write-Output "Created build output directory: $($CONFIG.BuildOutputPath)"
+    }
+    
+    # Create includes directory for header files
+    if (-not (Test-Path -Path $CONFIG.IncludePath)) {
+        New-Item -ItemType Directory -Path $CONFIG.IncludePath -Force | Out-Null
+        Write-Output "Created includes directory: $($CONFIG.IncludePath)"
+    }
+    
+    # Verify all module mappings are accessible
+    foreach ($module in $CONFIG.ModuleMappings.Keys) {
+        $drivePath = $CONFIG.ModuleMappings[$module]
+        if (Test-Path -Path "$($drivePath)\") {
+            Write-Output "Verified module mapping: $module ($drivePath)"
+        } else {
+            Write-Warning "Module mapping not accessible: $module ($drivePath)"
+        }
+    }
+}
+
+# Deploy Sublime Text build configuration
+function Set-SublimeBuildConfiguration {
+    [CmdletBinding()]
+    param()
+    
+    $buildConfig = @{
+        variants = @(
+            @{
+                name = "Build to Local"
+                cmd = @("gcc", "-Wall", "`$file", "-o", "`${file_path}/`${file_base_name}")
+                working_dir = "`$file_path"
+            },
+            @{
+                name = "Build to Shared V: Drive"
+                cmd = @("gcc", "-Wall", "-I`"$($CONFIG.IncludePath)`"", "`$file", "-o", "V:/BuildOutputs/`${file_base_name}.exe")
+                working_dir = "`$file_path"
+            }
+        )
+        file_regex = "^(.+?):([0-9]+):([0-9]+): (.*)$"
+        selector = "source.c"
+    }
+    
+    # Create directory if it doesn't exist
+    if (-not (Test-Path -Path $CONFIG.SublimeBuildPath)) {
+        New-Item -ItemType Directory -Path $CONFIG.SublimeBuildPath -Force | Out-Null
+    }
+    
+    # Write configuration file
+    $buildConfigJson = ConvertTo-Json -InputObject $buildConfig -Depth 5
+    $buildConfigPath = Join-Path -Path $CONFIG.SublimeBuildPath -ChildPath "RIFTers.sublime-build"
+    $buildConfigJson | Set-Content -Path $buildConfigPath -Force
+    
+    Write-Output "Deployed Sublime Text build configuration to: $buildConfigPath"
+}
+
+# Initialize Git submodules for modular development
+function Initialize-GitSubmodules {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory=$true)]
+        [string]$RepositoryPath
+    )
+    
+    if (-not (Test-Path -Path (Join-Path -Path $RepositoryPath -ChildPath ".git"))) {
+        Write-Warning "Not a Git repository: $RepositoryPath"
+        return
+    }
+    
+    Push-Location $RepositoryPath
+    
+    try {
+        Write-Output "Initializing Git submodules in: $RepositoryPath"
+        & git submodule init
+        & git submodule update
+        Write-Output "Submodules initialized successfully."
+    }
+    catch {
+        Write-Error "Failed to initialize Git submodules: $_"
+    }
+    finally {
+        Pop-Location
+    }
+}
+
+# Main execution logic
+Initialize-BuildEnvironment
+Set-SublimeBuildConfiguration
+
+Write-Output "`nRIFTers build environment configured successfully."
+Write-Output "To complete setup, execute the following in your repository directory:"
+Write-Output "Initialize-GitSubmodules -RepositoryPath 'C:\Users\Public\Public Projects\RIFTers EcoSystem'"

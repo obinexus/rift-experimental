@@ -1,0 +1,19 @@
+{
+  "organization": "OBINexus Computing",
+  "ecosystem": "RIFT",
+  "components": [
+    "LibRIFT",
+    "RIFTLang",
+    "NLINK",
+    "GosiLang"
+  ],
+  "tracks": [
+    "Foundation",
+    "Aspirational"
+  ],
+  "name": "RIFTLang",
+  "methodology": "Waterfall",
+  "version": "1.0.0",
+  "author": "Nnamdi Michael Okpala",
+  "created": "2025-05-23"
+}
