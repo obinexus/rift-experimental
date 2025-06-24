@@ -1,0 +1,10 @@
+[stage]
+name = "stage4_bytecode"
+version = "1.0.0"
+input_format = "*.rift.3"
+output_format = "*.rift.4"
+
+[validation]
+semantic_preservation = true
+irp_correctness = true
+bytecode_optimization = true

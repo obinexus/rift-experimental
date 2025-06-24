@@ -1,0 +1,50 @@
+🚨 RIFT1 Emergency Compilation Fix - Sun Jun 15 06:03:36 PM BST 2025
+Project Root: /mnt/c/Users/OBINexus/Projects/github/rift/rift1
+========================================
+[0;34m[INFO][0m Creating emergency backup...
+[0;32m[SUCCESS][0m Source files backed up
+[0;32m[SUCCESS][0m Include files backed up
+[0;32m[SUCCESS][0m Makefile backed up
+[0;34m[INFO][0m 🔧 Fix 1: Creating missing error constants...
+[0;32m[SUCCESS][0m Error constants header created: /mnt/c/Users/OBINexus/Projects/github/rift/rift1/include/rift1/core/rift_errors.h
+[0;34m[INFO][0m 🔧 Fix 2: Creating AST node type definitions...
+[0;32m[SUCCESS][0m AST header created: /mnt/c/Users/OBINexus/Projects/github/rift/rift1/include/rift1/core/rift_ast.h
+[0;34m[INFO][0m 🔧 Fix 3: Creating consolidated main header...
+[0;32m[SUCCESS][0m Main header created: /mnt/c/Users/OBINexus/Projects/github/rift/rift1/include/rift1/core/rift.h
+[0;34m[INFO][0m 🔧 Fix 4: Updating source file includes...
+[0;32m[SUCCESS][0m Source file includes updated
+[0;34m[INFO][0m 🔧 Fix 5: Updating Makefile include paths...
+[0;34m[INFO][0m Makefile already has RIFT1 include paths
+[0;34m[INFO][0m 🔧 Fix 6: Creating backward compatibility headers...
+[0;32m[SUCCESS][0m Compatibility header created: /mnt/c/Users/OBINexus/Projects/github/rift/rift1/src/core/rift.h
+[0;34m[INFO][0m 🔍 Verifying emergency fixes...
+[0;32m[SUCCESS][0m Header exists: include/rift1/core/rift_errors.h
+[0;32m[SUCCESS][0m Header exists: include/rift1/core/rift_ast.h
+[0;32m[SUCCESS][0m Header exists: include/rift1/core/rift.h
+[0;32m[SUCCESS][0m Error constants properly defined
+[0;32m[SUCCESS][0m AST node types properly defined
+[0;32m[SUCCESS][0m All emergency fixes verified successfully
+[0;34m[INFO][0m 🧪 Testing compilation...
+🧹 Cleaning build artifacts...
+rm -rf obj bin lib
+✅ Clean complete
+[0;32m[SUCCESS][0m Clean successful
+🏗️  Created directory structure with obj/ and dependency tracking
+🔨 Compiling core: rift1_ast.c → rift1_ast.o
+gcc -std=c11 -Wall -Wextra -Wpedantic -Werror -Iinclude -I. -g -O2 -MMD -MP -pthread -MF obj/.deps/core/rift1_ast.d -c src/core/rift1_ast.c -o obj/core/rift1_ast.o
+src/core/rift1_ast.c:6:14: error: conflicting types for ‘rift_ast_node_create’; have ‘RiftASTNode *(int,  const char *)’
+    6 | RiftASTNode* rift_ast_node_create(int type __attribute__((unused)), const char* value __attribute__((unused))) {
+      |              ^~~~~~~~~~~~~~~~~~~~
+In file included from include/rift1/core/rift.h:23,
+                 from src/core/rift1_ast.c:1:
+include/rift1/core/rift_ast.h:40:14: note: previous declaration of ‘rift_ast_node_create’ with type ‘RiftASTNode *(RiftASTNodeType,  const char *)’
+   40 | RiftASTNode* rift_ast_node_create(RiftASTNodeType type, const char* value);
+      |              ^~~~~~~~~~~~~~~~~~~~
+src/core/rift1_ast.c:14:6: error: conflicting types for ‘rift_ast_node_destroy’; have ‘void(RiftASTNode *)’
+   14 | void rift_ast_node_destroy(RiftASTNode* node) {
+      |      ^~~~~~~~~~~~~~~~~~~~~
+include/rift1/core/rift_ast.h:42:12: note: previous declaration of ‘rift_ast_node_destroy’ with type ‘RiftResult(RiftASTNode *)’
+   42 | RiftResult rift_ast_node_destroy(RiftASTNode* node);
+      |            ^~~~~~~~~~~~~~~~~~~~~
+make: *** [Makefile:78: obj/core/rift1_ast.o] Error 1
+[0;31m[ERROR][0m Compilation still failing, check log: /mnt/c/Users/OBINexus/Projects/github/rift/rift1/emergency_fix.log

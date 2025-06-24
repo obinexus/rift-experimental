@@ -1,0 +1,11 @@
+RIFT1 Project Backup
+Date: Sun Jun 15 04:21:07 PM BST 2025
+Source: /mnt/c/Users/OBINexus/Projects/github/rift/rift1
+Backup: /mnt/c/Users/OBINexus/Projects/github/rift/rift1/.rift_backup_1750000867
+
+Files backed up:
+29 files
+22 directories
+
+Restoration:
+To restore: cp -r /mnt/c/Users/OBINexus/Projects/github/rift/rift1/.rift_backup_1750000867/* /mnt/c/Users/OBINexus/Projects/github/rift/rift1/

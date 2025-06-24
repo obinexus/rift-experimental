@@ -1,0 +1,23 @@
+[component]
+name = "pocrift_parser"
+version = "1.0.0"
+type = "library"
+description = "Flexible Token Parser and Translator with USCN"
+
+[features]
+regex_based_automaton = true
+language_agnostic_design = true
+extensible_state_machine = true
+memory_safe_implementation = true
+uscn_normalization = true
+
+[modules]
+pocrift_core = "pocrift.c"
+regex_automaton = "regex_automaton.c"
+token_minimizer = "token_minimizer.c"
+uscn_normalizer = "uscn_normalizer.c"
+
+[validation]
+zero_copy_processing = true
+unicode_compliance = true
+normalization_correctness = true

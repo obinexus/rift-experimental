@@ -1,0 +1,21 @@
+// Example .rift file for Stage 0 testing
+// This demonstrates RIFT regex syntax
+
+// Pattern 1: Match identifiers (top-down)
+identifier: R"[a-zA-Z_][a-zA-Z0-9_]*/gmi[t]"
+
+// Pattern 2: Match numbers (bottom-up)  
+number: R"[0-9]+(\.[0-9]+)?/gm[b]"
+
+// Pattern 3: Match operators
+operator: R"[+\-*/=<>!&|]+/g[t]"
+
+// Pattern 4: Match whitespace (for skipping)
+whitespace: R"\s+/gm[b]"
+
+// Sample input to tokenize:
+var count = 42;
+let name = "hello";
+if (count > 0) {
+    console.log(name);
+}

@@ -1,0 +1,75 @@
+[PHASE] 2025-06-08 12:29:19 - Starting OBINexus AST-Aware System orchestration with Zero Trust
+[INFO] 2025-06-08 12:29:19 - Project: obinexus-ast-aware-system v1.1.0
+[INFO] 2025-06-08 12:29:19 - Compliance: NASA-STD-8739.8
+[INFO] 2025-06-08 12:29:19 - Crypto Verification: enabled
+[INFO] 2025-06-08 12:29:19 - Zero Trust Mode: strict
+[TRUST] 2025-06-08 12:29:19 - OpenSSL validation: PASSED
+[PHASE] 2025-06-08 12:29:19 - Initializing OBINexus AST-Aware project structure with Zero Trust
+[INFO] 2025-06-08 12:29:19 - Project structure initialized successfully
+[PHASE] 2025-06-08 12:29:19 - Generating Zero Trust cryptographic keys
+[TRUST] 2025-06-08 12:29:19 - Generating new RSA key pair for artifact signing
+[TRUST] 2025-06-08 12:29:20 - Key generation completed: /mnt/c/Users/OBINexus/Projects/Packages/rift-poc/keys/rift_signing_key.pem, /mnt/c/Users/OBINexus/Projects/Packages/rift-poc/keys/rift_signing_pub.pem
+[TRUST] 2025-06-08 12:29:20 - Cryptographic key validation: PASSED
+[PHASE] 2025-06-08 12:29:20 - Generating Zero Trust configuration files
+[INFO] 2025-06-08 12:29:20 - Zero Trust configuration files generated
+[PHASE] 2025-06-08 12:29:20 - Generating enhanced build system with Zero Trust integration
+[INFO] 2025-06-08 12:29:20 - Enhanced Makefile with Zero Trust targets generated
+[PHASE] 2025-06-08 12:29:20 - Generating Zero Trust Rift Pipeline Script
+[INFO] 2025-06-08 12:29:20 - Zero Trust Rift Pipeline script generated
+[PHASE] 2025-06-08 12:29:20 - Generating Zero Trust integration source code
+[INFO] 2025-06-08 12:29:20 - Zero Trust source code generated
+[PHASE] 2025-06-08 12:29:20 - Generating enhanced Rift compiler with Zero Trust integration
+[INFO] 2025-06-08 12:29:20 - Enhanced Rift compiler with Zero Trust integration generated
+[PHASE] 2025-06-08 12:29:20 - Generating enhanced documentation with Zero Trust governance
+[INFO] 2025-06-08 12:29:20 - Enhanced documentation with Zero Trust information generated
+[PHASE] 2025-06-08 12:29:20 - OBINexus AST-Aware System with Zero Trust orchestration completed successfully
+[INFO] 2025-06-08 12:29:20 - Project ready for Zero Trust development and deployment
+[INFO] 2025-06-08 12:29:20 - Next steps:
+[INFO] 2025-06-08 12:29:20 -   1. Review Zero Trust configuration in config/zero_trust/
+[INFO] 2025-06-08 12:29:20 -   2. Verify cryptographic keys with 'make verify-keys'
+[INFO] 2025-06-08 12:29:20 -   3. Test Zero Trust pipeline with 'make rift-zero-trust-run FILE=test.rift'
+[INFO] 2025-06-08 12:29:20 -   4. Review enhanced documentation for Zero Trust usage
+[INFO] 2025-06-08 12:29:20 -   5. Integrate with broader OBINexus governance framework
+[TRUST] 2025-06-08 12:29:20 - Cryptographic governance status:
+[TRUST] 2025-06-08 12:29:20 -   Private key: /mnt/c/Users/OBINexus/Projects/Packages/rift-poc/keys/rift_signing_key.pem
+[TRUST] 2025-06-08 12:29:20 -   Public key: /mnt/c/Users/OBINexus/Projects/Packages/rift-poc/keys/rift_signing_pub.pem
+[TRUST] 2025-06-08 12:29:20 -   Signature algorithm: sha256
+[TRUST] 2025-06-08 12:29:20 -   Trust validation: residual
+[TRUST] 2025-06-08 12:29:20 -   Zero Trust mode: strict
+[PHASE] 2025-06-08 12:42:03 - Starting OBINexus AST-Aware System orchestration with Zero Trust
+[INFO] 2025-06-08 12:42:03 - Project: obinexus-ast-aware-system v1.1.0
+[INFO] 2025-06-08 12:42:03 - Compliance: NASA-STD-8739.8
+[INFO] 2025-06-08 12:42:03 - Crypto Verification: enabled
+[INFO] 2025-06-08 12:42:03 - Zero Trust Mode: strict
+[TRUST] 2025-06-08 12:42:03 - OpenSSL validation: PASSED
+[PHASE] 2025-06-08 12:42:03 - Initializing OBINexus AST-Aware project structure with Zero Trust
+[INFO] 2025-06-08 12:42:03 - Project structure initialized successfully
+[PHASE] 2025-06-08 12:42:03 - Generating Zero Trust cryptographic keys
+[TRUST] 2025-06-08 12:42:03 - Using existing cryptographic keys
+[TRUST] 2025-06-08 12:42:03 - Cryptographic key validation: PASSED
+[PHASE] 2025-06-08 12:42:03 - Generating Zero Trust configuration files
+[INFO] 2025-06-08 12:42:03 - Zero Trust configuration files generated
+[PHASE] 2025-06-08 12:42:03 - Generating enhanced build system with Zero Trust integration
+[INFO] 2025-06-08 12:42:03 - Enhanced Makefile with Zero Trust targets generated
+[PHASE] 2025-06-08 12:42:03 - Generating Zero Trust Rift Pipeline Script
+[INFO] 2025-06-08 12:42:03 - Zero Trust Rift Pipeline script generated
+[PHASE] 2025-06-08 12:42:03 - Generating Zero Trust integration source code
+[INFO] 2025-06-08 12:42:03 - Zero Trust source code generated
+[PHASE] 2025-06-08 12:42:03 - Generating enhanced Rift compiler with Zero Trust integration
+[INFO] 2025-06-08 12:42:03 - Enhanced Rift compiler with Zero Trust integration generated
+[PHASE] 2025-06-08 12:42:03 - Generating enhanced documentation with Zero Trust governance
+[INFO] 2025-06-08 12:42:03 - Enhanced documentation with Zero Trust information generated
+[PHASE] 2025-06-08 12:42:03 - OBINexus AST-Aware System with Zero Trust orchestration completed successfully
+[INFO] 2025-06-08 12:42:03 - Project ready for Zero Trust development and deployment
+[INFO] 2025-06-08 12:42:03 - Next steps:
+[INFO] 2025-06-08 12:42:03 -   1. Review Zero Trust configuration in config/zero_trust/
+[INFO] 2025-06-08 12:42:03 -   2. Verify cryptographic keys with 'make verify-keys'
+[INFO] 2025-06-08 12:42:03 -   3. Test Zero Trust pipeline with 'make rift-zero-trust-run FILE=test.rift'
+[INFO] 2025-06-08 12:42:03 -   4. Review enhanced documentation for Zero Trust usage
+[INFO] 2025-06-08 12:42:03 -   5. Integrate with broader OBINexus governance framework
+[TRUST] 2025-06-08 12:42:03 - Cryptographic governance status:
+[TRUST] 2025-06-08 12:42:03 -   Private key: /mnt/c/Users/OBINexus/Projects/Packages/rift-poc/keys/rift_signing_key.pem
+[TRUST] 2025-06-08 12:42:03 -   Public key: /mnt/c/Users/OBINexus/Projects/Packages/rift-poc/keys/rift_signing_pub.pem
+[TRUST] 2025-06-08 12:42:03 -   Signature algorithm: sha256
+[TRUST] 2025-06-08 12:42:03 -   Trust validation: residual
+[TRUST] 2025-06-08 12:42:03 -   Zero Trust mode: strict

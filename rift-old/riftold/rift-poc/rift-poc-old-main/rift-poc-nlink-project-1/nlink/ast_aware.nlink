@@ -1,0 +1,23 @@
+[component]
+name = "ast_aware_minimization"
+version = "1.0.0"
+type = "library"
+description = "AST-Aware semantic preservation with state minimization"
+
+[features]
+ast_minimization = true
+tennis_fsm_validation = true
+semantic_preservation_monitor = true
+formal_verification_hooks = true
+zero_trust_compatible = true
+
+[modules]
+ast_contextualization = "ast_contextualization.c"
+state_minimization = "state_minimization.c"
+tennis_fsm_validator = "tennis_fsm_validator.c"
+semantic_preservation = "semantic_preservation.c"
+
+[validation]
+equivalence_checking = true
+confidence_thresholds = true
+lineage_tracking = true

@@ -1,0 +1,18 @@
+[stage]
+name = "stage1_parsing"
+version = "1.0.0"
+input_format = "*.rift.0"
+output_format = "*.rift.1"
+
+[dependencies]
+shared = ["../nlink/aegis.nlink", "../nlink/zero_trust.nlink"]
+
+[components]
+data_oriented_parser = { src = "src/data_oriented_parser.c", header = "include/aegis/parser.h" }
+parse_tree_builder = { src = "src/parse_tree_builder.c", header = "include/aegis/parse_tree.h" }
+functional_ir_generator = { src = "src/functional_ir_generator.c", header = "include/aegis/ir_gen.h" }
+
+[validation]
+parse_tree_correctness = true
+immutable_construction = true
+functional_purity = true

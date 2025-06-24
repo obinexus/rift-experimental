@@ -1,0 +1,5 @@
+name,age,city,notes
+Alice,25,"New York","Normal entry"
+Bob,30,San Francisco,Missing quotes but has comma
+"Charlie,28,"Austin","Mixed quote styles"
+Diana,32,Seattle,"Proper ""escaped"" quotes"

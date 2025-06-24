@@ -1,0 +1,22 @@
+// Advanced CSV parser with RIFT patterns
+// Architecture: AEGIS automaton-based
+
+pattern csv_field = R"(
+    "([^"]*(?:""[^"]*)*)"     |  // Quoted field
+    ([^,\r\n]+)              |  // Unquoted field
+    (,)                       |  // Delimiter
+    (\r\n|\r|\n)                 // Newline
+)";
+
+function parse_csv(input_text) {
+    automaton = create_automaton();
+    add_pattern(automaton, csv_field);
+    tokens = process_input(automaton, input_text);
+    return tokens;
+}
+
+function main() {
+    csv_data = "name,age,city\nAlice,25,\"New York\"\n";
+    result = parse_csv(csv_data);
+    print("Parsed tokens:", result);
+}
