@@ -1,0 +1,4 @@
+// RIFT Stage 0 Example
+function hello() {
+    return "world";
+}

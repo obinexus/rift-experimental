@@ -1,0 +1,140 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{textcomp}
+
+\newcommand{\regex}[1]{\texttt{/#1/}}
+
+% Makefile language definition for listings
+\lstdefinelanguage{Makefile}{
+    morekeywords={shell,wildcard},
+    sensitive=true,
+    morecomment=[l]{\#},
+    morestring=[b]",
+    moredelim=[s][$]{${}{}}
+}
+\title{Regular Expression Automaton Library Specification\\
+\large A Component of LibRift}
+\author{OBINexus Computing}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Formal Definition}
+Let $\mathcal{A}_R$ be a regex-based finite automaton defined as the 5-tuple:
+\[
+\mathcal{A}_R = (Q_R, \Sigma, \delta_R, q_0, F)
+\]
+
+where:
+\begin{itemize}
+\item $Q_R$ is a finite set of states, each represented by a regex pattern
+\item $\Sigma$ is the input alphabet (Unicode character set)
+\item $\delta_R: Q_R \times \Sigma^* \rightarrow Q_R$ is the regex-based transition function
+\item $q_0 \in Q_R$ is the initial state with pattern \regex{\^{}}
+\item $F \subseteq Q_R$ is the set of accepting states
+\end{itemize}
+
+\section{State Representation}
+Each state $q \in Q_R$ is defined by a regex pattern $r_q$ where:
+\[
+r_q \in \mathcal{R}(\Sigma) \text{ and } \mathcal{R}(\Sigma) \text{ is the set of all valid regex patterns over } \Sigma
+\]
+
+\subsection{Pattern Types}
+\begin{enumerate}
+\item Initial State Pattern: $r_{q_0} = \regex{\^{}}$ 
+\item Token State Patterns: $r_t \in \{\regex{[a-zA-Z]+}, \regex{\d+}, \regex{[+\-*/]}\}$
+\item Final State Pattern: $r_f = \regex{\$}$
+\end{enumerate}
+
+\section{Transition Function}
+The regex-based transition function $\delta_R$ is defined as:
+\[
+\delta_R(q_1, \alpha) = q_2 \iff \text{match}(r_{q_1}, \alpha) \land \exists \beta \in \Sigma^*: \text{match}(r_{q_2}, \beta)
+\]
+
+where $\text{match}(r, s)$ indicates the regex pattern $r$ matches string $s$.
+
+\section{Implementation Interface}
+\begin{lstlisting}[language=C]
+typedef struct RegexState {
+    const char* pattern;  // Regex pattern
+    bool is_final;       // Is accepting state
+    size_t id;          // Unique state ID
+} RegexState;
+
+typedef struct RegexAutomaton {
+    RegexState* states;  // Array of states
+    size_t state_count;  // Number of states
+    size_t current;      // Current state index
+    TransitionTable* transitions;  // State transitions
+} RegexAutomaton;
+\end{lstlisting}
+
+\section{Token Recognition Algorithm}
+\begin{algorithm}
+\caption{Token Recognition}
+\begin{algorithmic}
+\STATE $\text{regex\_state} \gets q_0$
+\STATE $\text{input\_pos} \gets 0$
+\WHILE{$\text{input\_pos} < \text{input\_length}$}
+    \STATE $\text{token} \gets \text{match\_longest}(\text{regex\_state.pattern}, \text{input} + \text{input\_pos})$
+    \IF{$\text{token}$}
+        \STATE $\text{emit\_token}(\text{token})$
+        \STATE $\text{input\_pos} \gets \text{input\_pos} + \text{token.length}$
+        \STATE $\text{regex\_state} \gets \delta_R(\text{regex\_state}, \text{token})$
+    \ELSE
+        \STATE $\text{report\_error}(\text{input\_pos})$
+        \RETURN
+    \ENDIF
+\ENDWHILE
+\end{algorithmic}
+\end{algorithm}
+
+\section{Language Agnosticism}
+The library achieves language agnosticism through:
+\begin{enumerate}
+\item Pattern-based state representation instead of fixed tokens
+\item Dynamic transition function based on regex matching
+\item Universal character set support via Unicode
+\item Composable pattern definitions
+\end{enumerate}
+
+\section{IR Generation}
+Token sequences are mapped to IR through function $\Phi_R$:
+\[
+\Phi_R: (Q_R^*, V) \rightarrow \text{IR}
+\]
+
+where $V$ is a set of validation rules for the token sequence.
+
+\section{Integration with LibRift}
+The library provides core functionality for:
+\begin{itemize}
+\item Token pattern definition and matching
+\item State management and transitions
+\item Error detection and reporting
+\item IR node generation
+\end{itemize}
+
+\section{Build Integration}
+\begin{lstlisting}[language=Makefile]
+REGEX_SRC = $(wildcard regex/*.c)
+REGEX_OBJ = $(REGEX_SRC:.c=.o)
+
+librift_regex.a: $(REGEX_OBJ)
+    $(AR) rcs $@ $^
+
+regex_test: $(REGEX_TEST_SRC)
+    $(CC) $(CFLAGS) -o $@ $^ -L. -lrift_regex
+\end{lstlisting}
+
+\end{document}
+

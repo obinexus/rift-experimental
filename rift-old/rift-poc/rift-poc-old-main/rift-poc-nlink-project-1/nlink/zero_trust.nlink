@@ -1,0 +1,23 @@
+[component]
+name = "zero_trust_governance"
+version = "1.0.0"
+type = "library"
+description = "Zero Trust cryptographic governance with AuraSeal"
+
+[features]
+auraseal_signing = true
+residual_trust_enforcement = true
+cryptographic_verification = true
+crowdstrike_immunization = true
+bootloader_integration = true
+
+[modules]
+auraseal_core = "auraseal.c"
+residual_trust = "residual_trust.c"
+cryptographic_governance = "crypto_governance.c"
+crowdstrike_immunizer = "crowdstrike_immunizer.c"
+
+[validation]
+signature_verification = true
+trust_boundary_enforcement = true
+fail_fast_governance = true

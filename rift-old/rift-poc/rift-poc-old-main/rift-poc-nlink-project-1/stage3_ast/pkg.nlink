@@ -1,0 +1,20 @@
+[stage]
+name = "stage3_ast"
+version = "1.0.0"
+input_format = "*.rift.1"
+output_format = "*.rift.3"
+
+[dependencies]
+shared = ["../nlink/ast_aware.nlink", "../nlink/zero_trust.nlink"]
+
+[components]
+ast_contextualization = { src = "src/ast_contextualization.c", header = "include/obinexus/ast_context.h" }
+state_minimization = { src = "src/state_minimization.c", header = "include/obinexus/minimization.h" }
+tennis_fsm_validator = { src = "src/tennis_fsm_validator.c", header = "include/obinexus/tennis_fsm.h" }
+semantic_preservation = { src = "src/semantic_preservation.c", header = "include/obinexus/semantics.h" }
+
+[validation]
+tennis_fsm_equivalence = true
+semantic_preservation_threshold = 85
+formal_verification = true
+zero_trust_integration = true

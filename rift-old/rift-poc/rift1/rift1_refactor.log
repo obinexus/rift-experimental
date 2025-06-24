@@ -1,0 +1,65 @@
+RIFT1 QA Compliance Refactor - Sun Jun 15 04:32:18 PM BST 2025
+Project Root: /mnt/c/Users/OBINexus/Projects/github/rift/rift1
+Dry Run: false
+========================================
+[0;34m[INFO][0m Starting RIFT1 QA compliance refactor...
+[0;34m[INFO][0m Dry Run: false
+[0;34m[INFO][0m Verbose: false
+[0;34m[INFO][0m Validating RIFT1 project structure...
+[0;32m[SUCCESS][0m Project structure validation passed
+[0;34m[INFO][0m Creating project backup at /mnt/c/Users/OBINexus/Projects/github/rift/rift1/.rift_backup_1750001538...
+[0;32m[SUCCESS][0m Backup created: /mnt/c/Users/OBINexus/Projects/github/rift/rift1/.rift_backup_1750001538
+[0;34m[INFO][0m Executing refactoring tasks...
+[0;34m[INFO][0m Creating consolidated include/core/rift.h...
+[0;32m[SUCCESS][0m Created consolidated header: /mnt/c/Users/OBINexus/Projects/github/rift/rift1/include/core/rift.h
+[0;34m[INFO][0m Creating matching .h files for all .c modules...
+[0;34m[INFO][0m Creating header: command_handler.h
+[0;32m[SUCCESS][0m Created header: command_handler.h
+[0;34m[INFO][0m Creating header: cli_config.h
+[0;32m[SUCCESS][0m Created header: cli_config.h
+[0;34m[INFO][0m Creating header: config_handler.h
+[0;32m[SUCCESS][0m Created header: config_handler.h
+[0;34m[INFO][0m Creating header: pattern_manager.h
+[0;32m[SUCCESS][0m Created header: pattern_manager.h
+[0;34m[INFO][0m Creating header: main.h
+[0;32m[SUCCESS][0m Created header: main.h
+[0;34m[INFO][0m Creating header: main_original.h
+[0;32m[SUCCESS][0m Created header: main_original.h
+[0;34m[INFO][0m Creating header: rift_pipeline_simple.h
+[0;32m[SUCCESS][0m Created header: rift_pipeline_simple.h
+[0;34m[INFO][0m Creating header: rift1_ast.h
+[0;32m[SUCCESS][0m Created header: rift1_ast.h
+[0;34m[INFO][0m Creating header: rift1_parsing.h
+[0;32m[SUCCESS][0m Created header: rift1_parsing.h
+[0;34m[INFO][0m Creating header: rift1_tokenmemory.h
+[0;32m[SUCCESS][0m Created header: rift1_tokenmemory.h
+[0;34m[INFO][0m Creating header: rift_core.h
+[0;32m[SUCCESS][0m Created header: rift_core.h
+[0;34m[INFO][0m Creating header: r_governance_validation.h
+[0;32m[SUCCESS][0m Created header: r_governance_validation.h
+[0;34m[INFO][0m Creating header: r_extensions_core.h
+[0;32m[SUCCESS][0m Created header: r_extensions_core.h
+[0;34m[INFO][0m Creating header: r_uml_patterns.h
+[0;32m[SUCCESS][0m Created header: r_uml_patterns.h
+[0;34m[INFO][0m Creating header: token_memory.h
+[0;32m[SUCCESS][0m Created header: token_memory.h
+[0;34m[INFO][0m Creating src/core/rift.h for backward compatibility...
+[0;32m[SUCCESS][0m Created backward compatibility header: src/core/rift.h
+[0;34m[INFO][0m Fixing specific compilation issues...
+[0;34m[INFO][0m Fixing enum forward reference issues...
+[0;32m[SUCCESS][0m Fixed enum forward references
+[0;34m[INFO][0m Fixing incomplete type issues...
+[0;32m[SUCCESS][0m Fixed incomplete type issues
+[0;34m[INFO][0m Fixing unused parameter warnings...
+[0;32m[SUCCESS][0m Fixed unused parameter warnings
+[0;34m[INFO][0m Updating include statements to use new header structure...
+[0;32m[SUCCESS][0m Updated include statements
+[0;34m[INFO][0m Validating AEGIS architecture compliance...
+[0;32m[SUCCESS][0m Token type/value separation maintained
+[0;32m[SUCCESS][0m matched_state preservation verified
+[0;32m[SUCCESS][0m Header structure organized correctly
+[0;32m[SUCCESS][0m AEGIS architecture compliance validated
+[0;32m[SUCCESS][0m AEGIS compliance validated
+[0;34m[INFO][0m Generating QA compliance report...
+[0;32m[SUCCESS][0m Generated QA compliance report: /mnt/c/Users/OBINexus/Projects/github/rift/rift1/QA_COMPLIANCE_REPORT.md
+[0;32m[SUCCESS][0m RIFT1 refactor completed successfully

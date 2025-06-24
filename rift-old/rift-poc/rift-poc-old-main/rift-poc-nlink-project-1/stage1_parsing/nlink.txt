@@ -1,0 +1,11 @@
+# Stage 1: Data-Oriented Parsing
+# Component: AEGIS data-oriented parser
+# Input: Tokenized .rift.0 files
+# Output: Parse trees in .rift.1 format
+# Validation: Parse correctness + immutable construction
+
+component_name=stage1_parsing
+component_version=1.0.0
+component_type=parser
+methodology=data_oriented
+functional_purity=true

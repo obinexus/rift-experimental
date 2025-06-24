@@ -1,0 +1,11 @@
+# Stage 0: Tokenization with USCN Normalization
+# Component: POCRIFT parser with Unicode normalization
+# Input: Raw .rift source files
+# Output: Normalized tokens in .rift.0 format
+# Validation: USCN compliance + token correctness
+
+component_name=stage0_tokenization
+component_version=1.0.0
+component_type=tokenizer
+requires_uscn=true
+requires_zero_trust=true

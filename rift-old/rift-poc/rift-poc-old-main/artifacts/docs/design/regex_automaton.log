@@ -1,0 +1,16 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Debian) (preloaded format=pdftex 2025.2.14)  14 FEB 2025 21:45
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**regex_automaton.tex
+(./regex_automaton.tex
+! Undefined control sequence.
+l.1 \documentclass
+                  {article}
+? 
+! Emergency stop.
+l.1 \documentclass
+                  {article}
+End of file on the terminal!
+
+!  ==> Fatal error occurred, no output PDF file produced!

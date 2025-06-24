@@ -1,0 +1,19 @@
+# RIFT Stage 1 Enhanced Makefile - AEGIS Architecture
+# See artifacts: rift1_build_system for complete implementation
+# OBINexus Computing - TokenMemory → Parser Pipeline
+# Zero Trust governance with nlink → polybuild integration
+
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -Wpedantic -Werror -Iinclude -g -O2 -MMD -MP -pthread -fPIC
+LDFLAGS = -pthread -lm
+
+# Core build targets with OBINexus compliance
+all: directories lib/librift1.a bin/rift1.exe
+
+# See full Makefile in artifacts for complete implementation
+bootstrap:
+	@echo "🏗️  RIFT Stage 1 AEGIS architecture ready!"
+	@echo "✅ TokenMemory → Parser pipeline established"
+	@echo "🔗 Toolchain: riftlang.exe → .so.a → rift.exe → gosilang"
+
+.PHONY: all bootstrap clean test verify-architecture

@@ -1,0 +1,20 @@
+// Governance example with policy annotations
+// Compliance: OBINexus-v1.0
+
+@policy("safety_critical", level="high")
+@entropy_guard(max_deviation=0.01)
+function calculate_critical_value(input_data) {
+    // Critical calculation with governance constraints
+    result = input_data * 2.5;
+    return result;
+}
+
+@governance_contract {
+    attack_risk: 0.1,
+    rollback_cost: 0.2,
+    stability_impact: 0.1
+}
+function main() {
+    value = calculate_critical_value(42);
+    print("Critical value:", value);
+}

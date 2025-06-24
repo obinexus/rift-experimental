@@ -1,0 +1,7 @@
+# RIFT Intermediate Representation
+stage=rift.0
+version=1.0.0
+source=./examples/sample
+token_count=0
+
+# Tokens

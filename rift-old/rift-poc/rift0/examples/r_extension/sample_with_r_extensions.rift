@@ -1,0 +1,44 @@
+// OBINexus RIFT Source with R Syntax Extensions
+// Demonstrates governance-first functional composition
+
+governance_contract main_processor {
+    policy resource_limits {
+        role critical: memory_bound(1MB);
+        role admin_only: processing_time_limit(100ms);
+    }
+}
+
+// UML relationship definition using R patterns
+class DataProcessor {
+    composed_of DataStore store;
+    associated_with Logger logger;
+    aggregate ValidationRule[] rules;
+}
+
+// Functional composition with R macros
+function process_data(input: DataStream) -> ProcessedData {
+    let validation_flags = input.flags;
+    let security_perms = input.permissions;
+    
+    // R boolean logic for authorization
+    if R_AND3(
+        R_AND(validation_flags, security_perms),
+        R_NOT(validation_flags & BANNED_FLAG),
+        security_level >= MIN_SECURITY
+    ) {
+        // R functional composition pipeline
+        return R_CHAIN(input,
+            tokenize_stage,
+            parse_stage,
+            ast_stage,
+            governance_validation_stage
+        );
+    } else {
+        return error("Authorization failed");
+    }
+}
+
+// R.extend async operation
+async function extend_processor(processor: DataProcessor*) -> ExtendedProcessor* {
+    return R.extend(processor, async_enhancement_func);
+}

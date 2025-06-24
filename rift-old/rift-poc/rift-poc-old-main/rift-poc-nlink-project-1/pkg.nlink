@@ -1,0 +1,33 @@
+[project]
+name = "obinexus-rift-poc"
+version = "1.0.0"
+methodology = "aegis_waterfall"
+compliance = ["NASA-STD-8739.8", "DO-178C"]
+description = "OBINexus RIFT-POC: AEGIS-based compiler with Zero Trust governance"
+
+[pipeline]
+stage0 = { path = "stage0_tokenization", input = "*.rift", output = "*.rift.0" }
+stage1 = { path = "stage1_parsing", input = "*.rift.0", output = "*.rift.1" }  
+stage3 = { path = "stage3_ast", input = "*.rift.1", output = "*.rift.3" }
+stage4 = { path = "stage4_bytecode", input = "*.rift.3", output = "*.rift.4" }
+stage5 = { path = "stage5_program", input = "*.rift.4", output = "*.rift.5" }
+
+[validation]
+zero_trust = true
+auraseal_required = true
+tennis_fsm_validation = true
+semantic_preservation_threshold = 85
+uscn_normalization = true
+formal_verification = true
+
+[security]
+crowdstrike_immunization = true
+residual_trust_enforcement = true
+cryptographic_signing = "rsa4096_sha512"
+bootloader_verification = true
+
+[build]
+deterministic = true
+sinphase_governance = true
+waterfall_methodology = true
+independent_stage_builds = true

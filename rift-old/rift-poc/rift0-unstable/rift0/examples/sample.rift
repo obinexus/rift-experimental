@@ -1,0 +1,25 @@
+// Example .rift file for Stage 0 testing
+// This demonstrates RIFT tokenization
+
+// Sample code with various tokens
+function hello(name) {
+    let greeting = "Hello, " + name + "!";
+    console.log(greeting);
+    return greeting.length;
+}
+
+// Numbers and operators
+let count = 42;
+let pi = 3.14159;
+let result = count * pi;
+
+// Conditionals and loops
+if (result > 100) {
+    for (let i = 0; i < count; i++) {
+        process(data[i]);
+    }
+}
+
+// Regular expressions (to test parsing)
+let pattern = /[A-Za-z0-9]+/gi;
+let match = text.match(pattern);

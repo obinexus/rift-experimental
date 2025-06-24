@@ -1,0 +1,4 @@
+// Simple RIFT program example
+fn main() {
+    print("Hello, RIFT Stage 1!");
+}

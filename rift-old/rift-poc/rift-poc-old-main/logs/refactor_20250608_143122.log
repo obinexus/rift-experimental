@@ -1,0 +1,68 @@
+[2025-06-08 14:31:22] Starting OBINexus RIFT POC stage refactor
+[2025-06-08 14:31:22] Refactor session initiated - backup timestamp: 20250608_143122
+[2025-06-08 14:31:22] Initiating RiftSeal Stage 0 refactor
+[2025-06-08 14:31:22] Created directory structure for rift-poc-stage-0
+[2025-06-08 14:31:22] Copied pkg.nlink: rift-poc-nlink-project-1/stage0_tokenization/pkg.nlink -> rift-poc-stage-0/nlink/
+[2025-06-08 14:31:22] Copied nlink.txt: rift-poc-nlink-project-1/stage0_tokenization/nlink.txt -> rift-poc-stage-0/nlink/
+[2025-06-08 14:31:22] WARNING: source files not found at rift-poc-nlink-project-1/stage0_tokenization/src/*
+[2025-06-08 14:31:22] WARNING: header files not found at rift-poc-nlink-project-1/stage0_tokenization/include/*
+[2025-06-08 14:31:22] WARNING: existing test files not found at rift-poc-nlink-project-1/stage0_tokenization/tests/*
+[2025-06-08 14:31:22] Ensured tests/qa_mocks/ directory exists
+[2025-06-08 14:31:22] Created QA documentation structure
+[2025-06-08 14:31:22] Copied Makefile: rift-poc-nlink-project-1/stage0_tokenization/Makefile -> rift-poc-stage-0/
+[2025-06-08 14:31:22] Copied CMakeLists.txt: rift-poc-nlink-project-1/stage0_tokenization/CMakeLists.txt -> rift-poc-stage-0/
+[2025-06-08 14:31:22] Completed RiftSeal Stage 0 refactor
+[2025-06-08 14:31:22] Initiating RiftSeal Stage 1 refactor
+[2025-06-08 14:31:22] Created directory structure for rift-poc-stage-1
+[2025-06-08 14:31:22] Copied pkg.nlink: rift-poc-nlink-project-1/stage1_parsing/pkg.nlink -> rift-poc-stage-1/nlink/
+[2025-06-08 14:31:22] Copied nlink.txt: rift-poc-nlink-project-1/stage1_parsing/nlink.txt -> rift-poc-stage-1/nlink/
+[2025-06-08 14:31:22] WARNING: source files not found at rift-poc-nlink-project-1/stage1_parsing/src/*
+[2025-06-08 14:31:22] WARNING: header files not found at rift-poc-nlink-project-1/stage1_parsing/include/*
+[2025-06-08 14:31:22] WARNING: existing test files not found at rift-poc-nlink-project-1/stage1_parsing/tests/*
+[2025-06-08 14:31:22] Ensured tests/qa_mocks/ directory exists
+[2025-06-08 14:31:22] Created QA documentation structure
+[2025-06-08 14:31:22] Copied Makefile: rift-poc-nlink-project-1/stage1_parsing/Makefile -> rift-poc-stage-1/
+[2025-06-08 14:31:22] WARNING: CMakeLists.txt not found at rift-poc-nlink-project-1/stage1_parsing/CMakeLists.txt
+[2025-06-08 14:31:22] Completed RiftSeal Stage 1 refactor
+[2025-06-08 14:31:22] Initiating RiftSeal Stage 3 refactor
+[2025-06-08 14:31:22] Created directory structure for rift-poc-stage-3
+[2025-06-08 14:31:22] Copied pkg.nlink: rift-poc-nlink-project-1/stage3_ast/pkg.nlink -> rift-poc-stage-3/nlink/
+[2025-06-08 14:31:22] Copied nlink.txt: rift-poc-nlink-project-1/stage3_ast/nlink.txt -> rift-poc-stage-3/nlink/
+[2025-06-08 14:31:22] WARNING: source files not found at rift-poc-nlink-project-1/stage3_ast/src/*
+[2025-06-08 14:31:22] WARNING: header files not found at rift-poc-nlink-project-1/stage3_ast/include/*
+[2025-06-08 14:31:22] WARNING: existing test files not found at rift-poc-nlink-project-1/stage3_ast/tests/*
+[2025-06-08 14:31:22] Ensured tests/qa_mocks/ directory exists
+[2025-06-08 14:31:22] Created QA documentation structure
+[2025-06-08 14:31:22] Copied Makefile: rift-poc-nlink-project-1/stage3_ast/Makefile -> rift-poc-stage-3/
+[2025-06-08 14:31:22] WARNING: CMakeLists.txt not found at rift-poc-nlink-project-1/stage3_ast/CMakeLists.txt
+[2025-06-08 14:31:22] Completed RiftSeal Stage 3 refactor
+[2025-06-08 14:31:22] Initiating RiftSeal Stage 4 refactor
+[2025-06-08 14:31:22] Created directory structure for rift-poc-stage-4
+[2025-06-08 14:31:23] Copied pkg.nlink: rift-poc-nlink-project-1/stage4_bytecode/pkg.nlink -> rift-poc-stage-4/nlink/
+[2025-06-08 14:31:23] WARNING: nlink.txt not found at rift-poc-nlink-project-1/stage4_bytecode/nlink.txt
+[2025-06-08 14:31:23] WARNING: source files not found at rift-poc-nlink-project-1/stage4_bytecode/src/*
+[2025-06-08 14:31:23] WARNING: header files not found at rift-poc-nlink-project-1/stage4_bytecode/include/*
+[2025-06-08 14:31:23] WARNING: existing test files not found at rift-poc-nlink-project-1/stage4_bytecode/tests/*
+[2025-06-08 14:31:23] Ensured tests/qa_mocks/ directory exists
+[2025-06-08 14:31:23] Created QA documentation structure
+[2025-06-08 14:31:23] Copied Makefile: rift-poc-nlink-project-1/stage4_bytecode/Makefile -> rift-poc-stage-4/
+[2025-06-08 14:31:23] WARNING: CMakeLists.txt not found at rift-poc-nlink-project-1/stage4_bytecode/CMakeLists.txt
+[2025-06-08 14:31:23] Completed RiftSeal Stage 4 refactor
+[2025-06-08 14:31:23] Initiating RiftSeal Stage 5 refactor
+[2025-06-08 14:31:23] Created directory structure for rift-poc-stage-5
+[2025-06-08 14:31:23] Copied pkg.nlink: rift-poc-nlink-project-1/stage5_program/pkg.nlink -> rift-poc-stage-5/nlink/
+[2025-06-08 14:31:23] WARNING: nlink.txt not found at rift-poc-nlink-project-1/stage5_program/nlink.txt
+[2025-06-08 14:31:23] WARNING: source files not found at rift-poc-nlink-project-1/stage5_program/src/*
+[2025-06-08 14:31:23] WARNING: header files not found at rift-poc-nlink-project-1/stage5_program/include/*
+[2025-06-08 14:31:23] WARNING: existing test files not found at rift-poc-nlink-project-1/stage5_program/tests/*
+[2025-06-08 14:31:23] Ensured tests/qa_mocks/ directory exists
+[2025-06-08 14:31:23] Created QA documentation structure
+[2025-06-08 14:31:23] Copied Makefile: rift-poc-nlink-project-1/stage5_program/Makefile -> rift-poc-stage-5/
+[2025-06-08 14:31:23] WARNING: CMakeLists.txt not found at rift-poc-nlink-project-1/stage5_program/CMakeLists.txt
+[2025-06-08 14:31:23] Completed RiftSeal Stage 5 refactor
+[2025-06-08 14:31:23] Validated: rift-poc-stage-0/ exists
+[2025-06-08 14:31:23] Validated: rift-poc-stage-1/ exists
+[2025-06-08 14:31:23] Validated: rift-poc-stage-3/ exists
+[2025-06-08 14:31:23] Validated: rift-poc-stage-4/ exists
+[2025-06-08 14:31:23] Validated: rift-poc-stage-5/ exists
+[2025-06-08 14:31:23] OBINexus RIFT POC stage refactor completed successfully

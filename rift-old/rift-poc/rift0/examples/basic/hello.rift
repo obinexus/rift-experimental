@@ -1,0 +1,11 @@
+// Basic RIFT example - Hello World
+// Governance: basic
+
+function hello_world() {
+    return "Hello, RIFT!";
+}
+
+function main() {
+    message = hello_world();
+    print(message);
+}

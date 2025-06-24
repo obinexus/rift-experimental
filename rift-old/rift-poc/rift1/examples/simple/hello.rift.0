@@ -1,0 +1,12 @@
+# RIFT Stage 0 Token Output (Simulated)
+KEYWORD|fn|fn
+IDENTIFIER|main|main
+DELIMITER|(|(
+DELIMITER|)|)
+DELIMITER|{|{
+IDENTIFIER|print|print
+DELIMITER|(|(
+STRING|"Hello, RIFT Stage 1!"|"Hello, RIFT Stage 1!"
+DELIMITER|)|)
+SEPARATOR|;|;
+DELIMITER|}|}

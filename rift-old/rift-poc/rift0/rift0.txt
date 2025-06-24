@@ -1,0 +1,131 @@
+.
+├── artifacts
+│   ├── docs
+│   │   ├── design
+│   │   │   ├── automaton.md
+│   │   │   ├── ir_spec.md
+│   │   │   ├── regex_automaton.log
+│   │   │   ├── regex_automaton.pdf
+│   │   │   ├── regex_automaton.tex
+│   │   │   └── regex_states.md
+│   │   └── old_modules
+│   │       ├── LIBRIFT.md
+│   │       └── LibRift Regexp.md
+│   └── poc
+│       ├── c
+│       │   ├── pocrift
+│       │   └── pocrift.c
+│       ├── python
+│       │   └── pocrift.py
+│       └── README.md
+├── bin
+├── build
+├── config
+├── diagnostic_script.sh
+├── docs
+│   └── r_extension
+│       └── r_integration_guide.md
+├── examples
+│   ├── basic
+│   │   ├── hello.rift
+│   │   └── sample.rift
+│   ├── {basic,csv,governance,advanced}
+│   ├── csv
+│   │   ├── advanced_parser.rift
+│   │   ├── csv_parser
+│   │   ├── csv_parser.c
+│   │   └── Makefile
+│   ├── data
+│   │   ├── complex.csv
+│   │   ├── csv
+│   │   │   └── test.csv
+│   │   ├── {csv,json,config,samples}
+│   │   ├── malformed.csv
+│   │   ├── simple.csv
+│   │   └── test.csv
+│   ├── governance
+│   │   └── policy_example.rift
+│   ├── r_extension
+│   │   ├── Makefile
+│   │   ├── r_extensions_demo.c
+│   │   ├── r_uml_extensions_demo.c
+│   │   └── sample_with_r_extensions.rift
+│   └── sample
+│       ├── sample.0
+│       └── sample.rift
+├── include
+│   ├── rift0
+│   │   ├── cli
+│   │   │   └── command
+│   │   │       ├── config_handler.h
+│   │   │       └── pattern_manager.h
+│   │   ├── core
+│   │   │   ├── config
+│   │   │   │   └── rift_config_advanced.h
+│   │   │   ├── r_extension
+│   │   │   │   ├── governance
+│   │   │   │   │   └── r_governance_validation.h
+│   │   │   │   ├── r_extensions.h
+│   │   │   │   └── uml
+│   │   │   │       └── r_uml_patterns.h
+│   │   │   └── rift_core_api.h
+│   │   └── rift.h
+│   └── rift.h
+├── lib
+├── logs
+│   ├── pipeline
+│   │   ├── refactor_20250612_193249.log
+│   │   ├── refactor_20250612_193250.log
+│   │   └── rift_refactor_assistant.sh
+│   ├── rift_refactor_assistant.sh
+│   └── validation
+│       └── rift_r_extend_validator.sh
+├── Makefile
+├── nlink
+├── out
+│   ├── artifacts
+│   │   └── {rift0,rift1,gov,ir}
+│   ├── final
+│   ├── ir
+│   ├── stage0
+│   └── stage1
+├── QA
+│   └── edge_case_registry.md
+├── README.md
+├── rift0.txt
+├── run.sh
+├── scripts
+│   ├── build
+│   │   └── process_artifacts.sh
+│   ├── deployment
+│   ├── generate-samples.sh
+│   └── validation
+│       ├── validate-architecture.sh
+│       └── validate_structure.sh
+├── src
+│   ├── cli
+│   │   ├── commands
+│   │   │   ├── command_handler.c
+│   │   │   ├── config
+│   │   │   │   └── config_main.c
+│   │   │   ├── config_handler.c
+│   │   │   └── pattern_manager.c
+│   │   ├── main.c
+│   │   └── main_original.c
+│   └── core
+│       ├── config
+│       │   └── rift_pipeline_simple.c
+│       ├── main.c
+│       ├── r_extensions
+│       │   ├── governance
+│       │   │   └── r_governance_validation.c
+│       │   ├── r_extensions_core.c
+│       │   └── uml
+│       │       └── r_uml_patterns.c
+│       └── rift_core.c
+└── tests
+    └── qa_mocks
+        ├── test_automaton.c
+        └── test_framework.c
+
+60 directories, 69 files

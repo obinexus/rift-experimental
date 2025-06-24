@@ -1,0 +1,18 @@
+[stage]
+name = "stage0_tokenization"
+version = "1.0.0"
+input_format = "*.rift"
+output_format = "*.rift.0"
+
+[dependencies]
+shared = ["../nlink/pocrift.nlink", "../nlink/zero_trust.nlink"]
+
+[components]
+pocrift_tokenizer = { src = "src/pocrift_tokenizer.c", header = "include/pocrift/pocrift.h" }
+uscn_normalizer = { src = "src/uscn_normalizer.c", header = "include/pocrift/uscn.h" }
+token_minimizer = { src = "src/token_minimizer.c", header = "include/pocrift/minimizer.h" }
+
+[validation]
+uscn_compliance = true
+token_correctness = true
+normalization_verification = true

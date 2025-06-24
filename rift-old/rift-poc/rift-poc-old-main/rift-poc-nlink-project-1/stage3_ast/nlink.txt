@@ -1,0 +1,12 @@
+# Stage 3: AST Contextualization with State Minimization
+# Component: AST-Aware system with Tennis FSM validation
+# Input: Parse trees from .rift.1 files
+# Output: Contextualized AST in .rift.3 format
+# Validation: Tennis FSM equivalence + semantic preservation >= 85%
+
+component_name=stage3_ast
+component_version=1.0.0
+component_type=ast_processor
+tennis_fsm_validation=true
+semantic_preservation_required=true
+formal_verification=enabled

@@ -1,0 +1,257 @@
+; RIFT Auto-Seal Loader + Memory Governance Integration
+; nlink declarations for loading the Auto-Seal pipeline components
+; 
+; Copyright (c) 2025 OBINexus Computing
+; License: Proprietary - All Rights Reserved
+
+pkg rift-governance-poc
+
+; Memory Governance Core Module
+module memory_governance {
+    source "memory_governance.c"
+    header "memory_governance.h"
+    
+    export {
+        ; Core governance verification functions
+        verify_stage_0_memory_governance
+        verify_stage_1_memory_governance
+        verify_stage_3_memory_governance
+        verify_stage_4_memory_governance
+        verify_stage_5_memory_governance
+        check_memory_governance_reversion
+        
+        ; Engine and token management
+        rift_memory_governance_engine_create
+        rift_memory_token_create
+        rift_memory_governance_engine_free
+        rift_memory_token_free
+        
+        ; Data structures
+        rift_memory_token_t
+        rift_memory_governance_contract_t
+        rift_governance_violation_t
+        rift_memory_governance_engine_t
+    }
+    
+    dependencies {
+        libc.stdlib
+        libc.stdio
+        libc.string
+        libc.time
+        libc.math
+    }
+}
+
+; Telemetry and Violation Logging Module
+module telemetry_governance {
+    source "telemetry_governance.c"
+    header "memory_governance.h"
+    
+    export {
+        ; Logging functions
+        log_governance_event
+        log_governance_violation
+        log_stage_transition
+        log_memory_integrity_check
+        log_anti_reversion_attempt
+        log_governance_policy_enforcement
+        log_entropy_validation
+        log_context_checksum_validation
+        log_raw_string_parsing
+        
+        ; Report and management functions
+        generate_telemetry_summary_report
+        create_governance_violation
+        cleanup_telemetry_system
+    }
+    
+    dependencies {
+        memory_governance
+        libc.stdlib
+        libc.stdio
+        libc.string
+        libc.time
+        libc.stdarg
+    }
+}
+
+; Auto-Seal Pipeline Integration
+module auto_seal_pipeline {
+    interface {
+        ; Stage 0: Basic Optional Sealing
+        load_rift_stage_0(file_path: string) -> bool
+        verify_stage_0_format(content: string) -> bool
+        
+        ; Stage 1: Sealed + Signature + R"" Syntax Support
+        load_rift_stage_1(file_path: string, signature_path: string) -> bool
+        verify_auraseal_signature(file_path: string, sig_path: string, pubkey_path: string) -> bool
+        parse_raw_string_literals(content: string) -> array[string]
+        validate_regex_patterns(patterns: array[string]) -> bool
+        
+        ; Stage 3: Obfuscated + Minimized + Entropy-Aware
+        load_rift_stage_3(file_path: string) -> bool
+        verify_tennis_fsm_validation(file_path: string) -> bool
+        calculate_structural_entropy(file_path: string) -> double
+        verify_ast_minimization(file_path: string) -> bool
+        
+        ; Stage 4: Hardened + Encrypted + Context-Validated
+        load_rift_stage_4(file_path: string) -> bool
+        verify_hardening_markers(file_path: string) -> bool
+        validate_context_aware_integrity(file_path: string, expected_context: string) -> bool
+        check_divisor_echo_alignment(file_path: string, stage_level: uint32) -> double
+        
+        ; Stage 5: Fully Sealed + Anti-Reversion + Perfect Integrity
+        load_rift_stage_5(file_path: string) -> bool
+        verify_anti_reversion_metadata(file_path: string) -> bool
+        validate_perfect_integrity(file_path: string) -> bool
+        check_entropy_distribution_zones(file_path: string) -> bool
+        
+        ; Transversal Stage Mapping Protection
+        check_transversal_policy(current_stage: string, target_stage: string, governance_mode: bool) -> bool
+        extension_to_state(stage: string) -> string
+        
+        ; Context-Aware One-Way Function
+        calculate_context_aware_checksum(file_path: string, stage_level: uint32) -> string
+        verify_context_aware_integrity(file_path: string, expected_signature: string, stage_level: uint32) -> bool
+        analyze_entropy_distribution_zones(file_path: string, stage_level: uint32) -> string
+    }
+    
+    dependencies {
+        memory_governance
+        telemetry_governance
+        crypto.openssl
+        system.filesystem
+    }
+}
+
+; Progressive Security Levels
+security_levels {
+    stage_0 "basic_optional"
+    stage_1 "sealed_signature"
+    stage_3 "obfuscated_minimized_entropy_aware"
+    stage_4 "hardened_encrypted_context_validated"
+    stage_5 "fully_sealed_anti_reversion_perfect_integrity"
+}
+
+; Forward-Only Pipeline Configuration
+pipeline_constraints {
+    forward_transitions {
+        "stage_0" -> "stage_1"
+        "stage_1" -> "stage_3"
+        "stage_3" -> "stage_4"
+        "stage_4" -> "stage_5"
+    }
+    
+    forbidden_reversions {
+        "stage_5" -> ["stage_4", "stage_3", "stage_1", "stage_0"]
+        "stage_4" -> ["stage_3", "stage_1", "stage_0"]
+        "stage_3" -> ["stage_1", "stage_0"]
+        "stage_1" -> ["stage_0"]
+    }
+    
+    governance_overrides {
+        enable_for_reversions true
+        require_authorization true
+        log_all_attempts true
+    }
+}
+
+; Context-Aware One-Way Function Configuration
+context_function {
+    entropy_tolerance 0.05
+    structural_integrity_threshold 85.0
+    divisor_echo_validation true
+    context_signature_length 64
+    
+    validation_parameters {
+        stage_3_entropy_minimum 4.0
+        stage_4_entropy_minimum 5.0
+        stage_5_entropy_minimum 6.0
+        
+        context_checksum_segments 4
+        perfect_hash_validation true
+    }
+}
+
+; Integration with AST-Aware Bytecode Generation
+ast_integration {
+    contextualization_engine "obinexus_context_engine_t"
+    policy_engine "obinexus_policy_engine_t"
+    irp_engine "obinexus_irp_engine_t"
+    post_processing_engine "obinexus_post_processing_engine_t"
+    
+    validation_framework "obinexus_problem_space_validator_t"
+}
+
+; Build Configuration
+build {
+    compiler "gcc"
+    standard "c11"
+    optimization_level 2
+    
+    flags {
+        "-Wall"
+        "-Wextra"
+        "-Werror"
+        "-std=c11"
+        "-O2"
+        "-fPIC"
+        "-DRIFT_GOVERNANCE_ENABLED"
+        "-DCONTEXT_AWARE_VALIDATION"
+    }
+    
+    link_libraries {
+        "m"      ; math library
+        "crypto" ; OpenSSL crypto
+        "ssl"    ; OpenSSL SSL
+    }
+    
+    output_targets {
+        "librift_governance.so"     ; Shared library
+        "librift_governance.a"      ; Static library
+        "rift_governance_test"      ; Test executable
+    }
+}
+
+; Test Configuration
+test {
+    test_framework "custom"
+    
+    test_suites {
+        "memory_governance_tests" {
+            source "tests/test_memory_governance.c"
+            dependencies ["memory_governance", "telemetry_governance"]
+        }
+        
+        "stage_verification_tests" {
+            source "tests/test_stage_verification.c"
+            dependencies ["memory_governance", "auto_seal_pipeline"]
+        }
+        
+        "telemetry_tests" {
+            source "tests/test_telemetry.c"
+            dependencies ["telemetry_governance"]
+        }
+        
+        "integration_tests" {
+            source "tests/test_integration.c"
+            dependencies ["memory_governance", "telemetry_governance", "auto_seal_pipeline"]
+        }
+    }
+}
+
+; Documentation Configuration
+documentation {
+    format "doxygen"
+    output_directory "docs"
+    
+    input_files [
+        "memory_governance.h"
+        "memory_governance.c"
+        "telemetry_governance.c"
+    ]
+    
+    generate_latex true
+    generate_html true
+    generate_man_pages true
+}

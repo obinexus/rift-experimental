@@ -1,0 +1,22 @@
+// Complex RIFT program example
+fn calculate(a: int, b: int, op: string) -> int {
+    if op == "add" {
+        return a + b;
+    } else if op == "sub" {
+        return a - b;
+    } else if op == "mul" {
+        return a * b;
+    } else if op == "div" {
+        if b != 0 {
+            return a / b;
+        } else {
+            return 0;
+        }
+    }
+    return 0;
+}
+
+fn main() {
+    var result = calculate(10, 5, "add");
+    print(result);
+}

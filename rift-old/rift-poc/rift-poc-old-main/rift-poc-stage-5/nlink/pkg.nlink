@@ -1,0 +1,10 @@
+[stage]
+name = "stage5_program"
+version = "1.0.0"
+input_format = "*.rift.4"
+output_format = "*.rift.5"
+
+[validation]
+production_ready = true
+zero_trust_signed = true
+crowdstrike_immunized = true

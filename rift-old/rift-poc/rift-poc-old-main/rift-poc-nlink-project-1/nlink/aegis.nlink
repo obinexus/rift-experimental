@@ -1,0 +1,23 @@
+[component]
+name = "aegis_engine"
+version = "1.0.0"
+type = "library"
+description = "Automaton Engine for Generative Interpretation & Syntax"
+
+[features]
+regex_automaton_model = true
+functional_composition = true
+pattern_recognition = true
+unified_pipeline = true
+data_oriented_parsing = true
+
+[modules]
+regex_automaton_engine = "regex_automaton.c"
+data_oriented_parser = "data_oriented_parser.c"
+functional_ir_generator = "functional_ir_generator.c"
+pattern_composition_system = "pattern_composition_system.c"
+
+[validation]
+deterministic_parsing = true
+memory_safety = true
+formal_verification_hooks = true
