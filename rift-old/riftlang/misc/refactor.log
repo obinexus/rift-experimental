@@ -1,0 +1,425 @@
+[2025-05-23 16:57:12] [INFO] Starting RIFTLang directory structure refactoring
+[2025-05-23 16:57:12] [INFO] Source: .
+[2025-05-23 16:57:12] [INFO] Destination: .\RIFTLang_New
+[2025-05-23 16:57:12] [INFO] Validating environment for RIFTLang refactoring
+[2025-05-23 16:57:12] [INFO] Environment validation completed
+[2025-05-23 16:57:12] [INFO] Initializing RIFTLang project structure per waterfall methodology
+[2025-05-23 16:57:12] [INFO] Created directory: src\core
+[2025-05-23 16:57:12] [INFO] Created directory: src\parser
+[2025-05-23 16:57:12] [INFO] Created directory: src\memory
+[2025-05-23 16:57:12] [INFO] Created directory: src\threading
+[2025-05-23 16:57:12] [INFO] Created directory: src\policy
+[2025-05-23 16:57:12] [INFO] Created directory: src\nlink
+[2025-05-23 16:57:12] [INFO] Created directory: src\advanced
+[2025-05-23 16:57:12] [INFO] Created directory: src\security
+[2025-05-23 16:57:12] [INFO] Created directory: src\platform
+[2025-05-23 16:57:12] [INFO] Created directory: build\debug
+[2025-05-23 16:57:12] [INFO] Created directory: build\release
+[2025-05-23 16:57:12] [INFO] Created directory: dist\windows
+[2025-05-23 16:57:12] [INFO] Created directory: dist\linux
+[2025-05-23 16:57:12] [INFO] Created directory: dist\macos
+[2025-05-23 16:57:12] [INFO] Created directory: docs\specification
+[2025-05-23 16:57:12] [INFO] Created directory: docs\api
+[2025-05-23 16:57:12] [INFO] Created directory: docs\developer
+[2025-05-23 16:57:12] [INFO] Created directory: docs\certification
+[2025-05-23 16:57:12] [INFO] Created directory: tests\unit
+[2025-05-23 16:57:12] [INFO] Created directory: tests\integration
+[2025-05-23 16:57:12] [INFO] Created directory: tests\policy
+[2025-05-23 16:57:12] [INFO] Created directory: tests\concurrency
+[2025-05-23 16:57:12] [INFO] Created directory: tests\performance
+[2025-05-23 16:57:12] [INFO] Created directory: config\policies
+[2025-05-23 16:57:12] [INFO] Created directory: config\environments
+[2025-05-23 16:57:12] [INFO] Created directory: research\poc
+[2025-05-23 16:57:12] [INFO] Created directory: research\experiments
+[2025-05-23 16:57:12] [INFO] Created directory: research\formal_methods
+[2025-05-23 16:57:12] [INFO] Created directory: lib\librift
+[2025-05-23 16:57:12] [INFO] Created directory: lib\nlink
+[2025-05-23 16:57:12] [INFO] Created directory: lib\gosilang
+[2025-05-23 16:57:12] [INFO] Created directory: tools\generators
+[2025-05-23 16:57:12] [INFO] Created directory: tools\validators
+[2025-05-23 16:57:12] [INFO] Created directory: tools\profilers
+[2025-05-23 16:57:12] [INFO] Created directory: governance\thread_safety
+[2025-05-23 16:57:12] [INFO] Created directory: governance\memory_contracts
+[2025-05-23 16:57:12] [INFO] Created directory: governance\zero_trust
+[2025-05-23 16:57:12] [INFO] Classifying and moving project files
+[2025-05-23 16:57:12] [INFO] Moved: .gitignore -> misc\.gitignore
+[2025-05-23 16:57:12] [INFO] Moved: crypto_state_machine_gov.py -> misc\crypto_state_machine_gov.py
+[2025-05-23 16:57:12] [INFO] Moved: Dimensional Game_Theory.pdf -> research\formal_methods\dimensional game_theory.pdf
+[2025-05-23 16:57:12] [INFO] Moved: directory_for_riftlang_ugly_as_.md -> docs\directory_for_riftlang_ugly_as_.md
+[2025-05-23 16:57:12] [INFO] Moved: governce_regualtion.py -> misc\governce_regualtion.py
+[2025-05-23 16:57:12] [INFO] Moved: README.md -> docs\readme.md
+[2025-05-23 16:57:12] [INFO] Moved: README.pdf -> docs\specification\readme.pdf
+[2025-05-23 16:57:12] [INFO] Moved: README2.md -> docs\readme2.md
+[2025-05-23 16:57:12] [INFO] Moved: README2.pdf -> docs\specification\readme2.pdf
+[2025-05-23 16:57:12] [INFO] Moved: refactor-riftlang.ps1 -> misc\refactor-riftlang.ps1
+[2025-05-23 16:57:12] [INFO] Moved: refactor.log -> misc\refactor.log
+[2025-05-23 16:57:12] [INFO] Moved: rift_goverance_file.md -> docs\rift_goverance_file.md
+[2025-05-23 16:57:12] [INFO] Moved: rifter_ecosystem_whitepaper (8) - Copy.pdf -> docs\specification\rifter_ecosystem_whitepaper (8) - copy.pdf
+[2025-05-23 16:57:12] [INFO] Moved: rifter_ecosystem_whitepaper.pdf -> docs\specification\rifter_ecosystem_whitepaper.pdf
+[2025-05-23 16:57:12] [INFO] Moved: $I2LQWIN.pdf -> docs\specification\$i2lqwin.pdf
+[2025-05-23 16:57:12] [INFO] Moved: $I8IO2L9.md -> docs\$i8io2l9.md
+[2025-05-23 16:57:12] [INFO] Moved: $I8RF64O.md -> docs\$i8rf64o.md
+[2025-05-23 16:57:12] [INFO] Moved: $I8V60TK -> misc\$i8v60tk
+[2025-05-23 16:57:12] [INFO] Moved: $I9UF4ME -> misc\$i9uf4me
+[2025-05-23 16:57:12] [INFO] Moved: $ICU90OW.md -> docs\$icu90ow.md
+[2025-05-23 16:57:12] [INFO] Moved: $IDPZ77R.git -> misc\$idpz77r.git
+[2025-05-23 16:57:12] [INFO] Moved: $IEDA1IP -> misc\$ieda1ip
+[2025-05-23 16:57:12] [INFO] Moved: $IM5KRKR -> misc\$im5krkr
+[2025-05-23 16:57:12] [INFO] Moved: $ING7UA6.md -> docs\$ing7ua6.md
+[2025-05-23 16:57:12] [INFO] Moved: $IW0UGYF -> misc\$iw0ugyf
+[2025-05-23 16:57:12] [INFO] Moved: $IXD9ODE.pdf -> docs\specification\$ixd9ode.pdf
+[2025-05-23 16:57:12] [INFO] Moved: $IY0JLPH.git -> misc\$iy0jlph.git
+[2025-05-23 16:57:12] [INFO] Moved: $IZL5ZOG -> misc\$izl5zog
+[2025-05-23 16:57:12] [INFO] Moved: $IZQKQLC.ps1 -> misc\$izqkqlc.ps1
+[2025-05-23 16:57:12] [INFO] Moved: $R2LQWIN.pdf -> docs\specification\$r2lqwin.pdf
+[2025-05-23 16:57:12] [INFO] Moved: $R8IO2L9.md -> docs\$r8io2l9.md
+[2025-05-23 16:57:12] [INFO] Moved: $R8RF64O.md -> docs\$r8rf64o.md
+[2025-05-23 16:57:12] [INFO] Moved: $RCU90OW.md -> docs\$rcu90ow.md
+[2025-05-23 16:57:12] [INFO] Moved: $RNG7UA6.md -> docs\$rng7ua6.md
+[2025-05-23 16:57:12] [INFO] Moved: $RXD9ODE.pdf -> docs\specification\$rxd9ode.pdf
+[2025-05-23 16:57:12] [INFO] Moved: $RZQKQLC.ps1 -> misc\$rzqkqlc.ps1
+[2025-05-23 16:57:12] [INFO] Moved: desktop.ini -> misc\desktop.ini
+[2025-05-23 16:57:12] [INFO] Moved: RIFTLang Self-Governing Driver & Binding Specification.md -> docs\specification\riftlang self-governing driver & binding specification.md
+[2025-05-23 16:57:12] [INFO] Moved: RIFTLang_Implementation_Specification.pdf -> docs\specification\riftlang_implementation_specification.pdf
+[2025-05-23 16:57:12] [INFO] Moved: COMMIT_EDITMSG -> misc\commit_editmsg
+[2025-05-23 16:57:12] [INFO] Moved: config -> misc\config
+[2025-05-23 16:57:12] [INFO] Moved: description -> misc\description
+[2025-05-23 16:57:12] [INFO] Moved: HEAD -> misc\head
+[2025-05-23 16:57:12] [INFO] Moved: index -> misc\index
+[2025-05-23 16:57:12] [INFO] Moved: applypatch-msg.sample -> misc\applypatch-msg.sample
+[2025-05-23 16:57:12] [INFO] Moved: commit-msg.sample -> misc\commit-msg.sample
+[2025-05-23 16:57:12] [INFO] Moved: fsmonitor-watchman.sample -> misc\fsmonitor-watchman.sample
+[2025-05-23 16:57:12] [INFO] Moved: post-update.sample -> misc\post-update.sample
+[2025-05-23 16:57:12] [INFO] Moved: pre-applypatch.sample -> misc\pre-applypatch.sample
+[2025-05-23 16:57:12] [INFO] Moved: pre-commit.sample -> misc\pre-commit.sample
+[2025-05-23 16:57:12] [INFO] Moved: pre-merge-commit.sample -> misc\pre-merge-commit.sample
+[2025-05-23 16:57:12] [INFO] Moved: pre-push.sample -> misc\pre-push.sample
+[2025-05-23 16:57:12] [INFO] Moved: pre-rebase.sample -> misc\pre-rebase.sample
+[2025-05-23 16:57:12] [INFO] Moved: pre-receive.sample -> misc\pre-receive.sample
+[2025-05-23 16:57:12] [INFO] Moved: prepare-commit-msg.sample -> misc\prepare-commit-msg.sample
+[2025-05-23 16:57:12] [INFO] Moved: push-to-checkout.sample -> misc\push-to-checkout.sample
+[2025-05-23 16:57:12] [INFO] Moved: sendemail-validate.sample -> misc\sendemail-validate.sample
+[2025-05-23 16:57:12] [INFO] Moved: update.sample -> misc\update.sample
+[2025-05-23 16:57:12] [INFO] Moved: exclude -> misc\exclude
+[2025-05-23 16:57:12] [INFO] Moved: HEAD -> misc\head
+[2025-05-23 16:57:12] [INFO] Moved: main -> misc\main
+[2025-05-23 16:57:12] [INFO] Moved: main -> misc\main
+[2025-05-23 16:57:12] [INFO] Moved: 62baad5cbe560a3b976ccab6258d855173aa6f -> misc\62baad5cbe560a3b976ccab6258d855173aa6f
+[2025-05-23 16:57:12] [INFO] Moved: bf4f791cde7353bc22f336164e1e218b6467b2 -> misc\bf4f791cde7353bc22f336164e1e218b6467b2
+[2025-05-23 16:57:12] [INFO] Moved: 825dc642cb6eb9a060e54bf8d69288fbee4904 -> misc\825dc642cb6eb9a060e54bf8d69288fbee4904
+[2025-05-23 16:57:12] [INFO] Moved: 673b4d464b7c93221911763b26acddcdc6fd49 -> misc\673b4d464b7c93221911763b26acddcdc6fd49
+[2025-05-23 16:57:12] [INFO] Moved: main -> misc\main
+[2025-05-23 16:57:12] [INFO] Moved: main -> misc\main
+[2025-05-23 16:57:12] [INFO] Moved: rift-docs-build.log -> misc\rift-docs-build.log
+[2025-05-23 16:57:12] [INFO] Moved: rift-docs-build.log -> misc\rift-docs-build.log
+[2025-05-23 16:57:12] [INFO] Moved: README.md -> docs\readme.md
+[2025-05-23 16:57:12] [INFO] Moved: RIFT-Documentation-Build.md -> docs\rift-documentation-build.md
+[2025-05-23 16:57:12] [INFO] Moved: RIFT-Documentation-Build.ps1 -> misc\rift-documentation-build.ps1
+[2025-05-23 16:57:12] [INFO] Moved: rift-docs-build.log -> misc\rift-docs-build.log
+[2025-05-23 16:57:12] [INFO] Moved: RIFTLang Self-Governing Driver & Binding Specification.md -> docs\specification\riftlang self-governing driver & binding specification.md
+[2025-05-23 16:57:12] [INFO] Moved: RIFTLang_Implementation_Specification.pdf -> docs\specification\riftlang_implementation_specification.pdf
+[2025-05-23 16:57:12] [INFO] Moved: formal-languages-grammar-types.md -> research\formal_methods\formal-languages-grammar-types.md
+[2025-05-23 16:57:12] [INFO] Moved: OBINexus_Computing_LibRift (3).pdf -> lib\librift\obinexus_computing_librift (3).pdf
+[2025-05-23 16:57:12] [INFO] Moved: OBINexus_Computing_LibRift (4).pdf -> lib\librift\obinexus_computing_librift (4).pdf
+[2025-05-23 16:57:12] [INFO] Moved: The RIFTers Way - Language Intergirty for Human-Centric Safety-Critcial System.md -> docs\developer\the rifters way - language intergirty for human-centric safety-critcial system.md
+[2025-05-23 16:57:12] [INFO] Moved: The RIFTers Way - Language Intergirty for Human-Centric Safety-Critcial System.pdf -> docs\developer\the rifters way - language intergirty for human-centric safety-critcial system.pdf
+[2025-05-23 16:57:12] [INFO] Moved: README.md -> docs\readme.md
+[2025-05-23 16:57:12] [INFO] Moved: README.md -> docs\readme.md
+[2025-05-23 16:57:12] [INFO] Moved: README.md -> docs\readme.md
+[2025-05-23 16:57:12] [INFO] Moved: README.md -> docs\readme.md
+[2025-05-23 16:57:12] [INFO] Moved: BuilSystem.RIFTers -> misc\builsystem.rifters
+[2025-05-23 16:57:12] [INFO] Moved: README.md -> docs\readme.md
+[2025-05-23 16:57:12] [INFO] Moved: RIFT-Documentation-Build.ps1 -> misc\rift-documentation-build.ps1
+[2025-05-23 16:57:12] [INFO] Moved: RIFTSearch.ps1 -> misc\riftsearch.ps1
+[2025-05-23 16:57:12] [INFO] Moved: Setup.ps1 -> misc\setup.ps1
+[2025-05-23 16:57:12] [INFO] Moved: Update-RiftLangEnvironment-.ps1 -> misc\update-riftlangenvironment-.ps1
+[2025-05-23 16:57:12] [INFO] Moved: Formal Languages and Grammar Types.pdf -> research\formal_methods\formal languages and grammar types.pdf
+[2025-05-23 16:57:12] [INFO] Moved: The_RIFTers_Way_Manifesto.pdf -> docs\developer\the_rifters_way_manifesto.pdf
+[2025-05-23 16:57:12] [INFO] Moved: RIFTLang_Lexer_Specification.md -> docs\specification\riftlang_lexer_specification.md
+[2025-05-23 16:57:12] [INFO] Moved: RIFT-Documentation-Build.md -> docs\rift-documentation-build.md
+[2025-05-23 16:57:12] [INFO] Moved: Building_Belief_Into_Code.md -> docs\building_belief_into_code.md
+[2025-05-23 16:57:12] [INFO] Moved: Building_Belief_Into_Code.pdf -> docs\specification\building_belief_into_code.pdf
+[2025-05-23 16:57:12] [INFO] Moved: Governing Meaning_ The RIFT Architecture of Certainty - Copy.pdf -> docs\specification\governing meaning_ the rift architecture of certainty - copy.pdf
+[2025-05-23 16:57:12] [INFO] Moved: Memory as Governance Contract.md -> governance\memory_contracts\memory as governance contract.md
+[2025-05-23 16:57:12] [INFO] Moved: Memory as Governance Contract.pdf -> governance\memory_contracts\memory as governance contract.pdf
+[2025-05-23 16:57:12] [INFO] Moved: Memory_Self_Role_Mask.md -> docs\memory_self_role_mask.md
+[2025-05-23 16:57:12] [INFO] Moved: Memory_Self_Role_Mask.pdf -> docs\specification\memory_self_role_mask.pdf
+[2025-05-23 16:57:12] [INFO] Moved: rift-governance-model.md -> governance\rift-governance-model.md
+[2025-05-23 16:57:12] [INFO] Moved: RIFTLang Self-Governing Driver & Binding Specification.md -> docs\specification\riftlang self-governing driver & binding specification.md
+[2025-05-23 16:57:12] [INFO] Moved: RIFTLang Self-Governing Driver & Binding Specification.pdf -> docs\specification\riftlang self-governing driver & binding specification.pdf
+[2025-05-23 16:57:12] [INFO] Moved: RIFTLang_Implementation_Specification.pdf -> docs\specification\riftlang_implementation_specification.pdf
+[2025-05-23 16:57:12] [INFO] Moved: RIFTLang_with_Quantum_Governnce.md -> docs\riftlang_with_quantum_governnce.md
+[2025-05-23 16:57:12] [INFO] Moved: RIFTMemory_Alignment.md -> src\memory\riftmemory_alignment.md
+[2025-05-23 16:57:12] [INFO] Moved: RIFTMemory_Alignment.pdf -> src\memory\riftmemory_alignment.pdf
+[2025-05-23 16:57:12] [INFO] Moved: Specification_Classic_and -> docs\specification\specification_classic_and
+[2025-05-23 16:57:12] [INFO] Moved: Technical Documentation - Memory Goveranace in the RIFT Ecosystem.pdf -> docs\specification\technical documentation - memory goveranace in the rift ecosystem.pdf
+[2025-05-23 16:57:12] [INFO] Moved: Contextual Swiichting.md -> docs\contextual swiichting.md
+[2025-05-23 16:57:12] [INFO] Moved: Contextual Swiichting.pdf -> docs\specification\contextual swiichting.pdf
+[2025-05-23 16:57:12] [INFO] Moved: RIFT Token Architecture_ Memory-Type Associations.pdf -> docs\specification\rift token architecture_ memory-type associations.pdf
+[2025-05-23 16:57:12] [INFO] Moved: rift-token-spec.md -> docs\rift-token-spec.md
+[2025-05-23 16:57:12] [INFO] Moved: rifter_ecosystem_whitepaper (8).pdf -> docs\specification\rifter_ecosystem_whitepaper (8).pdf
+[2025-05-23 16:57:12] [INFO] Moved: RIFTLang Token Specification_ Classical and Quantum Governance.pdf -> governance\riftlang token specification_ classical and quantum governance.pdf
+[2025-05-23 16:57:12] [INFO] Moved: RIFTToken_Model.md -> docs\rifttoken_model.md
+[2025-05-23 16:57:12] [INFO] Moved: .gitkeep -> misc\.gitkeep
+[2025-05-23 16:57:12] [INFO] Moved: refactor.log -> misc\refactor.log
+[2025-05-23 16:57:12] [INFO] Generating project metadata and configuration files
+[2025-05-23 16:57:12] [ERROR] Refactoring failed: The term 'FT1_TARGETS' is not recognized as a name of a cmdlet, function, script file, or executable program.
+Check the spelling of the name, or if a path was included, verify that the path is correct and try again.
+[2025-05-23 16:58:54] [INFO] Starting RIFTLang directory structure refactoring
+[2025-05-23 16:58:54] [INFO] Source: .
+[2025-05-23 16:58:54] [INFO] Destination: .\RIFTLang_New
+[2025-05-23 16:58:54] [INFO] Validating environment for RIFTLang refactoring
+[2025-05-23 16:58:54] [INFO] Environment validation completed
+[2025-05-23 16:58:54] [INFO] Initializing RIFTLang project structure per waterfall methodology
+[2025-05-23 16:58:54] [INFO] Classifying and moving project files
+[2025-05-23 16:58:54] [INFO] Moved: .gitignore -> misc\.gitignore
+[2025-05-23 16:58:54] [INFO] Moved: crypto_state_machine_gov.py -> misc\crypto_state_machine_gov.py
+[2025-05-23 16:58:54] [INFO] Moved: Dimensional Game_Theory.pdf -> research\formal_methods\dimensional game_theory.pdf
+[2025-05-23 16:58:54] [INFO] Moved: directory_for_riftlang_ugly_as_.md -> docs\directory_for_riftlang_ugly_as_.md
+[2025-05-23 16:58:54] [INFO] Moved: governce_regualtion.py -> misc\governce_regualtion.py
+[2025-05-23 16:58:54] [INFO] Moved: README.md -> docs\readme.md
+[2025-05-23 16:58:54] [INFO] Moved: README.pdf -> docs\specification\readme.pdf
+[2025-05-23 16:58:54] [INFO] Moved: README2.md -> docs\readme2.md
+[2025-05-23 16:58:54] [INFO] Moved: README2.pdf -> docs\specification\readme2.pdf
+[2025-05-23 16:58:54] [INFO] Moved: refactor-riftlang.ps1 -> misc\refactor-riftlang.ps1
+[2025-05-23 16:58:54] [INFO] Moved: refactor.log -> misc\refactor.log
+[2025-05-23 16:58:54] [INFO] Moved: rift_goverance_file.md -> docs\rift_goverance_file.md
+[2025-05-23 16:58:54] [INFO] Moved: rifter_ecosystem_whitepaper (8) - Copy.pdf -> docs\specification\rifter_ecosystem_whitepaper (8) - copy.pdf
+[2025-05-23 16:58:54] [INFO] Moved: rifter_ecosystem_whitepaper.pdf -> docs\specification\rifter_ecosystem_whitepaper.pdf
+[2025-05-23 16:58:54] [INFO] Moved: $I2LQWIN.pdf -> docs\specification\$i2lqwin.pdf
+[2025-05-23 16:58:54] [INFO] Moved: $I8IO2L9.md -> docs\$i8io2l9.md
+[2025-05-23 16:58:54] [INFO] Moved: $I8RF64O.md -> docs\$i8rf64o.md
+[2025-05-23 16:58:54] [INFO] Moved: $I8V60TK -> misc\$i8v60tk
+[2025-05-23 16:58:54] [INFO] Moved: $I9UF4ME -> misc\$i9uf4me
+[2025-05-23 16:58:54] [INFO] Moved: $ICU90OW.md -> docs\$icu90ow.md
+[2025-05-23 16:58:54] [INFO] Moved: $IDPZ77R.git -> misc\$idpz77r.git
+[2025-05-23 16:58:54] [INFO] Moved: $IEDA1IP -> misc\$ieda1ip
+[2025-05-23 16:58:54] [INFO] Moved: $IM5KRKR -> misc\$im5krkr
+[2025-05-23 16:58:54] [INFO] Moved: $ING7UA6.md -> docs\$ing7ua6.md
+[2025-05-23 16:58:54] [INFO] Moved: $IW0UGYF -> misc\$iw0ugyf
+[2025-05-23 16:58:54] [INFO] Moved: $IXD9ODE.pdf -> docs\specification\$ixd9ode.pdf
+[2025-05-23 16:58:54] [INFO] Moved: $IY0JLPH.git -> misc\$iy0jlph.git
+[2025-05-23 16:58:54] [INFO] Moved: $IZL5ZOG -> misc\$izl5zog
+[2025-05-23 16:58:54] [INFO] Moved: $IZQKQLC.ps1 -> misc\$izqkqlc.ps1
+[2025-05-23 16:58:54] [INFO] Moved: $R2LQWIN.pdf -> docs\specification\$r2lqwin.pdf
+[2025-05-23 16:58:54] [INFO] Moved: $R8IO2L9.md -> docs\$r8io2l9.md
+[2025-05-23 16:58:54] [INFO] Moved: $R8RF64O.md -> docs\$r8rf64o.md
+[2025-05-23 16:58:54] [INFO] Moved: $RCU90OW.md -> docs\$rcu90ow.md
+[2025-05-23 16:58:54] [INFO] Moved: $RNG7UA6.md -> docs\$rng7ua6.md
+[2025-05-23 16:58:54] [INFO] Moved: $RXD9ODE.pdf -> docs\specification\$rxd9ode.pdf
+[2025-05-23 16:58:54] [INFO] Moved: $RZQKQLC.ps1 -> misc\$rzqkqlc.ps1
+[2025-05-23 16:58:54] [INFO] Moved: desktop.ini -> misc\desktop.ini
+[2025-05-23 16:58:54] [INFO] Moved: RIFTLang Self-Governing Driver & Binding Specification.md -> docs\specification\riftlang self-governing driver & binding specification.md
+[2025-05-23 16:58:54] [INFO] Moved: RIFTLang_Implementation_Specification.pdf -> docs\specification\riftlang_implementation_specification.pdf
+[2025-05-23 16:58:54] [INFO] Moved: COMMIT_EDITMSG -> misc\commit_editmsg
+[2025-05-23 16:58:54] [INFO] Moved: config -> misc\config
+[2025-05-23 16:58:54] [INFO] Moved: description -> misc\description
+[2025-05-23 16:58:54] [INFO] Moved: HEAD -> misc\head
+[2025-05-23 16:58:54] [INFO] Moved: index -> misc\index
+[2025-05-23 16:58:54] [INFO] Moved: applypatch-msg.sample -> misc\applypatch-msg.sample
+[2025-05-23 16:58:54] [INFO] Moved: commit-msg.sample -> misc\commit-msg.sample
+[2025-05-23 16:58:54] [INFO] Moved: fsmonitor-watchman.sample -> misc\fsmonitor-watchman.sample
+[2025-05-23 16:58:54] [INFO] Moved: post-update.sample -> misc\post-update.sample
+[2025-05-23 16:58:54] [INFO] Moved: pre-applypatch.sample -> misc\pre-applypatch.sample
+[2025-05-23 16:58:54] [INFO] Moved: pre-commit.sample -> misc\pre-commit.sample
+[2025-05-23 16:58:54] [INFO] Moved: pre-merge-commit.sample -> misc\pre-merge-commit.sample
+[2025-05-23 16:58:54] [INFO] Moved: pre-push.sample -> misc\pre-push.sample
+[2025-05-23 16:58:54] [INFO] Moved: pre-rebase.sample -> misc\pre-rebase.sample
+[2025-05-23 16:58:54] [INFO] Moved: pre-receive.sample -> misc\pre-receive.sample
+[2025-05-23 16:58:54] [INFO] Moved: prepare-commit-msg.sample -> misc\prepare-commit-msg.sample
+[2025-05-23 16:58:54] [INFO] Moved: push-to-checkout.sample -> misc\push-to-checkout.sample
+[2025-05-23 16:58:54] [INFO] Moved: sendemail-validate.sample -> misc\sendemail-validate.sample
+[2025-05-23 16:58:54] [INFO] Moved: update.sample -> misc\update.sample
+[2025-05-23 16:58:54] [INFO] Moved: exclude -> misc\exclude
+[2025-05-23 16:58:54] [INFO] Moved: HEAD -> misc\head
+[2025-05-23 16:58:54] [INFO] Moved: main -> misc\main
+[2025-05-23 16:58:54] [INFO] Moved: main -> misc\main
+[2025-05-23 16:58:54] [INFO] Moved: 62baad5cbe560a3b976ccab6258d855173aa6f -> misc\62baad5cbe560a3b976ccab6258d855173aa6f
+[2025-05-23 16:58:54] [INFO] Moved: bf4f791cde7353bc22f336164e1e218b6467b2 -> misc\bf4f791cde7353bc22f336164e1e218b6467b2
+[2025-05-23 16:58:54] [INFO] Moved: 825dc642cb6eb9a060e54bf8d69288fbee4904 -> misc\825dc642cb6eb9a060e54bf8d69288fbee4904
+[2025-05-23 16:58:54] [INFO] Moved: 673b4d464b7c93221911763b26acddcdc6fd49 -> misc\673b4d464b7c93221911763b26acddcdc6fd49
+[2025-05-23 16:58:54] [INFO] Moved: main -> misc\main
+[2025-05-23 16:58:54] [INFO] Moved: main -> misc\main
+[2025-05-23 16:58:54] [INFO] Moved: rift-docs-build.log -> misc\rift-docs-build.log
+[2025-05-23 16:58:54] [INFO] Moved: rift-docs-build.log -> misc\rift-docs-build.log
+[2025-05-23 16:58:54] [INFO] Moved: README.md -> docs\readme.md
+[2025-05-23 16:58:54] [INFO] Moved: RIFT-Documentation-Build.md -> docs\rift-documentation-build.md
+[2025-05-23 16:58:54] [INFO] Moved: RIFT-Documentation-Build.ps1 -> misc\rift-documentation-build.ps1
+[2025-05-23 16:58:54] [INFO] Moved: rift-docs-build.log -> misc\rift-docs-build.log
+[2025-05-23 16:58:54] [INFO] Moved: RIFTLang Self-Governing Driver & Binding Specification.md -> docs\specification\riftlang self-governing driver & binding specification.md
+[2025-05-23 16:58:54] [INFO] Moved: RIFTLang_Implementation_Specification.pdf -> docs\specification\riftlang_implementation_specification.pdf
+[2025-05-23 16:58:54] [INFO] Moved: formal-languages-grammar-types.md -> research\formal_methods\formal-languages-grammar-types.md
+[2025-05-23 16:58:54] [INFO] Moved: OBINexus_Computing_LibRift (3).pdf -> lib\librift\obinexus_computing_librift (3).pdf
+[2025-05-23 16:58:54] [INFO] Moved: OBINexus_Computing_LibRift (4).pdf -> lib\librift\obinexus_computing_librift (4).pdf
+[2025-05-23 16:58:54] [INFO] Moved: The RIFTers Way - Language Intergirty for Human-Centric Safety-Critcial System.md -> docs\developer\the rifters way - language intergirty for human-centric safety-critcial system.md
+[2025-05-23 16:58:54] [INFO] Moved: The RIFTers Way - Language Intergirty for Human-Centric Safety-Critcial System.pdf -> docs\developer\the rifters way - language intergirty for human-centric safety-critcial system.pdf
+[2025-05-23 16:58:54] [INFO] Moved: README.md -> docs\readme.md
+[2025-05-23 16:58:54] [INFO] Moved: README.md -> docs\readme.md
+[2025-05-23 16:58:54] [INFO] Moved: README.md -> docs\readme.md
+[2025-05-23 16:58:54] [INFO] Moved: README.md -> docs\readme.md
+[2025-05-23 16:58:54] [INFO] Moved: BuilSystem.RIFTers -> misc\builsystem.rifters
+[2025-05-23 16:58:54] [INFO] Moved: README.md -> docs\readme.md
+[2025-05-23 16:58:54] [INFO] Moved: RIFT-Documentation-Build.ps1 -> misc\rift-documentation-build.ps1
+[2025-05-23 16:58:54] [INFO] Moved: RIFTSearch.ps1 -> misc\riftsearch.ps1
+[2025-05-23 16:58:54] [INFO] Moved: Setup.ps1 -> misc\setup.ps1
+[2025-05-23 16:58:54] [INFO] Moved: Update-RiftLangEnvironment-.ps1 -> misc\update-riftlangenvironment-.ps1
+[2025-05-23 16:58:54] [INFO] Moved: Formal Languages and Grammar Types.pdf -> research\formal_methods\formal languages and grammar types.pdf
+[2025-05-23 16:58:54] [INFO] Moved: The_RIFTers_Way_Manifesto.pdf -> docs\developer\the_rifters_way_manifesto.pdf
+[2025-05-23 16:58:54] [INFO] Moved: RIFTLang_Lexer_Specification.md -> docs\specification\riftlang_lexer_specification.md
+[2025-05-23 16:58:54] [INFO] Moved: RIFT-Documentation-Build.md -> docs\rift-documentation-build.md
+[2025-05-23 16:58:54] [INFO] Moved: Building_Belief_Into_Code.md -> docs\building_belief_into_code.md
+[2025-05-23 16:58:54] [INFO] Moved: Building_Belief_Into_Code.pdf -> docs\specification\building_belief_into_code.pdf
+[2025-05-23 16:58:54] [INFO] Moved: Governing Meaning_ The RIFT Architecture of Certainty - Copy.pdf -> docs\specification\governing meaning_ the rift architecture of certainty - copy.pdf
+[2025-05-23 16:58:54] [INFO] Moved: Memory as Governance Contract.md -> governance\memory_contracts\memory as governance contract.md
+[2025-05-23 16:58:54] [INFO] Moved: Memory as Governance Contract.pdf -> governance\memory_contracts\memory as governance contract.pdf
+[2025-05-23 16:58:54] [INFO] Moved: Memory_Self_Role_Mask.md -> docs\memory_self_role_mask.md
+[2025-05-23 16:58:54] [INFO] Moved: Memory_Self_Role_Mask.pdf -> docs\specification\memory_self_role_mask.pdf
+[2025-05-23 16:58:54] [INFO] Moved: rift-governance-model.md -> governance\rift-governance-model.md
+[2025-05-23 16:58:54] [INFO] Moved: RIFTLang Self-Governing Driver & Binding Specification.md -> docs\specification\riftlang self-governing driver & binding specification.md
+[2025-05-23 16:58:54] [INFO] Moved: RIFTLang Self-Governing Driver & Binding Specification.pdf -> docs\specification\riftlang self-governing driver & binding specification.pdf
+[2025-05-23 16:58:54] [INFO] Moved: RIFTLang_Implementation_Specification.pdf -> docs\specification\riftlang_implementation_specification.pdf
+[2025-05-23 16:58:54] [INFO] Moved: RIFTLang_with_Quantum_Governnce.md -> docs\riftlang_with_quantum_governnce.md
+[2025-05-23 16:58:54] [INFO] Moved: RIFTMemory_Alignment.md -> src\memory\riftmemory_alignment.md
+[2025-05-23 16:58:54] [INFO] Moved: RIFTMemory_Alignment.pdf -> src\memory\riftmemory_alignment.pdf
+[2025-05-23 16:58:54] [INFO] Moved: Specification_Classic_and -> docs\specification\specification_classic_and
+[2025-05-23 16:58:54] [INFO] Moved: Technical Documentation - Memory Goveranace in the RIFT Ecosystem.pdf -> docs\specification\technical documentation - memory goveranace in the rift ecosystem.pdf
+[2025-05-23 16:58:54] [INFO] Moved: Contextual Swiichting.md -> docs\contextual swiichting.md
+[2025-05-23 16:58:54] [INFO] Moved: Contextual Swiichting.pdf -> docs\specification\contextual swiichting.pdf
+[2025-05-23 16:58:54] [INFO] Moved: RIFT Token Architecture_ Memory-Type Associations.pdf -> docs\specification\rift token architecture_ memory-type associations.pdf
+[2025-05-23 16:58:54] [INFO] Moved: rift-token-spec.md -> docs\rift-token-spec.md
+[2025-05-23 16:58:54] [INFO] Moved: rifter_ecosystem_whitepaper (8).pdf -> docs\specification\rifter_ecosystem_whitepaper (8).pdf
+[2025-05-23 16:58:54] [INFO] Moved: RIFTLang Token Specification_ Classical and Quantum Governance.pdf -> governance\riftlang token specification_ classical and quantum governance.pdf
+[2025-05-23 16:58:54] [INFO] Moved: RIFTToken_Model.md -> docs\rifttoken_model.md
+[2025-05-23 16:58:54] [INFO] Moved: .gitkeep -> misc\.gitkeep
+[2025-05-23 16:58:54] [INFO] Moved: .riftproject -> misc\.riftproject
+[2025-05-23 16:58:54] [INFO] Moved: README.md -> docs\readme.md
+[2025-05-23 16:58:54] [INFO] Moved: refactor.log -> misc\refactor.log
+[2025-05-23 16:58:54] [ERROR] Refactoring failed: Cannot overwrite the item R:\riftlang\RIFTLang_New\docs\$i8io2l9.md with itself.
+[2025-05-23 17:01:10] [INFO] Starting RIFTLang directory structure refactoring
+[2025-05-23 17:01:10] [INFO] Source: .
+[2025-05-23 17:01:10] [INFO] Destination: .\RIFTLang_New
+[2025-05-23 17:01:10] [INFO] Validating environment for RIFTLang refactoring
+[2025-05-23 17:01:10] [INFO] Environment validation completed
+[2025-05-23 17:01:10] [INFO] Initializing RIFTLang project structure per waterfall methodology
+[2025-05-23 17:01:10] [INFO] Classifying and moving project files
+[2025-05-23 17:01:10] [INFO] Moved: .gitignore -> misc\.gitignore
+[2025-05-23 17:01:10] [INFO] Moved: crypto_state_machine_gov.py -> misc\crypto_state_machine_gov.py
+[2025-05-23 17:01:10] [INFO] Moved: Dimensional Game_Theory.pdf -> research\formal_methods\dimensional game_theory.pdf
+[2025-05-23 17:01:10] [INFO] Moved: directory_for_riftlang_ugly_as_.md -> docs\directory_for_riftlang_ugly_as_.md
+[2025-05-23 17:01:10] [INFO] Moved: governce_regualtion.py -> misc\governce_regualtion.py
+[2025-05-23 17:01:10] [INFO] Moved: README.md -> docs\readme.md
+[2025-05-23 17:01:10] [INFO] Moved: README.pdf -> docs\specification\readme.pdf
+[2025-05-23 17:01:10] [INFO] Moved: README2.md -> docs\readme2.md
+[2025-05-23 17:01:10] [INFO] Moved: README2.pdf -> docs\specification\readme2.pdf
+[2025-05-23 17:01:10] [INFO] Moved: refactor-riftlang.ps1 -> misc\refactor-riftlang.ps1
+[2025-05-23 17:01:10] [INFO] Moved: refactor.log -> misc\refactor.log
+[2025-05-23 17:01:10] [INFO] Moved: rift_goverance_file.md -> docs\rift_goverance_file.md
+[2025-05-23 17:01:10] [INFO] Moved: rifter_ecosystem_whitepaper (8) - Copy.pdf -> docs\specification\rifter_ecosystem_whitepaper (8) - copy.pdf
+[2025-05-23 17:01:10] [INFO] Moved: rifter_ecosystem_whitepaper.pdf -> docs\specification\rifter_ecosystem_whitepaper.pdf
+[2025-05-23 17:01:10] [INFO] Moved: $I2LQWIN.pdf -> docs\specification\$i2lqwin.pdf
+[2025-05-23 17:01:10] [INFO] Moved: $I8IO2L9.md -> docs\$i8io2l9.md
+[2025-05-23 17:01:10] [INFO] Moved: $I8RF64O.md -> docs\$i8rf64o.md
+[2025-05-23 17:01:10] [INFO] Moved: $I8V60TK -> misc\$i8v60tk
+[2025-05-23 17:01:10] [INFO] Moved: $I9UF4ME -> misc\$i9uf4me
+[2025-05-23 17:01:10] [INFO] Moved: $ICU90OW.md -> docs\$icu90ow.md
+[2025-05-23 17:01:10] [INFO] Moved: $IDPZ77R.git -> misc\$idpz77r.git
+[2025-05-23 17:01:10] [INFO] Moved: $IEDA1IP -> misc\$ieda1ip
+[2025-05-23 17:01:10] [INFO] Moved: $IM5KRKR -> misc\$im5krkr
+[2025-05-23 17:01:10] [INFO] Moved: $ING7UA6.md -> docs\$ing7ua6.md
+[2025-05-23 17:01:10] [INFO] Moved: $IW0UGYF -> misc\$iw0ugyf
+[2025-05-23 17:01:10] [INFO] Moved: $IXD9ODE.pdf -> docs\specification\$ixd9ode.pdf
+[2025-05-23 17:01:10] [INFO] Moved: $IY0JLPH.git -> misc\$iy0jlph.git
+[2025-05-23 17:01:10] [INFO] Moved: $IZL5ZOG -> misc\$izl5zog
+[2025-05-23 17:01:10] [INFO] Moved: $IZQKQLC.ps1 -> misc\$izqkqlc.ps1
+[2025-05-23 17:01:10] [INFO] Moved: $R2LQWIN.pdf -> docs\specification\$r2lqwin.pdf
+[2025-05-23 17:01:10] [INFO] Moved: $R8IO2L9.md -> docs\$r8io2l9.md
+[2025-05-23 17:01:10] [INFO] Moved: $R8RF64O.md -> docs\$r8rf64o.md
+[2025-05-23 17:01:10] [INFO] Moved: $RCU90OW.md -> docs\$rcu90ow.md
+[2025-05-23 17:01:10] [INFO] Moved: $RNG7UA6.md -> docs\$rng7ua6.md
+[2025-05-23 17:01:10] [INFO] Moved: $RXD9ODE.pdf -> docs\specification\$rxd9ode.pdf
+[2025-05-23 17:01:10] [INFO] Moved: $RZQKQLC.ps1 -> misc\$rzqkqlc.ps1
+[2025-05-23 17:01:10] [INFO] Moved: desktop.ini -> misc\desktop.ini
+[2025-05-23 17:01:10] [INFO] Moved: RIFTLang Self-Governing Driver & Binding Specification.md -> docs\specification\riftlang self-governing driver & binding specification.md
+[2025-05-23 17:01:10] [INFO] Moved: RIFTLang_Implementation_Specification.pdf -> docs\specification\riftlang_implementation_specification.pdf
+[2025-05-23 17:01:10] [INFO] Moved: COMMIT_EDITMSG -> misc\commit_editmsg
+[2025-05-23 17:01:10] [INFO] Moved: config -> misc\config
+[2025-05-23 17:01:10] [INFO] Moved: description -> misc\description
+[2025-05-23 17:01:10] [INFO] Moved: HEAD -> misc\head
+[2025-05-23 17:01:10] [INFO] Moved: index -> misc\index
+[2025-05-23 17:01:10] [INFO] Moved: applypatch-msg.sample -> misc\applypatch-msg.sample
+[2025-05-23 17:01:10] [INFO] Moved: commit-msg.sample -> misc\commit-msg.sample
+[2025-05-23 17:01:10] [INFO] Moved: fsmonitor-watchman.sample -> misc\fsmonitor-watchman.sample
+[2025-05-23 17:01:10] [INFO] Moved: post-update.sample -> misc\post-update.sample
+[2025-05-23 17:01:10] [INFO] Moved: pre-applypatch.sample -> misc\pre-applypatch.sample
+[2025-05-23 17:01:10] [INFO] Moved: pre-commit.sample -> misc\pre-commit.sample
+[2025-05-23 17:01:10] [INFO] Moved: pre-merge-commit.sample -> misc\pre-merge-commit.sample
+[2025-05-23 17:01:10] [INFO] Moved: pre-push.sample -> misc\pre-push.sample
+[2025-05-23 17:01:10] [INFO] Moved: pre-rebase.sample -> misc\pre-rebase.sample
+[2025-05-23 17:01:10] [INFO] Moved: pre-receive.sample -> misc\pre-receive.sample
+[2025-05-23 17:01:10] [INFO] Moved: prepare-commit-msg.sample -> misc\prepare-commit-msg.sample
+[2025-05-23 17:01:10] [INFO] Moved: push-to-checkout.sample -> misc\push-to-checkout.sample
+[2025-05-23 17:01:10] [INFO] Moved: sendemail-validate.sample -> misc\sendemail-validate.sample
+[2025-05-23 17:01:11] [INFO] Moved: update.sample -> misc\update.sample
+[2025-05-23 17:01:11] [INFO] Moved: exclude -> misc\exclude
+[2025-05-23 17:01:11] [INFO] Moved: HEAD -> misc\head
+[2025-05-23 17:01:11] [INFO] Moved: main -> misc\main
+[2025-05-23 17:01:11] [INFO] Moved: main -> misc\main
+[2025-05-23 17:01:11] [INFO] Moved: 62baad5cbe560a3b976ccab6258d855173aa6f -> misc\62baad5cbe560a3b976ccab6258d855173aa6f
+[2025-05-23 17:01:11] [INFO] Moved: bf4f791cde7353bc22f336164e1e218b6467b2 -> misc\bf4f791cde7353bc22f336164e1e218b6467b2
+[2025-05-23 17:01:11] [INFO] Moved: 825dc642cb6eb9a060e54bf8d69288fbee4904 -> misc\825dc642cb6eb9a060e54bf8d69288fbee4904
+[2025-05-23 17:01:11] [INFO] Moved: 673b4d464b7c93221911763b26acddcdc6fd49 -> misc\673b4d464b7c93221911763b26acddcdc6fd49
+[2025-05-23 17:01:11] [INFO] Moved: main -> misc\main
+[2025-05-23 17:01:11] [INFO] Moved: main -> misc\main
+[2025-05-23 17:01:11] [INFO] Moved: rift-docs-build.log -> misc\rift-docs-build.log
+[2025-05-23 17:01:11] [INFO] Moved: rift-docs-build.log -> misc\rift-docs-build.log
+[2025-05-23 17:01:11] [INFO] Moved: README.md -> docs\readme.md
+[2025-05-23 17:01:11] [INFO] Moved: RIFT-Documentation-Build.md -> docs\rift-documentation-build.md
+[2025-05-23 17:01:11] [INFO] Moved: RIFT-Documentation-Build.ps1 -> misc\rift-documentation-build.ps1
+[2025-05-23 17:01:11] [INFO] Moved: rift-docs-build.log -> misc\rift-docs-build.log
+[2025-05-23 17:01:11] [INFO] Moved: RIFTLang Self-Governing Driver & Binding Specification.md -> docs\specification\riftlang self-governing driver & binding specification.md
+[2025-05-23 17:01:11] [INFO] Moved: RIFTLang_Implementation_Specification.pdf -> docs\specification\riftlang_implementation_specification.pdf
+[2025-05-23 17:01:11] [INFO] Moved: formal-languages-grammar-types.md -> research\formal_methods\formal-languages-grammar-types.md
+[2025-05-23 17:01:11] [INFO] Moved: OBINexus_Computing_LibRift (3).pdf -> lib\librift\obinexus_computing_librift (3).pdf
+[2025-05-23 17:01:11] [INFO] Moved: OBINexus_Computing_LibRift (4).pdf -> lib\librift\obinexus_computing_librift (4).pdf
+[2025-05-23 17:01:11] [INFO] Moved: The RIFTers Way - Language Intergirty for Human-Centric Safety-Critcial System.md -> docs\developer\the rifters way - language intergirty for human-centric safety-critcial system.md
+[2025-05-23 17:01:11] [INFO] Moved: The RIFTers Way - Language Intergirty for Human-Centric Safety-Critcial System.pdf -> docs\developer\the rifters way - language intergirty for human-centric safety-critcial system.pdf
+[2025-05-23 17:01:11] [INFO] Moved: README.md -> docs\readme.md
+[2025-05-23 17:01:11] [INFO] Moved: README.md -> docs\readme.md
+[2025-05-23 17:01:11] [INFO] Moved: README.md -> docs\readme.md
+[2025-05-23 17:01:11] [INFO] Moved: README.md -> docs\readme.md
+[2025-05-23 17:01:11] [INFO] Moved: BuilSystem.RIFTers -> misc\builsystem.rifters
+[2025-05-23 17:01:11] [INFO] Moved: README.md -> docs\readme.md
+[2025-05-23 17:01:11] [INFO] Moved: RIFT-Documentation-Build.ps1 -> misc\rift-documentation-build.ps1
+[2025-05-23 17:01:11] [INFO] Moved: RIFTSearch.ps1 -> misc\riftsearch.ps1
+[2025-05-23 17:01:11] [INFO] Moved: Setup.ps1 -> misc\setup.ps1
+[2025-05-23 17:01:11] [INFO] Moved: Update-RiftLangEnvironment-.ps1 -> misc\update-riftlangenvironment-.ps1
+[2025-05-23 17:01:11] [INFO] Moved: Formal Languages and Grammar Types.pdf -> research\formal_methods\formal languages and grammar types.pdf
+[2025-05-23 17:01:11] [INFO] Moved: The_RIFTers_Way_Manifesto.pdf -> docs\developer\the_rifters_way_manifesto.pdf
+[2025-05-23 17:01:11] [INFO] Moved: RIFTLang_Lexer_Specification.md -> docs\specification\riftlang_lexer_specification.md
+[2025-05-23 17:01:11] [INFO] Moved: RIFT-Documentation-Build.md -> docs\rift-documentation-build.md
+[2025-05-23 17:01:11] [INFO] Moved: Building_Belief_Into_Code.md -> docs\building_belief_into_code.md
+[2025-05-23 17:01:11] [INFO] Moved: Building_Belief_Into_Code.pdf -> docs\specification\building_belief_into_code.pdf
+[2025-05-23 17:01:11] [INFO] Moved: Governing Meaning_ The RIFT Architecture of Certainty - Copy.pdf -> docs\specification\governing meaning_ the rift architecture of certainty - copy.pdf
+[2025-05-23 17:01:11] [INFO] Moved: Memory as Governance Contract.md -> governance\memory_contracts\memory as governance contract.md
+[2025-05-23 17:01:11] [INFO] Moved: Memory as Governance Contract.pdf -> governance\memory_contracts\memory as governance contract.pdf
+[2025-05-23 17:01:11] [INFO] Moved: Memory_Self_Role_Mask.md -> docs\memory_self_role_mask.md
+[2025-05-23 17:01:11] [INFO] Moved: Memory_Self_Role_Mask.pdf -> docs\specification\memory_self_role_mask.pdf
+[2025-05-23 17:01:11] [INFO] Moved: rift-governance-model.md -> governance\rift-governance-model.md
+[2025-05-23 17:01:11] [INFO] Moved: RIFTLang Self-Governing Driver & Binding Specification.md -> docs\specification\riftlang self-governing driver & binding specification.md
+[2025-05-23 17:01:11] [INFO] Moved: RIFTLang Self-Governing Driver & Binding Specification.pdf -> docs\specification\riftlang self-governing driver & binding specification.pdf
+[2025-05-23 17:01:11] [INFO] Moved: RIFTLang_Implementation_Specification.pdf -> docs\specification\riftlang_implementation_specification.pdf
+[2025-05-23 17:01:11] [INFO] Moved: RIFTLang_with_Quantum_Governnce.md -> docs\riftlang_with_quantum_governnce.md
+[2025-05-23 17:01:11] [INFO] Moved: RIFTMemory_Alignment.md -> src\memory\riftmemory_alignment.md
+[2025-05-23 17:01:11] [INFO] Moved: RIFTMemory_Alignment.pdf -> src\memory\riftmemory_alignment.pdf
+[2025-05-23 17:01:11] [INFO] Moved: Specification_Classic_and -> docs\specification\specification_classic_and
+[2025-05-23 17:01:11] [INFO] Moved: Technical Documentation - Memory Goveranace in the RIFT Ecosystem.pdf -> docs\specification\technical documentation - memory goveranace in the rift ecosystem.pdf
+[2025-05-23 17:01:11] [INFO] Moved: Contextual Swiichting.md -> docs\contextual swiichting.md
+[2025-05-23 17:01:11] [INFO] Moved: Contextual Swiichting.pdf -> docs\specification\contextual swiichting.pdf
+[2025-05-23 17:01:11] [INFO] Moved: RIFT Token Architecture_ Memory-Type Associations.pdf -> docs\specification\rift token architecture_ memory-type associations.pdf
+[2025-05-23 17:01:11] [INFO] Moved: rift-token-spec.md -> docs\rift-token-spec.md
+[2025-05-23 17:01:11] [INFO] Moved: rifter_ecosystem_whitepaper (8).pdf -> docs\specification\rifter_ecosystem_whitepaper (8).pdf
+[2025-05-23 17:01:11] [INFO] Moved: RIFTLang Token Specification_ Classical and Quantum Governance.pdf -> governance\riftlang token specification_ classical and quantum governance.pdf
+[2025-05-23 17:01:11] [INFO] Moved: RIFTToken_Model.md -> docs\rifttoken_model.md
+[2025-05-23 17:01:11] [INFO] Moved: .gitkeep -> misc\.gitkeep
+[2025-05-23 17:01:11] [INFO] Moved: .riftproject -> misc\.riftproject
+[2025-05-23 17:01:11] [INFO] Moved: README.md -> docs\readme.md

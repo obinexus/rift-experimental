@@ -1,0 +1,57 @@
+[project]
+name = "riftlang_research_poc"
+description = "RIFTlang semantic token architecture proof of concept"
+version = "0.1.0"
+governance_mode = "classical"
+author = "RIFTer Developer"
+
+[memory]
+alignment = "span<row>"
+default_bytes = 4096
+mutable = true
+nil_safety = true
+
+[types]
+pointer_width = 64
+default_signed = true
+endianness = "explicit"
+semantic_validation = "strict"
+
+[languages]
+allowed = ["riftlang", "c", "h"]
+entrypoint = "src/main.rift"
+
+[modules]
+root = "src/"
+include = ["*.rift", "*.c", "*.h"]
+exclude = ["test/", "legacy/", "temp/"]
+
+[policies]
+trust_level = 3
+cryptographic_attestation = true
+enforce_zero_recursion = true
+semantic_fingerprint_required = true
+single_pass_compilation = true
+
+[governance.contracts]
+memory_governance = true
+token_validation = "strict"
+runtime_policy_enforcement = true
+audit_trail = true
+semantic_integrity = true
+
+[tokens]
+architecture = "triplet"  # (token_memory, token_type, token_value)
+validation = "bayesian_dag"
+preservation = "semantic_context"
+
+[compilation]
+mode = "single_pass"
+optimization = "semantic_clarity"
+recursion = "forbidden"
+
+[documentation]
+import_disk = true
+retain_context = true
+token_history_enabled = true
+rifter_way_compliance = true
