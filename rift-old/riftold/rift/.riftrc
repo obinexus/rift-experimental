@@ -1,0 +1,49 @@
+# RIFT x PoLiC Zero Trust Configuration - IMMUTABLE
+# OBINexus Computing - Constitutional Validation Required
+# This file must remain chmod 444 for build system compliance
+
+[trust_root]
+config_signature = "sha256:rift_polic_integration_v2"
+immutable_enforcement = true
+policy_validation_required = true
+dependency_tracking_mandatory = true
+constitutional_compliance = true
+
+[pipeline_stages]
+# RIFT.0 → Lexical stream tokenization + MMD validation
+stage_0_enabled = true
+stage_0_output_format = "token_stream"
+stage_0_mmd_required = true
+stage_0_security_policy = "polic_tokenizer_sandbox"
+
+# RIFT.1 → AST structuring with truth table linkage
+stage_1_enabled = true  
+stage_1_output_format = "abstract_syntax_tree"
+stage_1_truth_table_linkage = true
+stage_1_security_policy = "polic_parser_sandbox"
+
+# Additional stages follow same pattern...
+
+[build_constraints]
+# Enforce MMD dependency tracking per compilation unit
+mmd_dependency_tracking = true
+dependency_file_pattern = "obj/{module_name}/{source_file}.d"
+object_file_extension = ".aobj"
+include_path_prefix = "include/rift"
+library_link_required = "-lrift"
+
+[polic_integration]
+# PoLiC security framework configuration
+polic_enabled = true
+sandbox_enforcement = true
+vm_hooks_enabled = true
+stack_protection = true
+policy_decorators = true
+inline_policy_injection = true
+
+[governance]
+# OBINexus governance compliance
+milestone_based_investment = true
+no_ghosting_policy = true
+session_continuity_required = true
+waterfall_methodology = true

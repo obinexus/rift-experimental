@@ -1,0 +1,3 @@
+[0;31m[ERROR][0m No object files found for library creation
+[0;31m[ERROR][0m Bootstrap failed with exit code: 1
+[0;31m[ERROR][0m Check logs in rift/logs/error.out for details
