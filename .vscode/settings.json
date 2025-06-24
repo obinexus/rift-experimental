@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "rift_tokenizer.h": "c",
+        "string.h": "c",
+        "tokenizer.h": "c",
+        "types.h": "c",
+        "tokenizer_rules.h": "c",
+        "stdlib.h": "c"
+    }
+}

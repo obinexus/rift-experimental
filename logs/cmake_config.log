@@ -1,0 +1,130 @@
+-- The C compiler identification is GNU 12.2.0
+-- The CXX compiler identification is GNU 12.2.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.15")  
+-- pkg-config found: /usr/bin/pkg-config
+-- pkg-config version: 1.8.1
+-- AEGIS: pkg-config integration enabled
+-- RIFT Stage 0: pkg-config configured (tokenizer)
+[31mCMake Error at cmake/common/compiler_pipeline.cmake:58 (add_custom_command):
+  No TARGET 'rift-0_static_static' has been created in this directory.
+Call Stack (most recent call first):
+  CMakeLists.txt:145 (add_rift_validation)
+  CMakeLists.txt:260 (add_rift_stage_with_pkgconfig)
+
+[0m
+-- AEGIS: Stage 0 (tokenizer) configured with pkg-config
+-- RIFT Stage 1: pkg-config configured (parser)
+[31mCMake Error at cmake/common/compiler_pipeline.cmake:58 (add_custom_command):
+  No TARGET 'rift-1_static_static' has been created in this directory.
+Call Stack (most recent call first):
+  CMakeLists.txt:145 (add_rift_validation)
+  CMakeLists.txt:261 (add_rift_stage_with_pkgconfig)
+
+[0m
+-- AEGIS: Stage 1 (parser) configured with pkg-config
+-- RIFT Stage 2: pkg-config configured (semantic)
+[31mCMake Error at cmake/common/compiler_pipeline.cmake:58 (add_custom_command):
+  No TARGET 'rift-2_static_static' has been created in this directory.
+Call Stack (most recent call first):
+  CMakeLists.txt:145 (add_rift_validation)
+  CMakeLists.txt:262 (add_rift_stage_with_pkgconfig)
+
+[0m
+-- AEGIS: Stage 2 (semantic) configured with pkg-config
+-- RIFT Stage 3: pkg-config configured (validator)
+[31mCMake Error at cmake/common/compiler_pipeline.cmake:58 (add_custom_command):
+  No TARGET 'rift-3_static_static' has been created in this directory.
+Call Stack (most recent call first):
+  CMakeLists.txt:145 (add_rift_validation)
+  CMakeLists.txt:263 (add_rift_stage_with_pkgconfig)
+
+[0m
+-- AEGIS: Stage 3 (validator) configured with pkg-config
+-- RIFT Stage 4: pkg-config configured (bytecode)
+[31mCMake Error at cmake/common/compiler_pipeline.cmake:58 (add_custom_command):
+  No TARGET 'rift-4_static_static' has been created in this directory.
+Call Stack (most recent call first):
+  CMakeLists.txt:145 (add_rift_validation)
+  CMakeLists.txt:264 (add_rift_stage_with_pkgconfig)
+
+[0m
+-- AEGIS: Stage 4 (bytecode) configured with pkg-config
+-- RIFT Stage 5: pkg-config configured (verifier)
+[31mCMake Error at cmake/common/compiler_pipeline.cmake:58 (add_custom_command):
+  No TARGET 'rift-5_static_static' has been created in this directory.
+Call Stack (most recent call first):
+  CMakeLists.txt:145 (add_rift_validation)
+  CMakeLists.txt:265 (add_rift_stage_with_pkgconfig)
+
+[0m
+-- AEGIS: Stage 5 (verifier) configured with pkg-config
+-- RIFT Stage 6: pkg-config configured (emitter)
+[31mCMake Error at cmake/common/compiler_pipeline.cmake:58 (add_custom_command):
+  No TARGET 'rift-6_static_static' has been created in this directory.
+Call Stack (most recent call first):
+  CMakeLists.txt:145 (add_rift_validation)
+  CMakeLists.txt:266 (add_rift_stage_with_pkgconfig)
+
+[0m
+-- AEGIS: Stage 6 (emitter) configured with pkg-config
+-- AEGIS: Generated wrapper executable for stage 0
+-- AEGIS: Generated wrapper executable for stage 1
+-- AEGIS: Generated wrapper executable for stage 2
+-- AEGIS: Generated wrapper executable for stage 3
+-- AEGIS: Generated wrapper executable for stage 4
+-- AEGIS: Generated wrapper executable for stage 5
+-- AEGIS: Generated wrapper executable for stage 6
+-- AEGIS: Unified RIFT CLI configured
+-- RIFT Stage 0: pkg-config configured (tokenizer)
+-- RIFT Stage 1: pkg-config configured (parser)
+-- RIFT Stage 2: pkg-config configured (semantic)
+-- RIFT Stage 3: pkg-config configured (validator)
+-- RIFT Stage 4: pkg-config configured (bytecode)
+-- RIFT Stage 5: pkg-config configured (verifier)
+-- RIFT Stage 6: pkg-config configured (emitter)
+-- AEGIS Compliance: All RIFT stage pkg-config files configured
+-- AEGIS: pkg-config targets configured
+-- Test framework initialized
+-- Found Doxygen: /usr/bin/doxygen (found version "1.9.4") found components: doxygen dot 
+[31mCMake Error at CMakeLists.txt:381 (add_subdirectory):
+  The source directory
+
+    /mnt/c/Users/OBINexus/Projects/github/rift/docs
+
+  does not contain a CMakeLists.txt file.
+
+[0m
+[0mCMake Error: File /mnt/c/Users/OBINexus/Projects/github/rift/cmake/RiftConfig.cmake.in does not exist.[0m
+[31mCMake Error at /usr/share/cmake-3.25/Modules/CMakePackageConfigHelpers.cmake:342 (configure_file):
+  configure_file Problem configuring file
+Call Stack (most recent call first):
+  CMakeLists.txt:404 (configure_package_config_file)
+
+[0m
+-- 
+-- RIFT Configuration Summary:
+-- ==========================
+-- Version: 1.0.0
+-- Platform: linux
+-- Build Type: 
+-- AEGIS Compliance: ON
+-- pkg-config Support: ON
+-- Build Tests: ON
+-- Build Documentation: ON
+-- Install Prefix: /usr/local
+-- 
+-- Configuring incomplete, errors occurred!
+See also "/mnt/c/Users/OBINexus/Projects/github/rift/build/CMakeFiles/CMakeOutput.log".

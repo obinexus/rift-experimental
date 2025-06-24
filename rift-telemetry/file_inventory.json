@@ -1,0 +1,22 @@
+{
+  "rift_project": "RIFT-Core",
+  "rift_version": "2.1.0-core",
+  "generated": "2025-06-22T15:50:27+01:00",
+  "rift_uuid": "rift-1750603827-2405",
+  "rift_core_enabled": true,
+  "files": {
+    "rift_core_sources": [
+"/mnt/c/Users/OBINexus/Projects/github/rift/rift-core/src/rift-core/core.c"
+    ],
+    "rift_core_headers": [
+"/mnt/c/Users/OBINexus/Projects/github/rift/rift-core/include/rift-core/audit.h","/mnt/c/Users/OBINexus/Projects/github/rift/rift-core/include/rift-core/core.h"
+    ]
+  },
+  "rift_governance": {
+    "schema_version": "2.1",
+    "audit_streams": ["audit-0", "audit-1", "audit-2"],
+    "color_governance": "native_rift",
+    "yoda_style_enforced": true,
+    "null_nil_semantics": true
+  }
+}

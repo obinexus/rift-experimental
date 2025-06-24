@@ -1,0 +1,18 @@
+{
+  "rift_validation_timestamp": "2025-06-22T15:50:27+01:00",
+  "rift_version": "2.1.0-core",
+  "technical_lead": "Nnamdi Michael Okpala",
+  "validation_results": {
+    "directory_validation": {
+      "rift-core": {"status": "exists"},
+[0;32m[RIFT-SUCCESS][0m 2025-06-22 15:50:27 Validated: rift-core
+      "rift-core/include/rift-core": {"status": "exists"},
+[0;32m[RIFT-SUCCESS][0m 2025-06-22 15:50:27 Validated: rift-core/include/rift-core
+      "rift-core/src/rift-core": {"status": "exists"},
+[0;32m[RIFT-SUCCESS][0m 2025-06-22 15:50:27 Validated: rift-core/src/rift-core
+      "rift-core/config": {"status": "exists"},
+[0;32m[RIFT-SUCCESS][0m 2025-06-22 15:50:27 Validated: rift-core/config
+      "rift-audit": {"status": "exists"},
+[0;32m[RIFT-SUCCESS][0m 2025-06-22 15:50:27 Validated: rift-audit
+      "rift-telemetry": {"status": "exists"},
+[0;32m[RIFT-SUCCESS][0m 2025-06-22 15:50:27 Validated: rift-telemetry

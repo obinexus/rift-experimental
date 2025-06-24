@@ -1,0 +1,31 @@
+# RIFT Stage 1 Governance Configuration
+# Schema Version: 2.1
+
+[rift.general]
+stage = 1
+version = 2.1.0-core
+technical_lead = Nnamdi Michael Okpala
+
+[rift.validation]
+yoda_style = required
+null_nil_semantics = enforce
+thread_lifecycle = validate
+parity_elimination = enable
+
+[rift.audit]
+audit_1_stdin = true
+audit_1_stderr = true
+audit_1_stdout = true
+state_hash = required
+
+[rift.telemetry]
+stage_1_tracing = enable
+rift_guid_generation = required
+rift_uuid_generation = required
+rift_crypto_hash = sha256
+rift_prng_seed = time_based
+
+[rift.color_governance]
+native_colors = true
+critical_halt = true
+exception_escalation = true

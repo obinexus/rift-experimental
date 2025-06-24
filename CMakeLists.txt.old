@@ -1,0 +1,435 @@
+# =================================================================
+# RIFT Integrated CMake Configuration with pkg-config Support
+# OBINexus Computing Framework - AEGIS Methodology Integration
+# Technical Lead: Nnamdi Michael Okpala
+# =================================================================
+
+cmake_minimum_required(VERSION 3.12)
+project(RIFT VERSION 1.0.0 LANGUAGES C CXX)
+
+# AEGIS Compliance Configuration
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+# RIFT Project Configuration
+set(RIFT_VERSION_MAJOR 1)
+set(RIFT_VERSION_MINOR 0)
+set(RIFT_VERSION_PATCH 0)
+set(RIFT_VERSION_STRING "${RIFT_VERSION_MAJOR}.${RIFT_VERSION_MINOR}.${RIFT_VERSION_PATCH}")
+
+# Build Configuration Options
+option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
+option(BUILD_TESTS "Build test suite" ON)
+option(BUILD_DOCS "Build documentation" ON)
+option(ENABLE_AEGIS_VALIDATION "Enable AEGIS compliance checking" ON)
+option(ENABLE_PKG_CONFIG "Enable pkg-config integration" ON)
+
+# Platform Detection for Cross-Platform Support
+if(WIN32)
+    set(CMAKE_SYSTEM_NAME Windows)
+    set(RIFT_PLATFORM "windows")
+elseif(UNIX AND NOT APPLE)
+    set(RIFT_PLATFORM "linux")
+elseif(APPLE)
+    set(RIFT_PLATFORM "macos")
+endif()
+
+# AEGIS Compliance Flags
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Wpedantic")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fstack-protector-strong -D_FORTIFY_SOURCE=2")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DRIFT_AEGIS_COMPLIANCE=1 -DRIFT_ZERO_TRUST=1")
+
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -O0 -DDEBUG")
+else()
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O2 -DNDEBUG")
+endif()
+
+# Include Directories Configuration
+include_directories(
+    ${CMAKE_SOURCE_DIR}/include
+    ${CMAKE_SOURCE_DIR}/rift/include
+)
+
+# Find Required Dependencies
+find_package(Threads REQUIRED)
+find_package(OpenSSL REQUIRED)
+
+# pkg-config Integration Module
+if(ENABLE_PKG_CONFIG)
+    include(${CMAKE_SOURCE_DIR}/rift/pkgconfig/templates/PkgConfigIntegration.cmake)
+    
+    # Validate pkg-config availability
+    validate_pkgconfig_installation()
+    
+    message(STATUS "AEGIS: pkg-config integration enabled")
+endif()
+
+# Include Common Build Pipeline
+include(${CMAKE_SOURCE_DIR}/cmake/common/compiler_pipeline.cmake)
+
+# Enhanced RIFT Stage Macro with pkg-config Integration
+macro(add_rift_stage_with_pkgconfig STAGE_ID STAGE_NAME COMPONENT_NAME)
+    set(STAGE_DIR "rift-${STAGE_ID}")
+    set(STAGE_LIB_NAME "rift-${STAGE_ID}_static")
+    
+    # Collect source files
+    file(GLOB_RECURSE STAGE_SOURCES 
+        "${CMAKE_SOURCE_DIR}/${STAGE_DIR}/src/core/*.c"
+        "${CMAKE_SOURCE_DIR}/rift/src/core/stage-${STAGE_ID}/*.c"
+    )
+    
+    file(GLOB_RECURSE STAGE_HEADERS
+        "${CMAKE_SOURCE_DIR}/${STAGE_DIR}/include/*.h"
+        "${CMAKE_SOURCE_DIR}/rift/include/rift/core/stage-${STAGE_ID}/*.h"
+    )
+    
+    # Create static library if sources exist
+    if(STAGE_SOURCES)
+        add_library(${STAGE_LIB_NAME} STATIC ${STAGE_SOURCES})
+        
+        # Target configuration
+        target_include_directories(${STAGE_LIB_NAME} PUBLIC
+            $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/${STAGE_DIR}/include>
+            $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/rift/include>
+            $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
+            $<INSTALL_INTERFACE:include/rift/core/stage-${STAGE_ID}>
+        )
+        
+        # Link dependencies
+        target_link_libraries(${STAGE_LIB_NAME} 
+            PUBLIC Threads::Threads
+            PRIVATE OpenSSL::SSL OpenSSL::Crypto
+        )
+        
+        # AEGIS Compliance Definitions
+        target_compile_definitions(${STAGE_LIB_NAME} PUBLIC
+            RIFT_STAGE_${STAGE_ID}_ENABLED=1
+            RIFT_STAGE_NAME="${STAGE_NAME}"
+            AEGIS_COMPLIANCE_ENABLED=1
+        )
+        
+        # Set output properties
+        set_target_properties(${STAGE_LIB_NAME} PROPERTIES
+            OUTPUT_NAME "rift-${STAGE_ID}"
+            ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
+            POSITION_INDEPENDENT_CODE ON
+            VERSION ${RIFT_VERSION_STRING}
+        )
+        
+        # Install library
+        install(TARGETS ${STAGE_LIB_NAME}
+            EXPORT RiftStage${STAGE_ID}Targets
+            ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+            LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+            RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+            COMPONENT stage_libraries
+        )
+        
+        # Install headers
+        if(STAGE_HEADERS)
+            install(FILES ${STAGE_HEADERS}
+                DESTINATION include/rift/core/stage-${STAGE_ID}
+                COMPONENT development
+            )
+        endif()
+        
+        # pkg-config Integration
+        if(ENABLE_PKG_CONFIG)
+            configure_rift_stage_pkgconfig(${STAGE_ID} ${STAGE_NAME})
+        endif()
+        
+        # AEGIS Validation
+        if(ENABLE_AEGIS_VALIDATION)
+            add_rift_validation(${STAGE_LIB_NAME})
+        endif()
+        
+        message(STATUS "AEGIS: Stage ${STAGE_ID} (${STAGE_NAME}) configured with pkg-config")
+    else()
+        message(WARNING "AEGIS: No source files found for stage ${STAGE_ID}")
+    endif()
+endmacro()
+
+# Enhanced Executable Generation with pkg-config Linkage
+macro(create_rift_stage_executable STAGE_ID STAGE_NAME)
+    set(STAGE_DIR "rift-${STAGE_ID}")
+    set(EXECUTABLE_NAME "rift-${STAGE_ID}")
+    set(STAGE_LIB_NAME "rift-${STAGE_ID}_static")
+    
+    # Look for CLI source files
+    file(GLOB STAGE_CLI_SOURCES 
+        "${CMAKE_SOURCE_DIR}/${STAGE_DIR}/src/cli/*.c"
+        "${CMAKE_SOURCE_DIR}/rift/src/cli/stage-${STAGE_ID}/*.c"
+    )
+    
+    if(STAGE_CLI_SOURCES)
+        # Create executable target
+        add_executable(${EXECUTABLE_NAME} ${STAGE_CLI_SOURCES})
+        
+        # Link against stage static library
+        target_link_libraries(${EXECUTABLE_NAME} 
+            PRIVATE ${STAGE_LIB_NAME}
+            PRIVATE Threads::Threads
+            PRIVATE OpenSSL::SSL OpenSSL::Crypto
+        )
+        
+        # Include directories
+        target_include_directories(${EXECUTABLE_NAME} 
+            PRIVATE ${CMAKE_SOURCE_DIR}/${STAGE_DIR}/include
+            PRIVATE ${CMAKE_SOURCE_DIR}/rift/include
+            PRIVATE ${CMAKE_SOURCE_DIR}/include
+        )
+        
+        # AEGIS compliance flags
+        target_compile_definitions(${EXECUTABLE_NAME} PRIVATE
+            RIFT_STAGE=${STAGE_ID}
+            RIFT_STAGE_NAME="${STAGE_NAME}"
+            RIFT_AEGIS_COMPLIANCE=1
+            RIFT_VERSION_STRING="${RIFT_VERSION_STRING}"
+        )
+        
+        # Set output directory and properties
+        set_target_properties(${EXECUTABLE_NAME} PROPERTIES
+            RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+            OUTPUT_NAME "rift-${STAGE_ID}"
+        )
+        
+        # Windows-specific extension
+        if(WIN32)
+            set_target_properties(${EXECUTABLE_NAME} PROPERTIES
+                SUFFIX ".exe"
+            )
+        endif()
+        
+        # Install executable
+        install(TARGETS ${EXECUTABLE_NAME}
+            RUNTIME DESTINATION bin
+            COMPONENT stage_executables
+        )
+        
+        message(STATUS "AEGIS: Executable ${EXECUTABLE_NAME} configured for ${STAGE_NAME}")
+    else()
+        # Generate minimal CLI wrapper
+        set(WRAPPER_SOURCE "${CMAKE_BINARY_DIR}/generated/${STAGE_DIR}_cli.c")
+        file(MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/generated")
+        
+        # Create wrapper source
+        file(WRITE "${WRAPPER_SOURCE}" "
+/*
+ * RIFT Stage ${STAGE_ID} CLI Wrapper - Auto-generated
+ * AEGIS Compliant Implementation
+ */
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char* argv[]) {
+    printf(\"RIFT Stage ${STAGE_ID} (${STAGE_NAME})\\n\");
+    printf(\"AEGIS Compliance: Enabled\\n\");
+    printf(\"Version: ${RIFT_VERSION_STRING}\\n\");
+    
+    if (argc > 1) {
+        printf(\"Processing input: %s\\n\", argv[1]);
+        // TODO: Implement stage-specific processing
+    } else {
+        printf(\"Usage: %s <input>\\n\", argv[0]);
+        return 1;
+    }
+    
+    return 0;
+}
+")
+        
+        add_executable(${EXECUTABLE_NAME} ${WRAPPER_SOURCE})
+        target_link_libraries(${EXECUTABLE_NAME} PRIVATE ${STAGE_LIB_NAME})
+        
+        set_target_properties(${EXECUTABLE_NAME} PROPERTIES
+            RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+        )
+        
+        install(TARGETS ${EXECUTABLE_NAME}
+            RUNTIME DESTINATION bin
+            COMPONENT stage_executables
+        )
+        
+        message(STATUS "AEGIS: Generated wrapper executable for stage ${STAGE_ID}")
+    endif()
+endmacro()
+
+# Configure All RIFT Stages
+add_rift_stage_with_pkgconfig(0 "tokenizer" "Tokenizer")
+add_rift_stage_with_pkgconfig(1 "parser" "Parser")
+add_rift_stage_with_pkgconfig(2 "semantic" "Semantic_Analyzer")
+add_rift_stage_with_pkgconfig(3 "validator" "Validator")
+add_rift_stage_with_pkgconfig(4 "bytecode" "Bytecode_Generator")
+add_rift_stage_with_pkgconfig(5 "verifier" "Verifier")
+add_rift_stage_with_pkgconfig(6 "emitter" "Emitter")
+
+# Create Stage Executables
+create_rift_stage_executable(0 "Tokenizer")
+create_rift_stage_executable(1 "Parser")
+create_rift_stage_executable(2 "Semantic Analyzer")
+create_rift_stage_executable(3 "Validator")
+create_rift_stage_executable(4 "Bytecode Generator")
+create_rift_stage_executable(5 "Verifier")
+create_rift_stage_executable(6 "Emitter")
+
+# Unified RIFT CLI Application
+file(GLOB RIFT_CLI_SOURCES 
+    "${CMAKE_SOURCE_DIR}/rift/src/cli/*.c"
+    "${CMAKE_SOURCE_DIR}/rift/src/commands/*.c"
+    "${CMAKE_SOURCE_DIR}/rift/src/governance/*.c"
+)
+
+if(RIFT_CLI_SOURCES)
+    add_executable(rift ${RIFT_CLI_SOURCES})
+    
+    # Link all stage libraries
+    target_link_libraries(rift PRIVATE
+        rift-0_static rift-1_static rift-2_static rift-3_static
+        rift-4_static rift-5_static rift-6_static
+        Threads::Threads OpenSSL::SSL OpenSSL::Crypto
+    )
+    
+    target_include_directories(rift PRIVATE
+        ${CMAKE_SOURCE_DIR}/rift/include
+        ${CMAKE_SOURCE_DIR}/include
+    )
+    
+    set_target_properties(rift PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+    )
+    
+    install(TARGETS rift
+        RUNTIME DESTINATION bin
+        COMPONENT unified_cli
+    )
+    
+    message(STATUS "AEGIS: Unified RIFT CLI configured")
+endif()
+
+# pkg-config Post-Configuration
+if(ENABLE_PKG_CONFIG)
+    # Configure all RIFT stages for pkg-config
+    configure_all_rift_stages()
+    
+    # Set PKG_CONFIG_PATH for development
+    set(ENV{PKG_CONFIG_PATH} "${CMAKE_BINARY_DIR}/pkgconfig:$ENV{PKG_CONFIG_PATH}")
+    
+    # Create pkg-config validation target
+    add_custom_target(validate-pkgconfig
+        COMMAND ${CMAKE_COMMAND} -E echo "Validating RIFT pkg-config installation..."
+        COMMAND ${CMAKE_SOURCE_DIR}/rift/pkgconfig/validate-pkgconfig.sh
+        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+        COMMENT "AEGIS pkg-config validation"
+        VERBATIM
+    )
+    
+    # Create pkg-config installation target
+    add_custom_target(install-pkgconfig
+        COMMAND ${CMAKE_COMMAND} -E echo "Installing pkg-config files..."
+        COMMAND ${CMAKE_COMMAND} --build . --target install --component Development
+        DEPENDS validate-pkgconfig
+        COMMENT "Installing RIFT pkg-config files"
+    )
+    
+    message(STATUS "AEGIS: pkg-config targets configured")
+endif()
+
+# Demo Pipeline Target
+add_custom_target(demo_pipeline
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        "${CMAKE_SOURCE_DIR}/demo_pipeline_standardized.sh"
+        "${CMAKE_BINARY_DIR}/demo_pipeline.sh"
+    COMMAND chmod +x "${CMAKE_BINARY_DIR}/demo_pipeline.sh"
+    DEPENDS rift-0 rift-1 rift-2 rift-3 rift-4 rift-5 rift-6
+    COMMENT "AEGIS-compliant demo pipeline preparation"
+)
+
+# Comprehensive Validation Target
+add_custom_target(validate_all
+    COMMAND ${CMAKE_COMMAND} -E echo "Running comprehensive AEGIS validation..."
+    COMMAND test -f "${CMAKE_BINARY_DIR}/bin/rift-0"
+    COMMAND test -f "${CMAKE_BINARY_DIR}/bin/rift-1"
+    COMMAND test -f "${CMAKE_BINARY_DIR}/bin/rift-2"
+    COMMAND test -f "${CMAKE_BINARY_DIR}/bin/rift-3"
+    COMMAND test -f "${CMAKE_BINARY_DIR}/bin/rift-4"
+    COMMAND test -f "${CMAKE_BINARY_DIR}/bin/rift-5"
+    COMMAND test -f "${CMAKE_BINARY_DIR}/bin/rift-6"
+    COMMAND test -f "${CMAKE_BINARY_DIR}/lib/librift-0.a"
+    COMMAND test -f "${CMAKE_BINARY_DIR}/lib/librift-1.a"
+    COMMAND test -f "${CMAKE_BINARY_DIR}/lib/librift-2.a"
+    COMMAND test -f "${CMAKE_BINARY_DIR}/lib/librift-3.a"
+    COMMAND test -f "${CMAKE_BINARY_DIR}/lib/librift-4.a"
+    COMMAND test -f "${CMAKE_BINARY_DIR}/lib/librift-5.a"
+    COMMAND test -f "${CMAKE_BINARY_DIR}/lib/librift-6.a"
+    COMMAND ${CMAKE_COMMAND} -E echo "✅ All AEGIS validation checks passed"
+    DEPENDS demo_pipeline
+    COMMENT "AEGIS comprehensive validation"
+)
+
+# Testing Configuration
+if(BUILD_TESTS)
+    enable_testing()
+    add_subdirectory(tests)
+endif()
+
+# Documentation Configuration
+if(BUILD_DOCS)
+    find_package(Doxygen)
+    if(DOXYGEN_FOUND)
+        add_subdirectory(docs)
+    endif()
+endif()
+
+# Installation Configuration
+include(GNUInstallDirs)
+
+# Install include directories
+install(DIRECTORY include/
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+    COMPONENT development
+    FILES_MATCHING PATTERN "*.h"
+)
+
+install(DIRECTORY rift/include/
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+    COMPONENT development
+    FILES_MATCHING PATTERN "*.h"
+)
+
+# Create package configuration
+include(CMakePackageConfigHelpers)
+
+configure_package_config_file(
+    "${CMAKE_SOURCE_DIR}/cmake/RiftConfig.cmake.in"
+    "${CMAKE_BINARY_DIR}/RiftConfig.cmake"
+    INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/Rift
+)
+
+write_basic_package_version_file(
+    "${CMAKE_BINARY_DIR}/RiftConfigVersion.cmake"
+    VERSION ${RIFT_VERSION_STRING}
+    COMPATIBILITY SameMajorVersion
+)
+
+install(FILES
+    "${CMAKE_BINARY_DIR}/RiftConfig.cmake"
+    "${CMAKE_BINARY_DIR}/RiftConfigVersion.cmake"
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/Rift
+    COMPONENT development
+)
+
+# Summary Information
+message(STATUS "")
+message(STATUS "RIFT Configuration Summary:")
+message(STATUS "==========================")
+message(STATUS "Version: ${RIFT_VERSION_STRING}")
+message(STATUS "Platform: ${RIFT_PLATFORM}")
+message(STATUS "Build Type: ${CMAKE_BUILD_TYPE}")
+message(STATUS "AEGIS Compliance: ${ENABLE_AEGIS_VALIDATION}")
+message(STATUS "pkg-config Support: ${ENABLE_PKG_CONFIG}")
+message(STATUS "Build Tests: ${BUILD_TESTS}")
+message(STATUS "Build Documentation: ${BUILD_DOCS}")
+message(STATUS "Install Prefix: ${CMAKE_INSTALL_PREFIX}")
+message(STATUS "")

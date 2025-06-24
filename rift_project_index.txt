@@ -1,0 +1,87 @@
+# RIFT Project File Index
+# Generated: Sun Jun 22 03:50:26 PM BST 2025
+# Version: 2.1.0-core
+# Technical Lead: Nnamdi Michael Okpala
+
+## RIFT-Core Infrastructure Files
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-core/include/rift-core/audit.h
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-core/include/rift-core/core.h
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-core/src/rift-core/core.c
+
+## RIFT Stage Files
+### RIFT Stage 0
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-0/examples/csv_example.c
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-0/examples/lexem-calculation-demo.c
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-0/include/rift-0/cli/cli_interface.h
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-0/include/rift-0/core/rift_tokenizer.h
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-0/include/rift-0/core/tokenizer.h
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-0/include/rift-0/core/tokenizer_rules.h
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-0/include/rift-0/core/tokenizer_types.h
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-0/src/cli/main.c
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-0/src/core/rift_tokenizer.c
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-0/src/core/tokenizer.c
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-0/src/core/tokenizer_rules.c
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-0/src/core/tokenizer_utilities.c
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-0/tests/unit/test_policy2_matrix.c
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-0/tests/unit/test_tokenizer.c
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-0/tests/unit/test_tokenizer_validation.c
+### RIFT Stage 1
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-1/include/rift-1/core/parser.h
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-1/src/core/parser.c
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-1/tests/unit/test_parser.c
+### RIFT Stage 2
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-2/include/rift-2/core/semantic.h
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-2/src/core/semantic.c
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-2/tests/unit/test_semantic.c
+### RIFT Stage 3
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-3/include/rift-3/core/validator.h
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-3/src/core/validator.c
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-3/tests/unit/test_validator.c
+### RIFT Stage 4
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-4/include/rift-4/core/bytecode.h
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-4/src/core/bytecode.c
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-4/tests/unit/test_bytecode.c
+### RIFT Stage 5
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-5/include/rift-5/core/verifier.h
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-5/src/core/verifier.c
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-5/tests/unit/test_verifier.c
+### RIFT Stage 6
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-6/include/rift-6/core/emitter.h
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-6/src/core/emitter.c
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-6/tests/unit/test_emitter.c
+
+## RIFT Configuration Files
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-core/config/governance.json
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-core/config/gov.riftrc.0
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-core/config/gov.riftrc.1
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-core/config/gov.riftrc.2
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-core/config/gov.riftrc.3
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-core/config/gov.riftrc.4
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-core/config/gov.riftrc.5
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-core/config/gov.riftrc.6
+
+## RIFT CMake Files
+/mnt/c/Users/OBINexus/Projects/github/rift/CMakeLists.txt
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-0/CMakeLists.txt
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-1/CMakeLists.txt
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-2/CMakeLists.txt
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-3/CMakeLists.txt
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-4/CMakeLists.txt
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-5/CMakeLists.txt
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-6/CMakeLists.txt
+/mnt/c/Users/OBINexus/Projects/github/rift/rift/CMakeLists.txt
+/mnt/c/Users/OBINexus/Projects/github/rift/rift-core/CMakeLists.txt
+/mnt/c/Users/OBINexus/Projects/github/rift/rift/rift-0/CMakeLists.txt
+/mnt/c/Users/OBINexus/Projects/github/rift/rift/rift-1/CMakeLists.txt
+/mnt/c/Users/OBINexus/Projects/github/rift/rift/rift-2/CMakeLists.txt
+/mnt/c/Users/OBINexus/Projects/github/rift/rift/rift-3/CMakeLists.txt
+/mnt/c/Users/OBINexus/Projects/github/rift/rift/rift-4/CMakeLists.txt
+/mnt/c/Users/OBINexus/Projects/github/rift/rift/rift-5/CMakeLists.txt
+/mnt/c/Users/OBINexus/Projects/github/rift/rift/rift-6/CMakeLists.txt
+/mnt/c/Users/OBINexus/Projects/github/rift/src/cli/CMakeLists.txt
+/mnt/c/Users/OBINexus/Projects/github/rift/src/config/CMakeLists.txt
+/mnt/c/Users/OBINexus/Projects/github/rift/src/core/CMakeLists.txt
+/mnt/c/Users/OBINexus/Projects/github/rift/tests/CMakeLists.txt
+/mnt/c/Users/OBINexus/Projects/github/rift/tools/ad-hoc/CMakeLists.txt
+/mnt/c/Users/OBINexus/Projects/github/rift/tools/ad-hoc/rift-core/CMakeLists.txt
+/mnt/c/Users/OBINexus/Projects/github/rift/tools/ad-hoc/rift-core/tests/CMakeLists.txt

@@ -1,0 +1,38 @@
+# RIFT Stage 6 Configuration
+# Component: emitter
+# Generated: 1750603948
+
+[stage]
+number = 6
+component = "emitter"
+max_stages = 6
+
+[memory]
+# Token type/value separation for SSA compliance
+enforce_separation = true
+bitfield_validation = true
+thread_safe_encoding = true
+
+[tokenizer]
+# DFA-based tokenization settings
+dfa_enabled = true
+r_pattern_support = true
+null_nil_semantics = "context_sensitive"
+
+[compilation]
+# Deterministic build settings
+timestamp = 1750603948
+reproducible = true
+dependency_tracking = true
+
+[governance]
+# Stage progression validation
+entry_validation = true
+exit_validation = true
+type_safety_check = true
+architecture_compliance = true
+
+[paths]
+obj_dir = "obj/rift-6"
+lib_dir = "lib/rift-6"
+include_dir = "include/rift-6"

@@ -1,0 +1,167 @@
+..
+├── rift
+│   ├── docs
+│   │   ├── feature-adt
+│   │   ├── feature-cli
+│   │   ├── feature-core
+│   │   ├── feature-lexer
+│   │   ├── feature-security
+│   │   └── feature-tokenizer
+│   ├── include
+│   │   └── rift
+│   │       ├── cli
+│   │       ├── core
+│   │       │   ├── polic_config.h
+│   │       │   └── polic.h
+│   │       ├── lexer
+│   │       ├── tokenizer
+│   │       ├── token_type
+│   │       └── token_value
+│   ├── lib
+│   ├── logs
+│   │   └── error.out
+│   ├── obj
+│   │   ├── cli
+│   │   ├── command
+│   │   ├── core
+│   │   ├── lexer
+│   │   ├── tokenizer
+│   │   ├── token_type
+│   │   └── token_value
+│   ├── scripts
+│   │   ├── deployment
+│   │   └── validation
+│   ├── security
+│   │   └── polic
+│   ├── src
+│   │   ├── cli
+│   │   │   └── command
+│   │   └── core
+│   │       ├── lexer
+│   │       ├── tokenizer
+│   │       ├── token_type
+│   │       └── token_value
+│   └── tests
+│       ├── integration
+│       └── unit
+└── scripts
+    ├── bash_syntax_fix.sh
+    ├── bootstrap
+    │   └── rift-bootstrap.sh
+    ├── bootstraped_15june.sh
+    ├── bootstrap_execution_20250618_225703.log
+    ├── bootstrap_execution_20250618_230211.log
+    ├── bootstrap_execution_20250618_230306.log
+    ├── bootstrap_execution_20250618_230755.log
+    ├── bootstrap_execution_20250618_231719.log
+    ├── bootstrap_extension_framework.sh
+    ├── bootstrap.sh
+    ├── build
+    │   └── build-all.sh
+    ├── components
+    │   └── rift-artifacts.sh
+    ├── deployment
+    │   └── deploy.sh
+    ├── examples
+    │   ├── rift-dual
+    │   │   ├── rift_input_parser_fix
+    │   │   └── rift_input_parser_fix.c
+    │   ├── rift-n
+    │   └── riftrc
+    │       ├── README.md
+    │       ├── rift_integrated_pipeline
+    │       └── rift_integrated_pipeline.c
+    ├── final_setup.txt
+    ├── generate-samples.sh
+    ├── locks
+    ├── qa
+    │   ├── compliance-check.sh
+    │   ├── tdd-runner.sh
+    │   └── validate-pipeline.sh
+    ├── rift
+    │   ├── bin
+    │   ├── docs
+    │   ├── include
+    │   │   └── rift
+    │   │       ├── cli
+    │   │       │   └── cli.h
+    │   │       ├── command
+    │   │       │   └── command.h
+    │   │       ├── core
+    │   │       │   ├── core.h
+    │   │       │   ├── polic_config.h
+    │   │       │   └── polic.h
+    │   │       ├── lexer
+    │   │       │   └── lexer.h
+    │   │       ├── tokenizer
+    │   │       │   └── tokenizer.h
+    │   │       ├── token_type
+    │   │       │   └── token_type.h
+    │   │       └── token_value
+    │   │           └── token_value.h
+    │   ├── lib
+    │   ├── logs
+    │   ├── Makefile
+    │   ├── obj
+    │   │   ├── cli
+    │   │   │   └── cli.d
+    │   │   ├── command
+    │   │   │   └── command.d
+    │   │   ├── core
+    │   │   │   └── core.d
+    │   │   ├── lexer
+    │   │   │   └── lexer.d
+    │   │   ├── tokenizer
+    │   │   │   └── tokenizer.d
+    │   │   ├── token_type
+    │   │   │   └── token_type.d
+    │   │   └── token_value
+    │   │       └── token_value.d
+    │   ├── scripts
+    │   │   └── validation
+    │   │       └── validate-architecture.sh
+    │   ├── security
+    │   │   └── polic
+    │   ├── src
+    │   │   ├── cli
+    │   │   │   └── cli.c
+    │   │   ├── command
+    │   │   │   └── command.c
+    │   │   ├── core
+    │   │   │   └── core.c
+    │   │   ├── lexer
+    │   │   │   └── lexer.c
+    │   │   ├── tokenizer
+    │   │   │   └── tokenizer.c
+    │   │   ├── token_type
+    │   │   │   └── token_type.c
+    │   │   └── token_value
+    │   │       └── token_value.c
+    │   └── tests
+    │       ├── integration
+    │       └── unit
+    ├── rift-orchestrator.sh
+    ├── rift-pipeline-migrate.sh
+    ├── rift-polic-bootstrap.sh
+    ├── rift_production_bootstrap.sh
+    ├── rift_production_bootstrap.sh.backup_20250618_225108
+    ├── rift_production_bootstrap.sh.fixed_strategy1
+    ├── rift_production_bootstrap.sh.fixed_strategy2
+    ├── rift_production_bootstrap.sh.fixed_strategy3
+    ├── rift_production_bootstrap.sh.syntax_backup_20250618_225414
+    ├── setup-modular-system.sh
+    ├── systematic_bootstrap.sh
+    ├── systematic_bootstrap.sh.backup_20250618_230603
+    ├── templates
+    │   ├── stage0
+    │   ├── stage1
+    │   ├── stage3
+    │   ├── stage4
+    │   └── stage5
+    └── validation
+        ├── run_tests.sh
+        ├── validate-architecture.sh
+        ├── validate_architecture.sh
+        └── validate_obinexus.sh
+
+97 directories, 68 files

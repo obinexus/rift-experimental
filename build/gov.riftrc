@@ -1,0 +1,50 @@
+# RIFT Governance Configuration
+# Master policy manifest (read-only)
+# Applies to all stages (0-6)
+
+[governance]
+version = "1.0"
+policy_as_code = true
+hierarchical_rules = true
+audit_trail = true
+
+[compilation]
+# Global compilation policies
+deterministic_builds = true
+stage_isolation = true
+dependency_validation = true
+cross_contamination_prevention = true
+
+[memory_safety]
+# Memory management policies
+bounds_checking = true
+use_after_free_detection = true
+static_analysis = true
+runtime_monitoring = true
+
+[thread_safety]
+# Parallelism policies
+parent_child_spawning = true
+read_only_configs = true
+mutex_patterns = true
+gosilang_integration = true
+
+[validation]
+# Stage progression policies
+progressive_gates = true
+entry_exit_criteria = true
+schema_validation = true
+type_value_separation = true
+
+[toolchain]
+# Build toolchain policies
+cmake_version_min = "3.16"
+c_standard = "c99"
+compiler_flags = "-std=c99 -Wall -Wextra -Werror -MMD -fPIC -DSOURCE_DATE_EPOCH=1750603874 -pthread"
+
+[artifacts]
+# Build artifact policies
+normalized_input = true
+timestamp_standardization = true
+content_hashing = true
+isolated_environments = true

@@ -1,0 +1,24 @@
+# RIFT Project File Index
+# Generated: Sun Jun 22 03:01:17 PM BST 2025
+# Version: 0.1.0-alpha
+
+## C Source Files
+/mnt/c/Users/OBINexus/Projects/github/rift/tools/ad-hoc/rift-core/src/common/core.c
+/mnt/c/Users/OBINexus/Projects/github/rift/tools/ad-hoc/rift-core/src/thread/lifecycle.c
+/mnt/c/Users/OBINexus/Projects/github/rift/tools/ad-hoc/rift-core/tests/unit/test_core.c
+
+## Header Files
+/mnt/c/Users/OBINexus/Projects/github/rift/tools/ad-hoc/rift-core/include/rift-core/audit/tracer.h
+/mnt/c/Users/OBINexus/Projects/github/rift/tools/ad-hoc/rift-core/include/rift-core/core.h
+/mnt/c/Users/OBINexus/Projects/github/rift/tools/ad-hoc/rift-core/include/rift-core/thread/lifecycle.h
+
+## CMake Files
+/mnt/c/Users/OBINexus/Projects/github/rift/tools/ad-hoc/CMakeLists.txt
+/mnt/c/Users/OBINexus/Projects/github/rift/tools/ad-hoc/rift-core/CMakeLists.txt
+/mnt/c/Users/OBINexus/Projects/github/rift/tools/ad-hoc/rift-core/tests/CMakeLists.txt
+
+## Configuration Files
+/mnt/c/Users/OBINexus/Projects/github/rift/tools/ad-hoc/rift-core/config/governance.json
+
+## Documentation Files
+/mnt/c/Users/OBINexus/Projects/github/rift/tools/ad-hoc/rift-core/README.md

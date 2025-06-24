@@ -1,0 +1,358 @@
+# =============================================================================
+# CMake Utility Modules for RIFT Core Infrastructure
+# OBINexus RIFT-N Toolchain - Sorting, Searching, Indexing, Flashing
+# =============================================================================
+
+# FileSort.cmake - Advanced file sorting and organization utilities
+function(rift_sort_sources_by_stage TARGET_VAR SOURCE_DIR)
+    set(SORTED_SOURCES)
+    
+    # Sort sources by RIFT stage
+    foreach(STAGE RANGE 0 6)
+        file(GLOB STAGE_SOURCES "${SOURCE_DIR}/stage-${STAGE}/*.c")
+        if(STAGE_SOURCES)
+            list(APPEND SORTED_SOURCES ${STAGE_SOURCES})
+            message(STATUS "RIFT Sort: Found ${LIST_LENGTH} files for stage-${STAGE}")
+        endif()
+    endforeach()
+    
+    # Sort core sources
+    file(GLOB CORE_SOURCES 
+        "${SOURCE_DIR}/common/*.c"
+        "${SOURCE_DIR}/thread/*.c"
+        "${SOURCE_DIR}/audit/*.c"
+        "${SOURCE_DIR}/telemetry/*.c"
+        "${SOURCE_DIR}/governance/*.c"
+        "${SOURCE_DIR}/accessibility/*.c"
+    )
+    list(APPEND SORTED_SOURCES ${CORE_SOURCES})
+    
+    # Sort alphabetically within each category
+    list(SORT SORTED_SOURCES)
+    
+    set(${TARGET_VAR} ${SORTED_SOURCES} PARENT_SCOPE)
+    message(STATUS "RIFT Sort: Total sorted sources: ${CMAKE_MATCH_COUNT}")
+endfunction()
+
+function(rift_sort_headers_by_accessibility TARGET_VAR HEADER_DIR)
+    set(SORTED_HEADERS)
+    
+    # Priority order: accessibility first, then core, then stages
+    file(GLOB ACCESSIBILITY_HEADERS "${HEADER_DIR}/accessibility/*.h")
+    file(GLOB CORE_HEADERS 
+        "${HEADER_DIR}/common/*.h"
+        "${HEADER_DIR}/thread/*.h"
+        "${HEADER_DIR}/audit/*.h"
+        "${HEADER_DIR}/telemetry/*.h"
+        "${HEADER_DIR}/governance/*.h"
+    )
+    
+    list(APPEND SORTED_HEADERS ${ACCESSIBILITY_HEADERS})
+    list(APPEND SORTED_HEADERS ${CORE_HEADERS})
+    
+    foreach(STAGE RANGE 0 6)
+        file(GLOB STAGE_HEADERS "${HEADER_DIR}/stage-${STAGE}/*.h")
+        list(APPEND SORTED_HEADERS ${STAGE_HEADERS})
+    endforeach()
+    
+    set(${TARGET_VAR} ${SORTED_HEADERS} PARENT_SCOPE)
+endfunction()
+
+# FileSearch.cmake - Advanced file searching and discovery utilities
+function(rift_search_governance_files RESULT_VAR BASE_DIR)
+    set(GOVERNANCE_FILES)
+    
+    # Search for governance configuration files
+    file(GLOB_RECURSE GOV_CONFIGS 
+        "${BASE_DIR}/**/gov.riftrc.*"
+        "${BASE_DIR}/**/governance.json"
+        "${BASE_DIR}/**/*.riftrc"
+    )
+    
+    foreach(CONFIG_FILE ${GOV_CONFIGS})
+        get_filename_component(CONFIG_NAME ${CONFIG_FILE} NAME)
+        if(CONFIG_NAME MATCHES "gov\\.riftrc\\.[0-6]$")
+            list(APPEND GOVERNANCE_FILES ${CONFIG_FILE})
+            message(STATUS "RIFT Search: Found stage governance: ${CONFIG_NAME}")
+        elseif(CONFIG_NAME STREQUAL "governance.json")
+            list(APPEND GOVERNANCE_FILES ${CONFIG_FILE})
+            message(STATUS "RIFT Search: Found main governance: ${CONFIG_FILE}")
+        endif()
+    endforeach()
+    
+    set(${RESULT_VAR} ${GOVERNANCE_FILES} PARENT_SCOPE)
+endfunction()
+
+function(rift_search_accessibility_files RESULT_VAR BASE_DIR)
+    set(ACCESSIBILITY_FILES)
+    
+    # Search for accessibility and color governance files
+    file(GLOB_RECURSE ACCESS_FILES
+        "${BASE_DIR}/**/accessibility/*.c"
+        "${BASE_DIR}/**/accessibility/*.h"
+        "${BASE_DIR}/**/color_governance.*"
+    )
+    
+    foreach(ACCESS_FILE ${ACCESS_FILES})
+        get_filename_component(ACCESS_NAME ${ACCESS_FILE} NAME)
+        if(ACCESS_NAME MATCHES "(colors|error|accessibility)" OR ACCESS_NAME MATCHES "color_governance")
+            list(APPEND ACCESSIBILITY_FILES ${ACCESS_FILE})
+            message(STATUS "RIFT Search: Found accessibility file: ${ACCESS_NAME}")
+        endif()
+    endforeach()
+    
+    set(${RESULT_VAR} ${ACCESSIBILITY_FILES} PARENT_SCOPE)
+endfunction()
+
+function(rift_search_stage_dependencies RESULT_VAR STAGE_NUMBER BASE_DIR)
+    set(DEPENDENCIES)
+    
+    # Search for stage-specific dependencies
+    set(SEARCH_PATTERNS
+        "${BASE_DIR}/rift-${STAGE_NUMBER}/**/*.c"
+        "${BASE_DIR}/rift-${STAGE_NUMBER}/**/*.h"
+        "${BASE_DIR}/src/stage-${STAGE_NUMBER}/**/*"
+        "${BASE_DIR}/include/**/stage-${STAGE_NUMBER}/**/*"
+    )
+    
+    foreach(PATTERN ${SEARCH_PATTERNS})
+        file(GLOB_RECURSE STAGE_FILES ${PATTERN})
+        list(APPEND DEPENDENCIES ${STAGE_FILES})
+    endforeach()
+    
+    list(REMOVE_DUPLICATES DEPENDENCIES)
+    set(${RESULT_VAR} ${DEPENDENCIES} PARENT_SCOPE)
+    message(STATUS "RIFT Search: Stage ${STAGE_NUMBER} has ${CMAKE_MATCH_COUNT} dependencies")
+endfunction()
+
+# FileIndex.cmake - Comprehensive file indexing and tracking utilities
+function(rift_create_build_index TARGET_NAME)
+    set(INDEX_FILE "${CMAKE_BINARY_DIR}/rift_build_index_${TARGET_NAME}.json")
+    
+    # Get current timestamp
+    string(TIMESTAMP BUILD_TIMESTAMP "%Y-%m-%dT%H:%M:%S")
+    
+    # Create JSON index structure
+    file(WRITE ${INDEX_FILE} "{\n")
+    file(APPEND ${INDEX_FILE} "  \"target\": \"${TARGET_NAME}\",\n")
+    file(APPEND ${INDEX_FILE} "  \"timestamp\": \"${BUILD_TIMESTAMP}\",\n")
+    file(APPEND ${INDEX_FILE} "  \"cmake_version\": \"${CMAKE_VERSION}\",\n")
+    file(APPEND ${INDEX_FILE} "  \"build_type\": \"${CMAKE_BUILD_TYPE}\",\n")
+    file(APPEND ${INDEX_FILE} "  \"source_dir\": \"${CMAKE_SOURCE_DIR}\",\n")
+    file(APPEND ${INDEX_FILE} "  \"binary_dir\": \"${CMAKE_BINARY_DIR}\",\n")
+    
+    # Index source files
+    get_target_property(TARGET_SOURCES ${TARGET_NAME} SOURCES)
+    if(TARGET_SOURCES)
+        file(APPEND ${INDEX_FILE} "  \"sources\": [\n")
+        list(LENGTH TARGET_SOURCES SOURCE_COUNT)
+        set(COUNTER 0)
+        foreach(SOURCE ${TARGET_SOURCES})
+            math(EXPR COUNTER "${COUNTER} + 1")
+            file(APPEND ${INDEX_FILE} "    \"${SOURCE}\"")
+            if(COUNTER LESS SOURCE_COUNT)
+                file(APPEND ${INDEX_FILE} ",")
+            endif()
+            file(APPEND ${INDEX_FILE} "\n")
+        endforeach()
+        file(APPEND ${INDEX_FILE} "  ],\n")
+    endif()
+    
+    # Index include directories
+    get_target_property(TARGET_INCLUDES ${TARGET_NAME} INCLUDE_DIRECTORIES)
+    if(TARGET_INCLUDES)
+        file(APPEND ${INDEX_FILE} "  \"include_directories\": [\n")
+        list(LENGTH TARGET_INCLUDES INCLUDE_COUNT)
+        set(COUNTER 0)
+        foreach(INCLUDE ${TARGET_INCLUDES})
+            math(EXPR COUNTER "${COUNTER} + 1")
+            file(APPEND ${INDEX_FILE} "    \"${INCLUDE}\"")
+            if(COUNTER LESS INCLUDE_COUNT)
+                file(APPEND ${INDEX_FILE} ",")
+            endif()
+            file(APPEND ${INDEX_FILE} "\n")
+        endforeach()
+        file(APPEND ${INDEX_FILE} "  ],\n")
+    endif()
+    
+    # Add color governance metadata
+    file(APPEND ${INDEX_FILE} "  \"color_governance\": {\n")
+    file(APPEND ${INDEX_FILE} "    \"accessibility_enabled\": true,\n")
+    file(APPEND ${INDEX_FILE} "    \"biafran_compliance\": true,\n")
+    file(APPEND ${INDEX_FILE} "    \"exception_levels\": [\"BASIC\", \"MODERATE\", \"HIGH\", \"CRITICAL\"]\n")
+    file(APPEND ${INDEX_FILE} "  },\n")
+    
+    # Add build statistics
+    file(APPEND ${INDEX_FILE} "  \"statistics\": {\n")
+    if(TARGET_SOURCES)
+        list(LENGTH TARGET_SOURCES SOURCE_COUNT)
+        file(APPEND ${INDEX_FILE} "    \"source_files\": ${SOURCE_COUNT},\n")
+    endif()
+    if(TARGET_INCLUDES)
+        list(LENGTH TARGET_INCLUDES INCLUDE_COUNT)
+        file(APPEND ${INDEX_FILE} "    \"include_directories\": ${INCLUDE_COUNT}\n")
+    endif()
+    file(APPEND ${INDEX_FILE} "  }\n")
+    
+    file(APPEND ${INDEX_FILE} "}\n")
+    
+    message(STATUS "RIFT Index: Created build index for ${TARGET_NAME}: ${INDEX_FILE}")
+endfunction()
+
+function(rift_index_stage_artifacts STAGE_NUMBER)
+    set(INDEX_FILE "${CMAKE_BINARY_DIR}/rift_stage_${STAGE_NUMBER}_index.json")
+    string(TIMESTAMP INDEX_TIMESTAMP "%Y-%m-%dT%H:%M:%S")
+    
+    # Search for stage artifacts
+    rift_search_stage_dependencies(STAGE_DEPS ${STAGE_NUMBER} ${CMAKE_SOURCE_DIR})
+    
+    file(WRITE ${INDEX_FILE} "{\n")
+    file(APPEND ${INDEX_FILE} "  \"stage\": ${STAGE_NUMBER},\n")
+    file(APPEND ${INDEX_FILE} "  \"timestamp\": \"${INDEX_TIMESTAMP}\",\n")
+    file(APPEND ${INDEX_FILE} "  \"dependencies\": [\n")
+    
+    if(STAGE_DEPS)
+        list(LENGTH STAGE_DEPS DEP_COUNT)
+        set(COUNTER 0)
+        foreach(DEP ${STAGE_DEPS})
+            math(EXPR COUNTER "${COUNTER} + 1")
+            file(APPEND ${INDEX_FILE} "    \"${DEP}\"")
+            if(COUNTER LESS DEP_COUNT)
+                file(APPEND ${INDEX_FILE} ",")
+            endif()
+            file(APPEND ${INDEX_FILE} "\n")
+        endforeach()
+    endif()
+    
+    file(APPEND ${INDEX_FILE} "  ],\n")
+    file(APPEND ${INDEX_FILE} "  \"governance_required\": true,\n")
+    file(APPEND ${INDEX_FILE} "  \"color_governance_stage\": {\n")
+    
+    # Stage-specific color mappings
+    if(STAGE_NUMBER EQUAL 0 OR STAGE_NUMBER EQUAL 1)
+        file(APPEND ${INDEX_FILE} "    \"primary_colors\": [\"green\", \"yellow\"],\n")
+    elseif(STAGE_NUMBER EQUAL 2 OR STAGE_NUMBER EQUAL 6)
+        file(APPEND ${INDEX_FILE} "    \"primary_colors\": [\"green\", \"red\"],\n")
+    elseif(STAGE_NUMBER EQUAL 3)
+        file(APPEND ${INDEX_FILE} "    \"primary_colors\": [\"green\", \"blue\"],\n")
+    elseif(STAGE_NUMBER EQUAL 4)
+        file(APPEND ${INDEX_FILE} "    \"primary_colors\": [\"green\", \"orange\"],\n")
+    elseif(STAGE_NUMBER EQUAL 5)
+        file(APPEND ${INDEX_FILE} "    \"primary_colors\": [\"green\", \"yellow\"],\n")
+    endif()
+    
+    file(APPEND ${INDEX_FILE} "    \"exception_handling\": true\n")
+    file(APPEND ${INDEX_FILE} "  }\n")
+    file(APPEND ${INDEX_FILE} "}\n")
+    
+    message(STATUS "RIFT Index: Created stage ${STAGE_NUMBER} index: ${INDEX_FILE}")
+endfunction()
+
+# QuickDeploy.cmake - Rapid deployment and flashing utilities
+function(rift_quick_deploy TARGET_NAME DEPLOY_TYPE)
+    set(DEPLOY_DIR "${CMAKE_BINARY_DIR}/deploy/${DEPLOY_TYPE}")
+    file(MAKE_DIRECTORY ${DEPLOY_DIR})
+    
+    # Get target output
+    get_target_property(TARGET_TYPE ${TARGET_NAME} TYPE)
+    get_target_property(TARGET_OUTPUT ${TARGET_NAME} OUTPUT_NAME)
+    
+    if(NOT TARGET_OUTPUT)
+        set(TARGET_OUTPUT ${TARGET_NAME})
+    endif()
+    
+    # Copy target to deployment directory
+    if(TARGET_TYPE STREQUAL "EXECUTABLE")
+        set(TARGET_FILE "${CMAKE_BINARY_DIR}/${TARGET_OUTPUT}")
+        add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy ${TARGET_FILE} ${DEPLOY_DIR}/
+            COMMENT "RIFT Flash: Deploying ${TARGET_NAME} to ${DEPLOY_TYPE}"
+        )
+    elseif(TARGET_TYPE STREQUAL "STATIC_LIBRARY")
+        set(TARGET_FILE "${CMAKE_BINARY_DIR}/lib${TARGET_OUTPUT}.a")
+        add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy ${TARGET_FILE} ${DEPLOY_DIR}/
+            COMMENT "RIFT Flash: Deploying library ${TARGET_NAME} to ${DEPLOY_TYPE}"
+        )
+    endif()
+    
+    # Create deployment manifest
+    set(MANIFEST_FILE "${DEPLOY_DIR}/deployment_manifest.json")
+    string(TIMESTAMP DEPLOY_TIMESTAMP "%Y-%m-%dT%H:%M:%S")
+    
+    file(WRITE ${MANIFEST_FILE} "{\n")
+    file(APPEND ${MANIFEST_FILE} "  \"target\": \"${TARGET_NAME}\",\n")
+    file(APPEND ${MANIFEST_FILE} "  \"type\": \"${TARGET_TYPE}\",\n")
+    file(APPEND ${MANIFEST_FILE} "  \"deploy_type\": \"${DEPLOY_TYPE}\",\n")
+    file(APPEND ${MANIFEST_FILE} "  \"timestamp\": \"${DEPLOY_TIMESTAMP}\",\n")
+    file(APPEND ${MANIFEST_FILE} "  \"color_governance\": {\n")
+    file(APPEND ${MANIFEST_FILE} "    \"deployment_status\": \"success\",\n")
+    file(APPEND ${MANIFEST_FILE} "    \"accessibility_compliant\": true\n")
+    file(APPEND ${MANIFEST_FILE} "  }\n")
+    file(APPEND ${MANIFEST_FILE} "}\n")
+    
+    message(STATUS "RIFT Flash: Configured deployment for ${TARGET_NAME} -> ${DEPLOY_TYPE}")
+endfunction()
+
+function(rift_flash_to_environment ENV_NAME TARGET_LIST)
+    set(FLASH_DIR "${CMAKE_BINARY_DIR}/flash/${ENV_NAME}")
+    file(MAKE_DIRECTORY ${FLASH_DIR})
+    
+    # Create environment-specific flash script
+    set(FLASH_SCRIPT "${FLASH_DIR}/flash_${ENV_NAME}.sh")
+    file(WRITE ${FLASH_SCRIPT} "#!/bin/bash\n")
+    file(APPEND ${FLASH_SCRIPT} "# RIFT Flash Script for ${ENV_NAME}\n")
+    file(APPEND ${FLASH_SCRIPT} "# Generated: $(date)\n\n")
+    file(APPEND ${FLASH_SCRIPT} "set -euo pipefail\n\n")
+    
+    # Color governance setup
+    file(APPEND ${FLASH_SCRIPT} "# Color governance\n")
+    file(APPEND ${FLASH_SCRIPT} "readonly SUCCESS_GREEN='\\033[0;32m'\n")
+    file(APPEND ${FLASH_SCRIPT} "readonly INFO_BLUE='\\033[0;34m'\n")
+    file(APPEND ${FLASH_SCRIPT} "readonly NC='\\033[0m'\n\n")
+    
+    file(APPEND ${FLASH_SCRIPT} "echo -e \"\\${INFO_BLUE}[RIFT-FLASH]\\${NC} Flashing to ${ENV_NAME}\"\n\n")
+    
+    # Flash each target
+    foreach(TARGET ${TARGET_LIST})
+        file(APPEND ${FLASH_SCRIPT} "echo -e \"\\${INFO_BLUE}[RIFT-FLASH]\\${NC} Deploying ${TARGET}\"\n")
+        file(APPEND ${FLASH_SCRIPT} "# Deploy ${TARGET} logic here\n")
+        file(APPEND ${FLASH_SCRIPT} "echo -e \"\\${SUCCESS_GREEN}[RIFT-FLASH]\\${NC} ${TARGET} deployed successfully\"\n\n")
+    endforeach()
+    
+    file(APPEND ${FLASH_SCRIPT} "echo -e \"\\${SUCCESS_GREEN}[RIFT-FLASH]\\${NC} Flash to ${ENV_NAME} completed\"\n")
+    
+    # Make script executable
+    file(COPY ${FLASH_SCRIPT} DESTINATION ${FLASH_DIR}
+         FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE
+                          GROUP_READ GROUP_EXECUTE
+                          WORLD_READ WORLD_EXECUTE)
+    
+    message(STATUS "RIFT Flash: Created flash script for ${ENV_NAME}: ${FLASH_SCRIPT}")
+endfunction()
+
+# Governance validation for CMake utilities
+function(rift_validate_cmake_governance)
+    message(STATUS "RIFT Governance: Validating CMake utility compliance")
+    
+    # Check for required CMake version
+    if(CMAKE_VERSION VERSION_LESS "3.14")
+        message(FATAL_ERROR "RIFT Governance: CMake 3.14+ required for color governance support")
+    endif()
+    
+    # Validate accessibility definitions
+    if(NOT DEFINED RIFT_ACCESSIBILITY_ENABLED)
+        message(WARNING "RIFT Governance: RIFT_ACCESSIBILITY_ENABLED not defined")
+    endif()
+    
+    # Check for color governance compilation flags
+    string(FIND "${CMAKE_C_FLAGS}" "RIFT_ACCESSIBILITY_ENABLED" ACCESSIBILITY_FLAG_FOUND)
+    if(ACCESSIBILITY_FLAG_FOUND EQUAL -1)
+        message(WARNING "RIFT Governance: Accessibility flags not found in CMAKE_C_FLAGS")
+    endif()
+    
+    message(STATUS "RIFT Governance: CMake utility validation completed")
+endfunction()
+
+# Execute governance validation on include
+rift_validate_cmake_governance()

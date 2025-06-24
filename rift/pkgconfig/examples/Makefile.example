@@ -1,0 +1,30 @@
+# RIFT External Project Makefile Example
+# Demonstrates pkg-config integration for external projects
+
+CC = gcc
+CFLAGS = -Wall -Wextra -std=c11
+PKG_CONFIG = pkg-config
+
+# RIFT packages
+RIFT_STAGES = rift-0 rift-1 rift-2 rift-3 rift-4 rift-5 rift-6
+RIFT_SINGLE = rift-0
+
+# Targets
+all: single-stage-example pipeline-example
+
+single-stage-example: single-stage-example.c
+	$(CC) $(CFLAGS) -o $@ $< $(shell $(PKG_CONFIG) --cflags --libs $(RIFT_SINGLE))
+
+pipeline-example: pipeline-example.c  
+	$(CC) $(CFLAGS) -o $@ $< $(shell $(PKG_CONFIG) --cflags --libs $(RIFT_STAGES))
+
+clean:
+	rm -f single-stage-example pipeline-example
+
+test: all
+	@echo "Testing single-stage example..."
+	./single-stage-example "test input"
+	@echo "Testing pipeline example..."
+	./pipeline-example "test input"
+
+.PHONY: all clean test

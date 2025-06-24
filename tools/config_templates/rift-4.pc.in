@@ -1,0 +1,10 @@
+prefix=@CMAKE_INSTALL_PREFIX@
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: rift-4
+Description: RIFT Stage 4 Library
+Version: @PROJECT_VERSION@
+Libs: -L${libdir} -lrift-4 -lrift-core
+Cflags: -I${includedir}

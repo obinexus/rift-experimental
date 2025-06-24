@@ -1,0 +1,6 @@
+RIFT Legacy Artifact Quarantine Log
+===================================
+Timestamp: Sun Jun 22 03:58:59 PM BST 2025
+Technical Lead: Nnamdi Michael Okpala
+
+Quarantined: qa_framework.sh.backup -> qa_framework.sh.backup

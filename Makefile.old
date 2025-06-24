@@ -1,0 +1,208 @@
+# Makefile - RIFT Compiler Pipeline Root Orchestration
+# RIFT: RIFT Is a Flexible Translator
+# OBINexus Computing Framework - Technical Implementation
+# Alternative build system for CMake-independent compilation
+
+# Configuration variables
+RIFT_VERSION := 4.0.0
+CC := gcc
+CXX := g++
+CMAKE := cmake
+MAKE := make
+
+# Directory structure
+RIFT_ROOT := $(shell pwd)
+BUILD_DIR := $(RIFT_ROOT)/build
+SRC_DIR := $(RIFT_ROOT)/src
+INCLUDE_DIR := $(RIFT_ROOT)/include
+LIB_DIR := $(RIFT_ROOT)/lib
+BIN_DIR := $(RIFT_ROOT)/bin
+LOGS_DIR := $(RIFT_ROOT)/logs
+
+# Compiler flags for AEGIS methodology compliance
+CFLAGS := -std=c11 -Wall -Wextra -Wpedantic -Werror -O2
+CFLAGS += -fstack-protector-strong -D_FORTIFY_SOURCE=2 -fPIE
+CFLAGS += -DRIFT_VERSION_STRING=\"$(RIFT_VERSION)\"
+CFLAGS += -DRIFT_AEGIS_COMPLIANCE=1 -DRIFT_ZERO_TRUST=1
+CFLAGS += -I$(INCLUDE_DIR) -I$(INCLUDE_DIR)/rift/core
+
+LDFLAGS := -Wl,-z,relro -Wl,-z,now -pie
+LIBS := -lssl -lcrypto -lpthread
+
+# Pipeline stages
+STAGES := rift-0 rift-1 rift-2 rift-3 rift-4 rift-5 rift-6
+
+# Color codes for professional output
+GREEN := \033[0;32m
+BLUE := \033[0;34m
+YELLOW := \033[1;33m
+RED := \033[0;31m
+NC := \033[0m
+
+# Ensure directories exist
+# =================================================================
+# UNIFIED CLI TARGETS - AEGIS METHODOLOGY
+# =================================================================
+
+# Unified CLI binary target
+RIFT_CLI_EXECUTABLE = bin/rift.exe
+RIFT_CLI_SOURCES = \
+    rift/src/cli/main.c \
+    rift/src/commands/*.c \
+    rift/src/governance/*.c
+
+# CLI compilation with complete stage linkage
+$(RIFT_CLI_EXECUTABLE): $(STATIC_LIB) $(RIFT_CLI_SOURCES) | directories
+	@echo "🚀 Building RIFT Unified CLI..."
+	$(CC) $(CFLAGS) $(RIFT_CLI_SOURCES) -o $@ \
+		-Llib -lrfi \
+		-Irift-0/include -Irift-1/include -Irift-2/include \
+		-Irift-3/include -Irift-4/include -Irift-5/include -Irift-6/include \
+		-Irift/include \
+		-lssl -lcrypto -lpthread
+	@echo "✅ RIFT CLI ready: $@"
+
+# CLI-specific targets
+cli: $(RIFT_CLI_EXECUTABLE)
+
+cli-test: $(RIFT_CLI_EXECUTABLE)
+	@echo "🧪 RIFT CLI Functional Testing..."
+	./$(RIFT_CLI_EXECUTABLE) --version
+	./$(RIFT_CLI_EXECUTABLE) validate-memory --alignment 4096
+	./$(RIFT_CLI_EXECUTABLE) validate-tokens --schema-check
+	./$(RIFT_CLI_EXECUTABLE) validate-governance --config .riftrc
+	@echo "✅ CLI functional tests passed"
+# Default target
+.PHONY: all
+all: banner setup cmake-build
+
+.PHONY: banner
+banner:
+	@echo -e "$(BLUE)=================================================================="
+	@echo -e "  RIFT Compiler Pipeline - Root Build Orchestration             "
+	@echo -e "  OBINexus Computing Framework v$(RIFT_VERSION)                  "
+	@echo -e "  Technical Implementation: Systematic Pipeline Compilation     "
+	@echo -e "==================================================================$(NC)"
+
+.PHONY: setup
+setup:
+	@echo -e "$(BLUE)[SETUP]$(NC) Creating required directories..."
+	@mkdir -p $(BUILD_DIR) $(LIB_DIR) $(BIN_DIR) $(LOGS_DIR)
+	@echo -e "$(GREEN)[SUCCESS]$(NC) Directory structure created"
+
+.PHONY: cmake-build
+cmake-build: setup
+	@echo -e "$(BLUE)[CMAKE]$(NC) Configuring build system..."
+	@cd $(BUILD_DIR) && $(CMAKE) .. 2>&1 | tee $(LOGS_DIR)/cmake_config.log
+	@echo -e "$(BLUE)[MAKE]$(NC) Compiling RIFT pipeline..."
+	@cd $(BUILD_DIR) && $(MAKE) -j$$(nproc) 2>&1 | tee $(LOGS_DIR)/compilation.log
+	@echo -e "$(GREEN)[SUCCESS]$(NC) CMake build completed"
+
+.PHONY: makefile-build
+makefile-build: setup $(STAGES)
+	@echo -e "$(GREEN)[SUCCESS]$(NC) Makefile-based build completed"
+
+# Individual stage compilation (fallback method)
+.PHONY: $(STAGES)
+$(STAGES):
+	@echo -e "$(BLUE)[STAGE]$(NC) Building $@..."
+	@if [ -d "$@/src/core" ]; then \
+		mkdir -p $(LIB_DIR) $(BIN_DIR); \
+		$(CC) $(CFLAGS) -c $@/src/core/*.c -I$@/include; \
+		ar rcs $(LIB_DIR)/lib$@.a *.o; \
+		$(CC) $(CFLAGS) $(LDFLAGS) $@/src/core/*.c -o $(BIN_DIR)/$@.exe $(LIBS); \
+		rm -f *.o; \
+		echo -e "$(GREEN)[SUCCESS]$(NC) Stage $@ compiled"; \
+	else \
+		echo -e "$(YELLOW)[WARNING]$(NC) Stage $@ source not found"; \
+	fi
+
+.PHONY: test
+test: all
+	@echo -e "$(BLUE)[TEST]$(NC) Running RIFT pipeline tests..."
+	@if [ -f "$(BUILD_DIR)/Makefile" ]; then \
+		cd $(BUILD_DIR) && $(MAKE) test; \
+	else \
+		echo -e "$(YELLOW)[WARNING]$(NC) CMake build not available - running manual tests"; \
+	fi
+
+.PHONY: demo
+demo: all
+	@echo -e "$(BLUE)[DEMO]$(NC) Executing RIFT pipeline demonstration..."
+	@if [ -f "demo_pipeline.sh" ]; then \
+		./demo_pipeline.sh; \
+	else \
+		echo -e "$(RED)[ERROR]$(NC) Demo script not found"; \
+	fi
+
+.PHONY: validate
+validate:
+	@echo -e "$(BLUE)[VALIDATE]$(NC) Running AEGIS methodology validation..."
+	@if [ -f "scripts/validation/integrated_aegis_validation.sh" ]; then \
+		./scripts/validation/integrated_aegis_validation.sh; \
+	else \
+		echo -e "$(YELLOW)[WARNING]$(NC) Validation script not found"; \
+	fi
+
+.PHONY: install
+install: all
+	@echo -e "$(BLUE)[INSTALL]$(NC) Installing RIFT compiler system..."
+	@if [ -f "$(BUILD_DIR)/Makefile" ]; then \
+		cd $(BUILD_DIR) && $(MAKE) install; \
+	else \
+		echo -e "$(YELLOW)[WARNING]$(NC) CMake build not available for installation"; \
+	fi
+
+.PHONY: clean
+clean:
+	@echo -e "$(BLUE)[CLEAN]$(NC) Removing build artifacts..."
+	@rm -rf $(BUILD_DIR) $(LIB_DIR)/*.a $(BIN_DIR)/*.exe
+	@echo -e "$(GREEN)[SUCCESS]$(NC) Build artifacts cleaned"
+
+.PHONY: deep-clean
+deep-clean: clean
+	@echo -e "$(BLUE)[DEEP-CLEAN]$(NC) Removing all generated files..."
+	@rm -rf $(LIB_DIR) $(BIN_DIR) $(LOGS_DIR)
+	@echo -e "$(GREEN)[SUCCESS]$(NC) Deep clean completed"
+
+.PHONY: status
+status:
+	@echo -e "$(BLUE)[STATUS]$(NC) RIFT Compiler Pipeline Status:"
+	@echo -e "  Root Directory: $(RIFT_ROOT)"
+	@echo -e "  Build Directory: $(BUILD_DIR)"
+	@echo -e "  Library Directory: $(LIB_DIR)"
+	@echo -e "  Binary Directory: $(BIN_DIR)"
+	@echo -e "  Version: $(RIFT_VERSION)"
+	@echo -e "  AEGIS Compliance: ENABLED"
+	@echo -e "  Zero Trust Governance: ENABLED"
+	@if [ -f "$(BUILD_DIR)/CMakeCache.txt" ]; then \
+		echo -e "  CMake Status: $(GREEN)CONFIGURED$(NC)"; \
+	else \
+		echo -e "  CMake Status: $(YELLOW)NOT CONFIGURED$(NC)"; \
+	fi
+	@echo -e "  Available Stages:"
+	@for stage in $(STAGES); do \
+		if [ -d "$$stage" ]; then \
+			echo -e "    ✓ $$stage"; \
+		else \
+			echo -e "    ✗ $$stage"; \
+		fi; \
+	done
+
+.PHONY: help
+help:
+	@echo -e "$(BLUE)RIFT Compiler Pipeline - Build Orchestration$(NC)"
+	@echo "Available targets:"
+	@echo "  all           - Complete build using CMake (default)"
+	@echo "  makefile-build- Alternative build using direct Makefile"
+	@echo "  test          - Run comprehensive test suite"
+	@echo "  demo          - Execute pipeline demonstration"
+	@echo "  validate      - Run AEGIS methodology validation"
+	@echo "  install       - Install RIFT system"
+	@echo "  clean         - Remove build artifacts"
+	@echo "  deep-clean    - Remove all generated files"
+	@echo "  status        - Show build system status"
+	@echo "  help          - Show this help message"
+	@echo ""
+	@echo "Technical Implementation: OBINexus Computing Framework"
+	@echo "Waterfall Methodology: Systematic, Collaborative Development"

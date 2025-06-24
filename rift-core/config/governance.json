@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RIFT-Core Governance Configuration Schema",
+  "description": "Pure RIFT governance metadata for compiler pipeline stages with native color governance and audit stream management",
+  "version": "2.1",
+  "type": "object",
+  "properties": {
+    "rift_package_name": { 
+      "type": "string",
+      "description": "Name of the RIFT package being governed"
+    },
+    "rift_version": { 
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9]+)?$",
+      "description": "RIFT semantic version"
+    },
+    "rift_timestamp": { 
+      "type": "string", 
+      "format": "date-time",
+      "description": "RIFT governance configuration timestamp"
+    },
+    "rift_stage": { 
+      "type": "integer", 
+      "minimum": 0,
+      "maximum": 6,
+      "description": "RIFT compilation stage number (0-6)"
+    },
+    "rift_stage_type": {
+      "type": "string",
+      "enum": ["legacy", "experimental", "stable", "rift-core"],
+      "default": "rift-core",
+      "description": "RIFT stage implementation type"
+    },
+    "rift_governance": {
+      "type": "object",
+      "description": "RIFT-Core governance configuration",
+      "properties": {
+        "null_nil_semantics": {
+          "type": "object",
+          "properties": {
+            "auto_cast_null_to_nil": { "type": "boolean", "default": true },
+            "audit_transformations": { "type": "boolean", "default": true },
+            "prevent_double_free": { "type": "boolean", "default": true }
+          }
+        },
+        "yoda_style_enforcement": {
+          "type": "object",
+          "properties": {
+            "required": { "type": "boolean", "default": true },
+            "check_assignments": { "type": "boolean", "default": true },
+            "audit_conditions": { "type": "boolean", "default": true }
+          }
+        },
+        "thread_safety": {
+          "type": "object",
+          "properties": {
+            "max_workers_per_thread": { "type": "integer", "default": 32 },
+            "max_thread_depth": { "type": "integer", "default": 32 },
+            "lifecycle_encoding": { "type": "string", "default": "bit_string" },
+            "parity_elimination": { "type": "boolean", "default": true }
+          }
+        },
+        "audit_streams": {
+          "type": "object",
+          "properties": {
+            "audit_0_stdin": { "type": "boolean", "default": true },
+            "audit_1_stderr": { "type": "boolean", "default": true },
+            "audit_2_stdout": { "type": "boolean", "default": true },
+            "state_hash_verification": { "type": "boolean", "default": true }
+          }
+        },
+        "color_governance": {
+          "type": "object",
+          "properties": {
+            "rift_native_colors": { "type": "boolean", "default": true },
+            "critical_color": { "type": "string", "default": "red" },
+            "high_color": { "type": "string", "default": "orange" },
+            "moderate_color": { "type": "string", "default": "yellow" },
+            "info_color": { "type": "string", "default": "blue" },
+            "success_color": { "type": "string", "default": "green" }
+          }
+        },
+        "exception_classification": {
+          "type": "object",
+          "properties": {
+            "basic": {"range": [0, 4], "action": "warning"},
+            "moderate": {"range": [5, 6], "action": "pause"},
+            "high": {"range": [7, 8], "action": "escalate"},
+            "critical": {"range": [9, 12], "action": "halt"}
+          }
+        }
+      }
+    },
+    "rift_audit_configuration": {
+      "type": "object",
+      "properties": {
+        "audit_0_path": { "type": "string", "default": "rift-audit/audit-0/" },
+        "audit_1_path": { "type": "string", "default": "rift-audit/audit-1/" },
+        "audit_2_path": { "type": "string", "default": "rift-audit/audit-2/" },
+        "governance_audit_path": { "type": "string", "default": "rift-audit/governance/" },
+        "audit_hash_algorithm": { "type": "string", "default": "sha256" },
+        "audit_signature_required": { "type": "boolean", "default": true }
+      }
+    },
+    "rift_telemetry": {
+      "type": "object",
+      "properties": {
+        "rift_guid_required": { "type": "boolean", "default": true },
+        "rift_uuid_required": { "type": "boolean", "default": true },
+        "rift_crypto_hash_required": { "type": "boolean", "default": true },
+        "rift_prng_identifier_required": { "type": "boolean", "default": true },
+        "rift_stage_tracking": { "type": "boolean", "default": true }
+      }
+    }
+  },
+  "required": ["rift_package_name", "rift_version", "rift_stage", "rift_timestamp"],
+  "additionalProperties": false
+}

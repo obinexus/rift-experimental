@@ -1,0 +1,37 @@
+RIFT AEGIS Dependency Relationship Analysis
+Technical Lead: Nnamdi Michael Okpala
+Generated: Thu Jun 19 04:19:33 AM BST 2025
+==========================================
+
+Stage-by-Stage Dependency Mapping:
+
+Stage 0 (tokenizer):
+--------------------------------
+Dependency file: /mnt/c/Users/OBINexus/Projects/github/rift/tools/../obj/rift-0/tokenizer.d
+Dependencies:
+  - /mnt/c/Users/OBINexus/Projects/github/rift/tools/../rift/include/rift/core/common.h
+  - /mnt/c/Users/OBINexus/Projects/github/rift/tools/../rift/src/core/stage-0/tokenizer.c
+
+Stage 1 (parser):
+--------------------------------
+Dependency file: PENDING GENERATION
+
+Stage 2 (semantic):
+--------------------------------
+Dependency file: PENDING GENERATION
+
+Stage 3 (validator):
+--------------------------------
+Dependency file: PENDING GENERATION
+
+Stage 4 (bytecode):
+--------------------------------
+Dependency file: PENDING GENERATION
+
+Stage 5 (verifier):
+--------------------------------
+Dependency file: PENDING GENERATION
+
+Stage 6 (emitter):
+--------------------------------
+Dependency file: PENDING GENERATION

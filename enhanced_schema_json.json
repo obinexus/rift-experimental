@@ -1,0 +1,776 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RIFT Enhanced Governance Configuration Schema with Color Accessibility",
+  "description": "Defines governance metadata for RIFT compiler pipeline stages with Stage 5 security enforcement, custom stage support, accessibility color governance, and core layer integrity validation for the Aegis project implementation.",
+  "version": "2.0.0-aegis",
+  "type": "object",
+  "properties": {
+    "package_name": { 
+      "type": "string",
+      "description": "Name of the RIFT package being governed"
+    },
+    "version": { 
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9]+)?$",
+      "description": "Semantic version of the package"
+    },
+    "timestamp": { 
+      "type": "string", 
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of governance configuration generation"
+    },
+    "stage": { 
+      "type": "integer", 
+      "minimum": 0,
+      "maximum": 6,
+      "description": "RIFT compilation stage number (0-6)"
+    },
+    "stage_type": {
+      "type": "string",
+      "enum": ["legacy", "experimental", "stable", "aegis"],
+      "default": "experimental",
+      "description": "Stage implementation maturity level"
+    },
+    "description": { 
+      "type": "string",
+      "description": "Human-readable description of the governance configuration"
+    },
+    "semverx_lock": { 
+      "type": "boolean",
+      "default": false,
+      "description": "Enable extended semantic versioning lock mechanism"
+    },
+    "entry_point": { 
+      "type": "string",
+      "description": "Primary entry point for stage execution"
+    },
+    "nlink_enabled": { 
+      "type": "boolean",
+      "default": true,
+      "description": "Enable NLink state minimization linking"
+    },
+    "aegis_project_metadata": {
+      "type": "object",
+      "description": "Aegis project specific metadata and configuration",
+      "properties": {
+        "project_phase": {
+          "type": "string",
+          "enum": ["requirements", "design", "implementation", "testing", "deployment", "maintenance"],
+          "description": "Current waterfall methodology phase"
+        },
+        "technical_lead": {
+          "type": "string",
+          "default": "Nnamdi Michael Okpala",
+          "description": "Technical lead responsible for this configuration"
+        },
+        "compliance_level": {
+          "type": "string",
+          "enum": ["basic", "standard", "enhanced", "critical"],
+          "default": "enhanced",
+          "description": "Required compliance level for governance validation"
+        },
+        "review_required": {
+          "type": "boolean",
+          "default": true,
+          "description": "Require technical review before activation"
+        }
+      }
+    },
+    "accessibility_governance": {
+      "type": "object",
+      "description": "Color Accessibility Governance for Biafran Compliance and Universal Design",
+      "properties": {
+        "color_palette_version": {
+          "type": "string",
+          "default": "1.0-biafran",
+          "pattern": "^\\d+\\.\\d+-[a-zA-Z0-9]+$",
+          "description": "Version of accessibility color palette in use"
+        },
+        "terminal_support_detection": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable automatic terminal color support detection"
+        },
+        "ansi_compatibility": {
+          "type": "boolean",
+          "default": true,
+          "description": "Ensure ANSI escape sequence compatibility"
+        },
+        "exception_color_mapping": {
+          "type": "object",
+          "description": "Exception level to color mapping configuration",
+          "properties": {
+            "basic": { 
+              "type": "string", 
+              "default": "green",
+              "enum": ["green", "blue", "cyan"],
+              "description": "Color for basic level exceptions (0-4)"
+            },
+            "moderate": { 
+              "type": "string", 
+              "default": "yellow",
+              "enum": ["yellow", "orange", "amber"],
+              "description": "Color for moderate level exceptions (5-6)"
+            },
+            "high": { 
+              "type": "string", 
+              "default": "orange",
+              "enum": ["orange", "red-orange", "amber"],
+              "description": "Color for high level exceptions (7-8)"
+            },
+            "critical": { 
+              "type": "string", 
+              "default": "red",
+              "enum": ["red", "crimson", "scarlet"],
+              "description": "Color for critical level exceptions (9-12)"
+            }
+          },
+          "additionalProperties": false
+        },
+        "stage_color_overrides": {
+          "type": "object",
+          "description": "Per-stage color customization for specialized requirements",
+          "patternProperties": {
+            "^stage-[0-6]$": {
+              "type": "object",
+              "properties": {
+                "primary_color": { "type": "string" },
+                "secondary_color": { "type": "string" },
+                "error_color": { "type": "string" },
+                "success_color": { "type": "string" }
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        "telemetry_color_logging": {
+          "type": "boolean",
+          "default": true,
+          "description": "Log color governance events to telemetry system"
+        },
+        "accessibility_compliance_tests": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["contrast_ratio", "color_blind_simulation", "terminal_compatibility", "ansi_validation"]
+          },
+          "default": ["contrast_ratio", "terminal_compatibility", "ansi_validation"],
+          "description": "Required accessibility compliance tests"
+        }
+      },
+      "required": ["color_palette_version", "exception_color_mapping"],
+      "additionalProperties": false
+    },
+    "stage_5_optimizer": {
+      "type": "object",
+      "description": "Stage 5 Optimizer Security Governance - Zero Trust Enforcement with Color State Tracking",
+      "properties": {
+        "optimizer_model": { 
+          "type": "string",
+          "enum": ["AST-aware-minimizer-v2", "state-reduction-secure", "path-sanitizer", "aegis-enhanced"],
+          "description": "Certified optimizer implementation model"
+        },
+        "minimization_verified": { 
+          "type": "boolean",
+          "description": "Confirms AST minimization was successfully performed"
+        },
+        "path_hash": { 
+          "type": "string",
+          "pattern": "^[a-fA-F0-9]{64}$",
+          "description": "SHA-256 hash of execution paths before optimization"
+        },
+        "post_optimization_hash": {
+          "type": "string", 
+          "pattern": "^[a-fA-F0-9]{64}$",
+          "description": "SHA-256 hash of execution paths after optimization"
+        },
+        "audit_enabled": { 
+          "type": "boolean", 
+          "default": true,
+          "description": "Requires signed audit trail generation"
+        },
+        "security_level": {
+          "type": "string",
+          "enum": ["path_reduction", "state_minimization", "exploit_elimination", "aegis_hardened"],
+          "default": "path_reduction",
+          "description": "Security enforcement level for optimization"
+        },
+        "transformation_log": {
+          "type": "string",
+          "description": "Path to signed transformation log file"
+        },
+        "semantic_equivalence_proof": {
+          "type": "boolean",
+          "description": "Formal verification that optimizations preserve semantics"
+        },
+        "color_state_tracking": {
+          "type": "boolean",
+          "default": true,
+          "description": "Track color governance state through optimization passes"
+        }
+      },
+      "required": ["optimizer_model", "minimization_verified", "path_hash", "post_optimization_hash"],
+      "additionalProperties": false
+    },
+    "governance_substages": {
+      "type": "object",
+      "description": "Machine-verifiable substage governance definitions with enhanced core layer integrity",
+      "properties": {
+        "tokenizer": {
+          "type": "object",
+          "description": "Stage 0: Lexeme and token governance with NULL/nil semantics",
+          "properties": {
+            "lexeme_validation": { 
+              "type": "boolean",
+              "default": true,
+              "description": "Enable lexeme pattern validation"
+            },
+            "token_memory_constraints": { 
+              "type": "integer", 
+              "minimum": 4096,
+              "default": 8192,
+              "description": "Maximum memory allocation for token buffer"
+            },
+            "encoding_normalization": { 
+              "type": "boolean",
+              "default": true,
+              "description": "Normalize character encoding to UTF-8"
+            },
+            "yoda_style_enforcement": { 
+              "type": "boolean", 
+              "default": true,
+              "description": "Enforce Yoda-style conditional patterns (constants on left)"
+            },
+            "null_nil_transformation": { 
+              "type": "boolean", 
+              "default": true,
+              "description": "Automatically transform C NULL to RIFT nil with audit trail"
+            },
+            "thread_lifecycle_tokens": {
+              "type": "boolean",
+              "default": true,
+              "description": "Support thread lifecycle bit-string tokens"
+            }
+          }
+        },
+        "parser": {
+          "type": "object",
+          "description": "Stage 1: Grammar and parse tree governance",
+          "properties": {
+            "ast_depth_limit": { 
+              "type": "integer", 
+              "minimum": 1, 
+              "maximum": 1000,
+              "default": 100,
+              "description": "Maximum allowed AST depth"
+            },
+            "syntax_strictness": { 
+              "type": "string", 
+              "enum": ["permissive", "strict", "pedantic"],
+              "default": "strict",
+              "description": "Parser syntax validation strictness level"
+            },
+            "error_recovery": { 
+              "type": "boolean",
+              "default": true,
+              "description": "Enable parser error recovery mechanisms"
+            },
+            "yoda_parse_validation": {
+              "type": "boolean",
+              "default": true,
+              "description": "Validate Yoda-style patterns during parsing"
+            }
+          }
+        },
+        "semantic": {
+          "type": "object",
+          "description": "Stage 2: Semantic analysis and type governance",
+          "properties": {
+            "type_checking": { 
+              "type": "boolean",
+              "default": true,
+              "description": "Enable comprehensive type checking"
+            },
+            "scope_validation": { 
+              "type": "boolean",
+              "default": true,
+              "description": "Validate variable scope and lifetime"
+            },
+            "symbol_table_integrity": { 
+              "type": "boolean",
+              "default": true,
+              "description": "Verify symbol table consistency"
+            },
+            "thread_safety_analysis": {
+              "type": "boolean",
+              "default": true,
+              "description": "Analyze thread safety and parity elimination"
+            }
+          }
+        },
+        "validator": {
+          "type": "object",
+          "description": "Stage 3: Structural validation and governance compliance",
+          "properties": {
+            "structural_acyclicity": { 
+              "type": "boolean",
+              "default": true,
+              "description": "Verify absence of structural cycles"
+            },
+            "cost_bounds_enforced": { 
+              "type": "boolean",
+              "default": true,
+              "description": "Enforce computational cost boundaries"
+            },
+            "governance_hash_required": { 
+              "type": "boolean",
+              "default": true,
+              "description": "Require cryptographic governance validation"
+            },
+            "accessibility_validation": {
+              "type": "boolean",
+              "default": true,
+              "description": "Validate accessibility compliance during validation stage"
+            }
+          }
+        },
+        "bytecode": {
+          "type": "object",
+          "description": "Stage 4: Bytecode generation and validation",
+          "properties": {
+            "opcode_validation": { 
+              "type": "boolean",
+              "default": true,
+              "description": "Validate generated opcodes"
+            },
+            "complexity_limits": { 
+              "type": "boolean",
+              "default": true,
+              "description": "Enforce bytecode complexity limits"
+            },
+            "operand_alignment": { 
+              "type": "integer", 
+              "enum": [4, 8, 16],
+              "default": 8,
+              "description": "Required operand alignment in bytes"
+            }
+          }
+        },
+        "verifier": {
+          "type": "object",
+          "description": "Stage 5: Bytecode verification with enhanced core layer integrity",
+          "properties": {
+            "bytecode_integrity": { 
+              "type": "boolean",
+              "default": true,
+              "description": "Verify bytecode structural integrity"
+            },
+            "stack_safety": { 
+              "type": "boolean",
+              "default": true,
+              "description": "Enforce stack safety requirements"
+            },
+            "memory_bounds": { 
+              "type": "boolean",
+              "default": true,
+              "description": "Validate memory access boundaries"
+            },
+            "core_layer_integrity": {
+              "type": "boolean",
+              "default": true,
+              "description": "Indicates if the rift-core shared components pass audit and structural validation for the Aegis project"
+            },
+            "accessibility_core_validation": {
+              "type": "boolean",
+              "default": true,
+              "description": "Validate accessibility color governance core components"
+            },
+            "thread_safety_verification": {
+              "type": "boolean",
+              "default": true,
+              "description": "Verify thread lifecycle and parity elimination compliance"
+            }
+          }
+        },
+        "emitter": {
+          "type": "object",
+          "description": "Stage 6: Code emission and final output generation",
+          "properties": {
+            "target_architecture": { 
+              "type": "string",
+              "default": "x86_64",
+              "description": "Target architecture for code emission"
+            },
+            "optimization_level": { 
+              "type": "integer", 
+              "minimum": 0, 
+              "maximum": 3,
+              "default": 2,
+              "description": "Optimization level for emitted code"
+            },
+            "debug_symbols": { 
+              "type": "boolean",
+              "default": true,
+              "description": "Include debug symbols in emitted code"
+            },
+            "accessibility_metadata": {
+              "type": "boolean",
+              "default": true,
+              "description": "Include accessibility governance metadata in output"
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "thread_safety_governance": {
+      "type": "object",
+      "description": "Enhanced thread safety and semantic control with comprehensive color governance integration",
+      "properties": {
+        "null_nil_semantics": {
+          "type": "object",
+          "description": "NULL to nil transformation governance",
+          "properties": {
+            "auto_cast_null_to_nil": { 
+              "type": "boolean", 
+              "default": true,
+              "description": "Automatically cast C NULL to RIFT nil"
+            },
+            "audit_transformations": { 
+              "type": "boolean", 
+              "default": true,
+              "description": "Generate audit trail for NULL/nil transformations"
+            },
+            "prevent_double_free": { 
+              "type": "boolean", 
+              "default": true,
+              "description": "Prevent double-free errors through nil semantics"
+            },
+            "transformation_color_coding": {
+              "type": "boolean",
+              "default": true,
+              "description": "Use color coding for NULL/nil transformation tracking"
+            }
+          }
+        },
+        "yoda_style_enforcement": {
+          "type": "object",
+          "description": "Yoda-style programming enforcement configuration",
+          "properties": {
+            "required": { 
+              "type": "boolean", 
+              "default": true,
+              "description": "Require Yoda-style conditionals (constants on left)"
+            },
+            "check_assignments": { 
+              "type": "boolean", 
+              "default": true,
+              "description": "Check for accidental assignments in conditionals"
+            },
+            "audit_conditions": { 
+              "type": "boolean", 
+              "default": true,
+              "description": "Audit all conditional expressions for compliance"
+            },
+            "violation_color_highlighting": {
+              "type": "boolean",
+              "default": true,
+              "description": "Use color highlighting for Yoda-style violations"
+            }
+          }
+        },
+        "thread_lifecycle": {
+          "type": "object",
+          "description": "Thread lifecycle management and governance",
+          "properties": {
+            "max_workers_per_thread": { 
+              "type": "integer", 
+              "minimum": 1,
+              "maximum": 64,
+              "default": 32,
+              "description": "Maximum worker threads per parent thread"
+            },
+            "max_thread_depth": { 
+              "type": "integer", 
+              "minimum": 1,
+              "maximum": 64,
+              "default": 32,
+              "description": "Maximum thread nesting depth"
+            },
+            "lifecycle_encoding": { 
+              "type": "string", 
+              "enum": ["bit_string", "state_machine", "hybrid"],
+              "default": "bit_string",
+              "description": "Thread lifecycle encoding method"
+            },
+            "parity_elimination": { 
+              "type": "boolean", 
+              "default": true,
+              "description": "Enable parity elimination for parallel processing"
+            },
+            "thread_color_identification": {
+              "type": "boolean",
+              "default": true,
+              "description": "Use color coding for thread identification and debugging"
+            }
+          }
+        },
+        "audit_streams": {
+          "type": "object",
+          "description": "Audit stream configuration for I/O tracking",
+          "properties": {
+            "stdin_audit": { 
+              "type": "boolean", 
+              "default": true,
+              "description": "Enable stdin audit tracking (.audit-0)"
+            },
+            "stderr_audit": { 
+              "type": "boolean", 
+              "default": true,
+              "description": "Enable stderr audit tracking (.audit-1)"
+            },
+            "stdout_audit": { 
+              "type": "boolean", 
+              "default": true,
+              "description": "Enable stdout audit tracking (.audit-2)"
+            },
+            "state_hash_verification": { 
+              "type": "boolean", 
+              "default": true,
+              "description": "Verify state hashes for audit integrity"
+            },
+            "audit_color_coding": {
+              "type": "boolean",
+              "default": true,
+              "description": "Apply color coding to audit stream outputs"
+            }
+          }
+        }
+      },
+      "required": ["null_nil_semantics", "yoda_style_enforcement", "thread_lifecycle", "audit_streams"],
+      "additionalProperties": false
+    },
+    "custom_stages": {
+      "type": "array",
+      "description": "User-defined pipeline extensions with governance contracts and color governance support",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { 
+            "type": "string",
+            "description": "Human-readable name for the custom stage"
+          },
+          "stage_id": { 
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]+$",
+            "description": "Unique identifier for the custom stage"
+          },
+          "description": { 
+            "type": "string",
+            "description": "Detailed description of stage functionality"
+          },
+          "activated": { 
+            "type": "boolean",
+            "default": false,
+            "description": "Whether the custom stage is currently active"
+          },
+          "dependencies": { 
+            "type": "array", 
+            "items": { "type": "string" },
+            "description": "List of stage dependencies"
+          },
+          "governance_required": { 
+            "type": "boolean", 
+            "default": true,
+            "description": "Whether governance validation is required"
+          },
+          "fallback_allowed": { 
+            "type": "boolean", 
+            "default": false,
+            "description": "Whether fallback behavior is permitted on failure"
+          },
+          "machine_verifiable": { 
+            "type": "boolean", 
+            "default": true,
+            "description": "Whether stage supports automated verification"
+          },
+          "color_governance": { 
+            "type": "boolean", 
+            "default": true,
+            "description": "Whether stage participates in color governance system"
+          },
+          "accessibility_compliance": {
+            "type": "boolean",
+            "default": true,
+            "description": "Whether stage must comply with accessibility requirements"
+          }
+        },
+        "required": ["name", "stage_id"],
+        "additionalProperties": false
+      },
+      "examples": [
+        {
+          "name": "backlog",
+          "stage_id": "rdx-backlog-001", 
+          "description": "Captures research and deferred tasks prior to formal development cycle.",
+          "activated": true,
+          "dependencies": ["doc.initiation", "user-requests"],
+          "governance_required": false,
+          "fallback_allowed": true,
+          "color_governance": true
+        },
+        {
+          "name": "preprod",
+          "stage_id": "aegis-preprod-002",
+          "description": "Pre-production validation and integration testing with accessibility compliance.",
+          "activated": true,
+          "dependencies": ["stage-6"],
+          "governance_required": true,
+          "machine_verifiable": true,
+          "color_governance": true,
+          "accessibility_compliance": true
+        }
+      ]
+    },
+    "fallback_governance": {
+      "type": "object",
+      "description": "Fallback behavior configuration when governance files are missing or invalid",
+      "properties": {
+        "enabled": { 
+          "type": "boolean", 
+          "default": true,
+          "description": "Enable fallback governance mechanisms"
+        },
+        "fallback_directory": { 
+          "type": "string", 
+          "default": "rift-core/",
+          "description": "Directory for fallback governance configurations"
+        },
+        "experimental_bypass": { 
+          "type": "boolean", 
+          "default": true,
+          "description": "Allow experimental stage bypass in development"
+        },
+        "halt_on_critical": { 
+          "type": "boolean", 
+          "default": true,
+          "description": "Halt execution on critical governance failures"
+        },
+        "fallback_color_scheme": {
+          "type": "string",
+          "enum": ["monochrome", "basic", "enhanced"],
+          "default": "basic",
+          "description": "Color scheme to use when color governance fails"
+        }
+      }
+    },
+    "nlink_integration": {
+      "type": "object",
+      "description": "NLink orchestration and SemVerX enforcement settings with color governance integration",
+      "properties": {
+        "semverx_strict_mode": { 
+          "type": "boolean", 
+          "default": false,
+          "description": "Enable strict semantic versioning extension mode"
+        },
+        "hot_swap_validation": { 
+          "type": "boolean", 
+          "default": true,
+          "description": "Validate components during hot-swap operations"
+        },
+        "component_lifecycle_tracking": { 
+          "type": "boolean", 
+          "default": true,
+          "description": "Track component lifecycle states"
+        },
+        "polybuild_coordination": { 
+          "type": "boolean", 
+          "default": true,
+          "description": "Enable coordination with PolyBuild pipeline orchestration"
+        },
+        "nlink_color_integration": {
+          "type": "boolean",
+          "default": true,
+          "description": "Integrate color governance with NLink operations"
+        }
+      }
+    }
+  },
+  "required": ["package_name", "version", "stage", "timestamp"],
+  "additionalProperties": false,
+  "examples": [
+    {
+      "package_name": "rift-tokenizer",
+      "version": "0.2.0-aegis",
+      "timestamp": "2025-06-22T14:30:00Z",
+      "stage": 0,
+      "stage_type": "aegis",
+      "description": "Enhanced tokenizer with accessibility color governance",
+      "semverx_lock": true,
+      "entry_point": "rift_tokenizer_main",
+      "nlink_enabled": true,
+      "aegis_project_metadata": {
+        "project_phase": "implementation",
+        "technical_lead": "Nnamdi Michael Okpala",
+        "compliance_level": "enhanced",
+        "review_required": true
+      },
+      "accessibility_governance": {
+        "color_palette_version": "1.0-biafran",
+        "terminal_support_detection": true,
+        "ansi_compatibility": true,
+        "exception_color_mapping": {
+          "basic": "green",
+          "moderate": "yellow", 
+          "high": "orange",
+          "critical": "red"
+        },
+        "telemetry_color_logging": true,
+        "accessibility_compliance_tests": ["contrast_ratio", "terminal_compatibility", "ansi_validation"]
+      },
+      "governance_substages": {
+        "tokenizer": {
+          "lexeme_validation": true,
+          "token_memory_constraints": 8192,
+          "encoding_normalization": true,
+          "yoda_style_enforcement": true,
+          "null_nil_transformation": true,
+          "thread_lifecycle_tokens": true
+        },
+        "verifier": {
+          "core_layer_integrity": true,
+          "accessibility_core_validation": true,
+          "thread_safety_verification": true
+        }
+      },
+      "thread_safety_governance": {
+        "null_nil_semantics": {
+          "auto_cast_null_to_nil": true,
+          "audit_transformations": true,
+          "prevent_double_free": true,
+          "transformation_color_coding": true
+        },
+        "yoda_style_enforcement": {
+          "required": true,
+          "check_assignments": true,
+          "audit_conditions": true,
+          "violation_color_highlighting": true
+        },
+        "thread_lifecycle": {
+          "max_workers_per_thread": 32,
+          "max_thread_depth": 32,
+          "lifecycle_encoding": "bit_string",
+          "parity_elimination": true,
+          "thread_color_identification": true
+        },
+        "audit_streams": {
+          "stdin_audit": true,
+          "stderr_audit": true,
+          "stdout_audit": true,
+          "state_hash_verification": true,
+          "audit_color_coding": true
+        }
+      }
+    }
+  ]
+}

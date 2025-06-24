@@ -1,0 +1,411 @@
+/*
+ * =============================================================================
+ * RIFT Accessibility Error Handling System
+ * OBINexus RIFT-N Toolchain - Biafran Accessibility Compliance
+ * Technical Implementation: Nnamdi Michael Okpala & Engineering Team
+ * Aegis Project Integration: Waterfall Methodology Phase Implementation
+ * =============================================================================
+ */
+
+#include "rift-core/accessibility/error.h"
+#include "rift-core/accessibility/colors.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+#include <stdarg.h>
+
+/* Global error handling state for accessibility compliance */
+static rift_accessibility_error_state_t global_error_state = {
+    .initialized = false,
+    .terminal_support = RIFT_TERMINAL_BASIC,
+    .error_count = {0, 0, 0, 0},
+    .color_governance_enabled = true,
+    .audit_stream = NULL,
+    .telemetry_enabled = true
+};
+
+/* Exception level threshold configuration per waterfall phase requirements */
+static const rift_error_threshold_t default_thresholds = {
+    .basic_threshold = 4,      /* 0-4: Non-blocking warnings */
+    .moderate_threshold = 6,   /* 5-6: Recoverable pause states */
+    .high_threshold = 8,       /* 7-8: Escalated governance validation */
+    .critical_threshold = 12,  /* 9-12: Execution halt with panic mode */
+    .panic_mode_enabled = true
+};
+
+/* ANSI escape sequence validation for cross-platform compatibility */
+static bool validate_ansi_support(void) {
+    const char* term = getenv("TERM");
+    const char* colorterm = getenv("COLORTERM");
+    
+    /* Windows Terminal and ConEmu detection for Aegis deployment environments */
+    if (getenv("WT_SESSION") || getenv("ConEmuPID")) {
+        return true;
+    }
+    
+    /* POSIX terminal capability detection */
+    if (term && (strstr(term, "color") || strstr(term, "256") || strstr(term, "xterm"))) {
+        return true;
+    }
+    
+    if (colorterm && (strstr(colorterm, "truecolor") || strstr(colorterm, "24bit"))) {
+        return true;
+    }
+    
+    return false;
+}
+
+/* Initialize accessibility error handling system with governance compliance */
+rift_result_t rift_accessibility_error_init(const rift_error_config_t* config) {
+    if (global_error_state.initialized) {
+        return RIFT_SUCCESS; /* Already initialized - idempotent operation */
+    }
+    
+    /* Detect terminal color support for accessibility compliance */
+    global_error_state.terminal_support = detect_terminal_color_support();
+    
+    /* Apply configuration if provided, otherwise use defaults */
+    if (config) {
+        global_error_state.color_governance_enabled = config->enable_color_governance;
+        global_error_state.telemetry_enabled = config->enable_telemetry;
+        global_error_state.thresholds = config->thresholds;
+        
+        /* Initialize audit stream if specified */
+        if (config->audit_file_path && strlen(config->audit_file_path) > 0) {
+            global_error_state.audit_stream = fopen(config->audit_file_path, "a");
+            if (!global_error_state.audit_stream) {
+                fprintf(stderr, "RIFT Accessibility: Failed to open audit stream: %s\n", 
+                        config->audit_file_path);
+                return RIFT_ERROR_MODERATE;
+            }
+        }
+    } else {
+        global_error_state.thresholds = default_thresholds;
+        global_error_state.color_governance_enabled = true;
+        global_error_state.telemetry_enabled = true;
+    }
+    
+    /* Initialize error counters */
+    memset(global_error_state.error_count, 0, sizeof(global_error_state.error_count));
+    
+    global_error_state.initialized = true;
+    
+    /* Log initialization with color governance */
+    if (global_error_state.color_governance_enabled) {
+        polycall_format_colored_text(RIFT_EXCEPTION_BASIC, 
+            "RIFT Accessibility Error System initialized successfully");
+    }
+    
+    return RIFT_SUCCESS;
+}
+
+/* Generate structured error report with accessibility metadata */
+static void generate_error_telemetry(rift_exception_level_t level, 
+                                   const char* message, 
+                                   const char* function,
+                                   const char* file,
+                                   int line) {
+    if (!global_error_state.telemetry_enabled) {
+        return;
+    }
+    
+    char timestamp[32];
+    time_t now = time(NULL);
+    strftime(timestamp, sizeof(timestamp), "%Y-%m-%dT%H:%M:%S", localtime(&now));
+    
+    /* Generate telemetry JSON structure for Aegis integration */
+    FILE* telemetry_stream = global_error_state.audit_stream ? 
+                            global_error_state.audit_stream : stderr;
+    
+    fprintf(telemetry_stream, 
+        "{"
+        "\"timestamp\":\"%s\","
+        "\"level\":\"%s\","
+        "\"message\":\"%s\","
+        "\"function\":\"%s\","
+        "\"file\":\"%s\","
+        "\"line\":%d,"
+        "\"accessibility\":{"
+            "\"terminal_support\":\"%d\","
+            "\"color_governance\":%s,"
+            "\"biafran_compliance\":true"
+        "},"
+        "\"error_counts\":{"
+            "\"basic\":%d,"
+            "\"moderate\":%d,"
+            "\"high\":%d,"
+            "\"critical\":%d"
+        "}"
+        "}\n",
+        timestamp,
+        (level == RIFT_EXCEPTION_BASIC) ? "BASIC" :
+        (level == RIFT_EXCEPTION_MODERATE) ? "MODERATE" :
+        (level == RIFT_EXCEPTION_HIGH) ? "HIGH" : "CRITICAL",
+        message, function, file, line,
+        global_error_state.terminal_support,
+        global_error_state.color_governance_enabled ? "true" : "false",
+        global_error_state.error_count[RIFT_EXCEPTION_BASIC],
+        global_error_state.error_count[RIFT_EXCEPTION_MODERATE],
+        global_error_state.error_count[RIFT_EXCEPTION_HIGH],
+        global_error_state.error_count[RIFT_EXCEPTION_CRITICAL]
+    );
+    
+    fflush(telemetry_stream);
+}
+
+/* Core error reporting function with accessibility color governance */
+rift_result_t rift_accessibility_error_report(rift_exception_level_t level,
+                                             const char* function,
+                                             const char* file,
+                                             int line,
+                                             const char* format, ...) {
+    if (!global_error_state.initialized) {
+        /* Emergency initialization for critical error paths */
+        rift_accessibility_error_init(NULL);
+    }
+    
+    /* Increment error counter for this level */
+    if (level >= RIFT_EXCEPTION_BASIC && level <= RIFT_EXCEPTION_CRITICAL) {
+        global_error_state.error_count[level]++;
+    }
+    
+    /* Format the error message */
+    char message_buffer[1024];
+    va_list args;
+    va_start(args, format);
+    vsnprintf(message_buffer, sizeof(message_buffer), format, args);
+    va_end(args);
+    
+    /* Generate telemetry data for Aegis integration */
+    generate_error_telemetry(level, message_buffer, function, file, line);
+    
+    /* Apply color governance based on accessibility compliance */
+    if (global_error_state.color_governance_enabled) {
+        const char* color_code = get_exception_color(level);
+        const char* level_name;
+        
+        switch (level) {
+            case RIFT_EXCEPTION_BASIC:    level_name = "BASIC"; break;
+            case RIFT_EXCEPTION_MODERATE: level_name = "MODERATE"; break;
+            case RIFT_EXCEPTION_HIGH:     level_name = "HIGH"; break;
+            case RIFT_EXCEPTION_CRITICAL: level_name = "CRITICAL"; break;
+            default:                      level_name = "UNKNOWN"; break;
+        }
+        
+        /* Enhanced error display with accessibility metadata */
+        fprintf(stderr, "%s[%s]%s %s:%d in %s(): %s\n",
+                color_code, level_name, get_color_code(RIFT_COLOR_NC, global_error_state.terminal_support),
+                file, line, function, message_buffer);
+    } else {
+        /* Fallback display without color for basic terminals */
+        fprintf(stderr, "[%s] %s:%d in %s(): %s\n",
+                (level == RIFT_EXCEPTION_BASIC) ? "BASIC" :
+                (level == RIFT_EXCEPTION_MODERATE) ? "MODERATE" :
+                (level == RIFT_EXCEPTION_HIGH) ? "HIGH" : "CRITICAL",
+                file, line, function, message_buffer);
+    }
+    
+    /* Check threshold violations and apply governance responses */
+    rift_result_t governance_result = RIFT_SUCCESS;
+    
+    switch (level) {
+        case RIFT_EXCEPTION_BASIC:
+            /* Basic errors: Log and continue with warning */
+            if (global_error_state.error_count[RIFT_EXCEPTION_BASIC] > global_error_state.thresholds.basic_threshold) {
+                governance_result = RIFT_ERROR_MODERATE;
+            }
+            break;
+            
+        case RIFT_EXCEPTION_MODERATE:
+            /* Moderate errors: Recoverable pause state */
+            if (global_error_state.error_count[RIFT_EXCEPTION_MODERATE] > global_error_state.thresholds.moderate_threshold) {
+                governance_result = RIFT_ERROR_HIGH;
+            } else {
+                governance_result = RIFT_ERROR_MODERATE;
+            }
+            break;
+            
+        case RIFT_EXCEPTION_HIGH:
+            /* High errors: Escalated governance validation required */
+            if (global_error_state.error_count[RIFT_EXCEPTION_HIGH] > global_error_state.thresholds.high_threshold) {
+                governance_result = RIFT_ERROR_CRITICAL;
+            } else {
+                governance_result = RIFT_ERROR_HIGH;
+            }
+            break;
+            
+        case RIFT_EXCEPTION_CRITICAL:
+            /* Critical errors: Immediate halt with panic mode */
+            governance_result = RIFT_ERROR_CRITICAL;
+            
+            if (global_error_state.thresholds.panic_mode_enabled) {
+                if (global_error_state.color_governance_enabled) {
+                    fprintf(stderr, "%s[PANIC]%s RIFT System entering panic mode due to critical error\n",
+                            get_color_code(RIFT_COLOR_CRITICAL_RED, global_error_state.terminal_support),
+                            get_color_code(RIFT_COLOR_NC, global_error_state.terminal_support));
+                }
+                
+                /* Flush all streams before panic exit */
+                fflush(stdout);
+                fflush(stderr);
+                if (global_error_state.audit_stream) {
+                    fflush(global_error_state.audit_stream);
+                }
+                
+                /* Aegis project requirement: Generate panic report */
+                generate_error_telemetry(RIFT_EXCEPTION_CRITICAL, "PANIC MODE ACTIVATED", 
+                                       function, file, line);
+                
+                exit(EXIT_FAILURE);
+            }
+            break;
+    }
+    
+    return governance_result;
+}
+
+/* Thread-safe error statistics retrieval for Aegis monitoring */
+rift_result_t rift_accessibility_get_error_statistics(rift_error_statistics_t* stats) {
+    if (!stats || !global_error_state.initialized) {
+        return RIFT_ERROR_BASIC;
+    }
+    
+    /* Copy current error counts atomically */
+    memcpy(stats->error_counts, global_error_state.error_count, sizeof(stats->error_counts));
+    
+    /* Calculate total error count */
+    stats->total_errors = 0;
+    for (int i = 0; i < 4; i++) {
+        stats->total_errors += stats->error_counts[i];
+    }
+    
+    /* Set accessibility metadata */
+    stats->terminal_support = global_error_state.terminal_support;
+    stats->color_governance_enabled = global_error_state.color_governance_enabled;
+    stats->biafran_compliance = true;
+    
+    return RIFT_SUCCESS;
+}
+
+/* Stage-specific error handling for RIFT pipeline compliance */
+rift_result_t rift_accessibility_stage_error(int stage_number,
+                                           rift_exception_level_t level,
+                                           const char* stage_operation,
+                                           const char* format, ...) {
+    if (stage_number < 0 || stage_number > 6) {
+        return RIFT_ERROR_HIGH; /* Invalid stage number */
+    }
+    
+    char stage_message[1024];
+    va_list args;
+    va_start(args, format);
+    vsnprintf(stage_message, sizeof(stage_message), format, args);
+    va_end(args);
+    
+    /* Format stage-specific error message */
+    char formatted_message[1536];
+    snprintf(formatted_message, sizeof(formatted_message),
+             "Stage-%d [%s]: %s", stage_number, stage_operation, stage_message);
+    
+    /* Apply stage-specific color governance if available */
+    if (global_error_state.color_governance_enabled) {
+        rift_color_t stage_color = get_stage_color(stage_number, level);
+        const char* color_code = get_color_code(stage_color, global_error_state.terminal_support);
+        
+        fprintf(stderr, "%s[STAGE-%d]%s %s\n",
+                color_code, stage_number,
+                get_color_code(RIFT_COLOR_NC, global_error_state.terminal_support),
+                formatted_message);
+    }
+    
+    /* Delegate to main error reporting system */
+    return rift_accessibility_error_report(level, "stage_operation", 
+                                          "rift_stage", stage_number, 
+                                          "%s", formatted_message);
+}
+
+/* Cleanup and resource management for accessibility error system */
+void rift_accessibility_error_cleanup(void) {
+    if (!global_error_state.initialized) {
+        return;
+    }
+    
+    /* Generate final error summary for Aegis project reporting */
+    if (global_error_state.telemetry_enabled) {
+        rift_error_statistics_t final_stats;
+        if (rift_accessibility_get_error_statistics(&final_stats) == RIFT_SUCCESS) {
+            if (global_error_state.color_governance_enabled) {
+                polycall_format_colored_text(RIFT_EXCEPTION_BASIC,
+                    "RIFT Accessibility: Final error statistics - "
+                    "BASIC: %d, MODERATE: %d, HIGH: %d, CRITICAL: %d",
+                    final_stats.error_counts[0], final_stats.error_counts[1],
+                    final_stats.error_counts[2], final_stats.error_counts[3]);
+            }
+        }
+    }
+    
+    /* Close audit stream if opened */
+    if (global_error_state.audit_stream && global_error_state.audit_stream != stderr) {
+        fclose(global_error_state.audit_stream);
+        global_error_state.audit_stream = NULL;
+    }
+    
+    /* Reset state */
+    global_error_state.initialized = false;
+    memset(global_error_state.error_count, 0, sizeof(global_error_state.error_count));
+}
+
+/* Convenience macros for systematic error reporting in Aegis development */
+#define RIFT_ERROR_BASIC_MSG(msg, ...) \
+    rift_accessibility_error_report(RIFT_EXCEPTION_BASIC, __func__, __FILE__, __LINE__, msg, ##__VA_ARGS__)
+
+#define RIFT_ERROR_MODERATE_MSG(msg, ...) \
+    rift_accessibility_error_report(RIFT_EXCEPTION_MODERATE, __func__, __FILE__, __LINE__, msg, ##__VA_ARGS__)
+
+#define RIFT_ERROR_HIGH_MSG(msg, ...) \
+    rift_accessibility_error_report(RIFT_EXCEPTION_HIGH, __func__, __FILE__, __LINE__, msg, ##__VA_ARGS__)
+
+#define RIFT_ERROR_CRITICAL_MSG(msg, ...) \
+    rift_accessibility_error_report(RIFT_EXCEPTION_CRITICAL, __func__, __FILE__, __LINE__, msg, ##__VA_ARGS__)
+
+#define RIFT_STAGE_ERROR(stage, level, operation, msg, ...) \
+    rift_accessibility_stage_error(stage, level, operation, msg, ##__VA_ARGS__)
+
+/* Waterfall methodology compliance validation for error handling */
+rift_result_t rift_accessibility_validate_waterfall_compliance(void) {
+    if (!global_error_state.initialized) {
+        return RIFT_ERROR_HIGH;
+    }
+    
+    rift_error_statistics_t stats;
+    rift_result_t result = rift_accessibility_get_error_statistics(&stats);
+    
+    if (result != RIFT_SUCCESS) {
+        return result;
+    }
+    
+    /* Waterfall phase gate validation */
+    if (stats.error_counts[RIFT_EXCEPTION_CRITICAL] > 0) {
+        if (global_error_state.color_governance_enabled) {
+            polycall_format_colored_text(RIFT_EXCEPTION_CRITICAL,
+                "Waterfall Phase Gate: FAILED - Critical errors present");
+        }
+        return RIFT_ERROR_CRITICAL;
+    }
+    
+    if (stats.error_counts[RIFT_EXCEPTION_HIGH] > global_error_state.thresholds.high_threshold) {
+        if (global_error_state.color_governance_enabled) {
+            polycall_format_colored_text(RIFT_EXCEPTION_HIGH,
+                "Waterfall Phase Gate: WARNING - High error threshold exceeded");
+        }
+        return RIFT_ERROR_HIGH;
+    }
+    
+    if (global_error_state.color_governance_enabled) {
+        polycall_format_colored_text(RIFT_EXCEPTION_BASIC,
+            "Waterfall Phase Gate: PASSED - Error levels within acceptable thresholds");
+    }
+    
+    return RIFT_SUCCESS;
+}

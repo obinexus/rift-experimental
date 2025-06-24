@@ -1,0 +1,21 @@
+// test_input.rift
+// RIFT Test Program
+// OBINexus Computing Framework
+
+let result = (x + y) * 42;
+let factorial = n * factorial(n - 1);
+let fibonacci = fibonacci(n - 1) + fibonacci(n - 2);
+
+// Function definition example
+function calculate(a, b, c) {
+    let intermediate = a + b;
+    let final = intermediate * c;
+    return final;
+}
+
+// Conditional logic
+if (result > 100) {
+    result = result / 2;
+} else {
+    result = result + 10;
+}

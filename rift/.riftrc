@@ -1,0 +1,69 @@
+# .riftrc - AEGIS Core Governance Configuration
+[core]
+version = "4.0.0"
+memory_alignment = "classical_4096"
+token_authority = "triplet_schema"
+governance_root = "rift/"
+fallback_path = "irift/"
+compiler_mode = "single_pass"
+
+[security]
+zero_trust_enabled = true
+span_enforcement = true
+governance_checks = true
+thread_safety_model = "policy_mutex"
+interference_tolerance = 0
+memory_safety_level = "strict"
+
+[build]
+target_naming = "rift-{N}_static"
+artifact_validation = true
+documentation_required = true
+test_coverage_minimum = 0.85
+compilation_flags = "-Wall -Wextra -Wpedantic -Werror -fstack-protector-strong"
+
+[token_validation]
+triplet_schema_enforcement = true
+token_type_validation = true
+token_value_validation = true
+token_memory_validation = true
+alignment_bits = 4096
+quantum_fallback = 8
+
+[testing]
+unit_test_requirement = true
+integration_test_requirement = true
+regression_mapping = true
+qa_over_quantity = true
+lrfi_linkage_mandatory = true
+
+[documentation]
+doxygen_required = true
+governance_docs_mandatory = true
+api_documentation_level = "comprehensive"
+
+# pkg.riftrc - Package Validation Policy
+[package]
+package_name = "rift-compiler"
+package_version = "4.0.0"
+dependency_validation = "strict"
+source_trust = "verified"
+maintainer = "OBINexus Computing"
+
+[dependencies]
+cmake_minimum_version = "3.16"
+c_standard = "11"
+required_libraries = ["pthread", "openssl", "lrfi"]
+
+[validation]
+artifact_checksums = true
+signature_verification = true
+supply_chain_validation = true
+reproducible_builds = true
+
+[deployment]
+installation_prefix = "/usr/local"
+library_path = "lib"
+binary_path = "bin"
+header_path = "include/rift"
+documentation_path = "share/doc/rift"

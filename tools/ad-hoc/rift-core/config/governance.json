@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "project": "RIFT",
+  "version": "0.1.0-alpha",
+  "governance": {
+    "null_nil_semantics": {
+      "auto_cast_null_to_nil": true,
+      "audit_transformations": true,
+      "prevent_double_free": true
+    },
+    "yoda_style_enforcement": {
+      "required": true,
+      "check_assignments": true,
+      "audit_conditions": true
+    },
+    "thread_safety": {
+      "max_workers_per_thread": 32,
+      "max_thread_depth": 32,
+      "lifecycle_encoding": "bit_string",
+      "parity_elimination": true
+    },
+    "audit_requirements": {
+      "stdin_audit": true,
+      "stderr_audit": true,
+      "stdout_audit": true,
+      "state_hash_verification": true
+    },
+    "telemetry": {
+      "guid_required": true,
+      "uuid_required": true,
+      "crypto_hash_required": true,
+      "prng_identifier_required": true,
+      "stage_tracking": true
+    },
+    "exception_classification": {
+      "basic": {"range": [0, 4], "action": "warning"},
+      "moderate": {"range": [5, 6], "action": "pause"},
+      "high": {"range": [7, 8], "action": "escalate"},
+      "critical": {"range": [9, 12], "action": "halt"}
+    }
+  }
+}

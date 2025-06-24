@@ -1,0 +1,19 @@
+# Doxyfile.in - RIFT Compiler Documentation Configuration
+# OBINexus Computing Framework
+
+PROJECT_NAME           = "RIFT Compiler Pipeline"
+PROJECT_NUMBER         = @PROJECT_VERSION@
+PROJECT_BRIEF          = "RIFT: RIFT Is a Flexible Translator - OBINexus Computing"
+OUTPUT_DIRECTORY       = @CMAKE_CURRENT_BINARY_DIR@/docs
+INPUT                  = @CMAKE_SOURCE_DIR@/include @CMAKE_SOURCE_DIR@/src
+FILE_PATTERNS          = *.h *.c *.md
+RECURSIVE              = YES
+EXTRACT_ALL            = YES
+EXTRACT_PRIVATE        = YES
+EXTRACT_STATIC         = YES
+GENERATE_HTML          = YES
+GENERATE_LATEX         = NO
+HTML_OUTPUT            = html
+QUIET                  = NO
+WARNINGS               = YES
+WARN_IF_UNDOCUMENTED   = YES

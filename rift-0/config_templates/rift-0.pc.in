@@ -1,0 +1,25 @@
+# =================================================================
+# rift-0.pc.in - RIFT-0 Tokenizer pkg-config Template
+# RIFT: RIFT Is a Flexible Translator
+# Component: Build system integration template
+# OBINexus Computing Framework - Stage 0 Implementation
+# 
+# Toolchain: riftlang.exe → .so.a → rift.exe → gosilang
+# Build Orchestration: nlink → polybuild (AEGIS Framework)
+# =================================================================
+
+prefix=@PREFIX@
+exec_prefix=${prefix}
+libdir=@LIBDIR@
+includedir=@INCLUDEDIR@
+
+Name: rift-0
+Description: RIFT-0 Tokenizer - AEGIS Framework DFA-based tokenization engine
+Version: @VERSION@
+URL: https://github.com/obinexus/rift
+Requires: 
+Requires.private: 
+Conflicts: 
+Libs: -L${libdir} -lrift-0
+Libs.private: -lpthread
+Cflags: -I${includedir} -DRIFT_COMPILER_EXTENSIONS

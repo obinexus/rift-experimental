@@ -1,0 +1,35 @@
+[ 42%] Building C object rift-5/CMakeFiles/rift-5_static.dir/src/core/verifier.c.o
+[ 50%] Building C object rift-1/CMakeFiles/rift-1_static.dir/src/core/parser.c.o
+[ 50%] Building C object rift-4/CMakeFiles/rift-4_static.dir/src/core/bytecode.c.o
+[ 50%] Building C object rift-6/CMakeFiles/rift-6_static.dir/src/core/emitter.c.o
+[ 50%] Building C object rift-3/CMakeFiles/rift-3_static.dir/src/core/validator.c.o
+[ 50%] Building C object rift-0/CMakeFiles/rift-0_static.dir/src/core/tokenizer.c.o
+[ 50%] Building C object rift-2/CMakeFiles/rift-2_static.dir/src/core/semantic.c.o
+[ 57%] Linking C static library /mnt/c/Users/OBINexus/Projects/github/rift/lib/librift-5_static.a
+[ 71%] Linking C static library /mnt/c/Users/OBINexus/Projects/github/rift/lib/librift-6_static.a
+[ 71%] Linking C static library /mnt/c/Users/OBINexus/Projects/github/rift/lib/librift-0_static.a
+[ 92%] Linking C static library /mnt/c/Users/OBINexus/Projects/github/rift/lib/librift-4_static.a
+[ 92%] Linking C static library /mnt/c/Users/OBINexus/Projects/github/rift/lib/librift-1_static.a
+[ 92%] Linking C static library /mnt/c/Users/OBINexus/Projects/github/rift/lib/librift-3_static.a
+[100%] Linking C static library /mnt/c/Users/OBINexus/Projects/github/rift/lib/librift-2_static.a
+AEGIS artifact validation for stage rift-5
+Validating stage rift-5 artifacts...
+AEGIS artifact validation for stage rift-0
+AEGIS artifact validation for stage rift-6
+AEGIS artifact validation for stage rift-3
+Validating stage rift-0 artifacts...
+AEGIS artifact validation for stage rift-4
+Validating stage rift-3 artifacts...
+Validating stage rift-6 artifacts...
+AEGIS artifact validation for stage rift-2
+AEGIS artifact validation for stage rift-1
+Validating stage rift-4 artifacts...
+[100%] Built target rift-5_static
+Validating stage rift-2 artifacts...
+Validating stage rift-1 artifacts...
+[100%] Built target rift-0_static
+[100%] Built target rift-6_static
+[100%] Built target rift-3_static
+[100%] Built target rift-4_static
+[100%] Built target rift-2_static
+[100%] Built target rift-1_static

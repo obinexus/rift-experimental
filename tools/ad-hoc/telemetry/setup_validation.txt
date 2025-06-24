@@ -1,0 +1,35 @@
+RIFT Core Setup Validation Report
+Generated: Sun Jun 22 03:01:18 PM BST 2025
+UUID: 68e3310d-e0b6-4712-ac93-6dcad5fa1b35
+
+Directory Structure Validation:
+✓ /mnt/c/Users/OBINexus/Projects/github/rift/tools/ad-hoc/rift-core/include exists
+✓ /mnt/c/Users/OBINexus/Projects/github/rift/tools/ad-hoc/rift-core/src exists
+✓ /mnt/c/Users/OBINexus/Projects/github/rift/tools/ad-hoc/rift-core/build exists
+✓ /mnt/c/Users/OBINexus/Projects/github/rift/tools/ad-hoc/rift-core/config exists
+✓ /mnt/c/Users/OBINexus/Projects/github/rift/tools/ad-hoc/rift-core/tests exists
+✓ /mnt/c/Users/OBINexus/Projects/github/rift/tools/ad-hoc/rift-core/docs exists
+✓ /mnt/c/Users/OBINexus/Projects/github/rift/tools/ad-hoc/rift-audit/rift-0 exists
+✓ /mnt/c/Users/OBINexus/Projects/github/rift/tools/ad-hoc/rift-audit/rift-1 exists
+✓ /mnt/c/Users/OBINexus/Projects/github/rift/tools/ad-hoc/rift-audit/rift-2 exists
+✓ /mnt/c/Users/OBINexus/Projects/github/rift/tools/ad-hoc/rift-audit/rift-3 exists
+✓ /mnt/c/Users/OBINexus/Projects/github/rift/tools/ad-hoc/rift-audit/rift-4 exists
+✓ /mnt/c/Users/OBINexus/Projects/github/rift/tools/ad-hoc/rift-audit/rift-5 exists
+✓ /mnt/c/Users/OBINexus/Projects/github/rift/tools/ad-hoc/rift-audit/rift-6 exists
+
+File Generation Validation:
+✓ /mnt/c/Users/OBINexus/Projects/github/rift/tools/ad-hoc/CMakeLists.txt generated
+✓ /mnt/c/Users/OBINexus/Projects/github/rift/tools/ad-hoc/rift-core/CMakeLists.txt generated
+✓ /mnt/c/Users/OBINexus/Projects/github/rift/tools/ad-hoc/rift-core/include/rift-core/core.h generated
+✓ /mnt/c/Users/OBINexus/Projects/github/rift/tools/ad-hoc/rift-core/include/rift-core/thread/lifecycle.h generated
+✓ /mnt/c/Users/OBINexus/Projects/github/rift/tools/ad-hoc/rift-core/include/rift-core/audit/tracer.h generated
+
+Governance Configuration Validation:
+✓ Main governance config exists
+✓ Stage 0 config exists
+✓ Stage 1 config exists
+✓ Stage 2 config exists
+✓ Stage 3 config exists
+✓ Stage 4 config exists
+✓ Stage 5 config exists
+✓ Stage 6 config exists

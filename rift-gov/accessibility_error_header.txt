@@ -1,0 +1,322 @@
+/*
+ * =============================================================================
+ * RIFT Accessibility Error Handling System - Header Definitions
+ * OBINexus RIFT-N Toolchain - Technical Specification Implementation
+ * Aegis Project Integration: Waterfall Methodology Compliance Framework
+ * Engineering Lead: Nnamdi Michael Okpala
+ * =============================================================================
+ */
+
+#ifndef RIFT_ACCESSIBILITY_ERROR_H
+#define RIFT_ACCESSIBILITY_ERROR_H
+
+#include "rift-core/core.h"
+#include "rift-core/accessibility/colors.h"
+#include <stdio.h>
+#include <stdint.h>
+#include <stdbool.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/* =============================================================================
+ * Type Definitions for Accessibility Error Governance
+ * Technical Requirements: Aegis Project Waterfall Phase Compliance
+ * =============================================================================
+ */
+
+/* Error threshold configuration for waterfall phase gate validation */
+typedef struct {
+    uint32_t basic_threshold;       /* Maximum basic errors before escalation */
+    uint32_t moderate_threshold;    /* Maximum moderate errors before escalation */
+    uint32_t high_threshold;        /* Maximum high errors before escalation */
+    uint32_t critical_threshold;    /* Maximum critical errors before panic */
+    bool panic_mode_enabled;        /* Enable automatic panic on critical threshold */
+} rift_error_threshold_t;
+
+/* Accessibility error configuration for systematic initialization */
+typedef struct {
+    bool enable_color_governance;   /* Enable Biafran accessibility color palette */
+    bool enable_telemetry;         /* Enable structured error telemetry logging */
+    const char* audit_file_path;   /* Path to audit log file (NULL for stderr) */
+    rift_error_threshold_t thresholds; /* Error threshold configuration */
+    rift_terminal_support_t terminal_override; /* Manual terminal support override */
+} rift_error_config_t;
+
+/* Global accessibility error state for systematic tracking */
+typedef struct {
+    bool initialized;               /* System initialization status */
+    rift_terminal_support_t terminal_support; /* Detected terminal capabilities */
+    uint32_t error_count[4];       /* Error counters by exception level */
+    bool color_governance_enabled; /* Color governance system status */
+    FILE* audit_stream;            /* Audit logging stream */
+    bool telemetry_enabled;        /* Telemetry system status */
+    rift_error_threshold_t thresholds; /* Active error thresholds */
+} rift_accessibility_error_state_t;
+
+/* Error statistics structure for Aegis project monitoring integration */
+typedef struct {
+    uint32_t error_counts[4];      /* Error counts by level: BASIC, MODERATE, HIGH, CRITICAL */
+    uint32_t total_errors;         /* Total error count across all levels */
+    rift_terminal_support_t terminal_support; /* Terminal capability level */
+    bool color_governance_enabled; /* Color governance status */
+    bool biafran_compliance;       /* Biafran accessibility palette compliance */
+    char last_error_timestamp[32]; /* Timestamp of most recent error */
+} rift_error_statistics_t;
+
+/* Stage-specific error context for RIFT pipeline integration */
+typedef struct {
+    int stage_number;              /* RIFT stage number (0-6) */
+    const char* stage_name;        /* Human-readable stage name */
+    const char* operation;         /* Current stage operation */
+    rift_exception_level_t max_severity; /* Maximum allowed severity for stage */
+    bool governance_required;      /* Governance validation requirement */
+} rift_stage_error_context_t;
+
+/* =============================================================================
+ * Core Accessibility Error System Functions
+ * Implementation: Systematic Waterfall Methodology Approach
+ * =============================================================================
+ */
+
+/**
+ * Initialize the accessibility error handling system with governance compliance
+ * 
+ * @param config Configuration structure (NULL for defaults)
+ * @return RIFT_SUCCESS on successful initialization, error code otherwise
+ * 
+ * Technical Note: Idempotent operation supporting multiple initialization calls
+ * Aegis Integration: Validates terminal capabilities and sets up telemetry
+ */
+rift_result_t rift_accessibility_error_init(const rift_error_config_t* config);
+
+/**
+ * Report accessibility error with structured logging and color governance
+ * 
+ * @param level Exception severity level for systematic classification
+ * @param function Function name where error occurred (use __func__)
+ * @param file Source file name where error occurred (use __FILE__)
+ * @param line Line number where error occurred (use __LINE__)
+ * @param format Printf-style format string for error message
+ * @param ... Variable arguments for format string
+ * @return RIFT_SUCCESS or governance-determined escalation code
+ * 
+ * Technical Implementation: Thread-safe error reporting with telemetry integration
+ * Waterfall Compliance: Automatic threshold validation and phase gate enforcement
+ */
+rift_result_t rift_accessibility_error_report(rift_exception_level_t level,
+                                             const char* function,
+                                             const char* file,
+                                             int line,
+                                             const char* format, ...);
+
+/**
+ * Report stage-specific error with RIFT pipeline context
+ * 
+ * @param stage_number RIFT stage number (0-6)
+ * @param level Exception severity level
+ * @param stage_operation Current stage operation description
+ * @param format Printf-style format string for error message
+ * @param ... Variable arguments for format string
+ * @return RIFT_SUCCESS or governance-determined escalation code
+ * 
+ * Technical Feature: Stage-aware color governance and specialized telemetry
+ * Aegis Integration: Pipeline-specific error classification and reporting
+ */
+rift_result_t rift_accessibility_stage_error(int stage_number,
+                                           rift_exception_level_t level,
+                                           const char* stage_operation,
+                                           const char* format, ...);
+
+/**
+ * Retrieve comprehensive error statistics for monitoring integration
+ * 
+ * @param stats Output structure for error statistics
+ * @return RIFT_SUCCESS on successful retrieval, error code otherwise
+ * 
+ * Technical Implementation: Thread-safe atomic snapshot of error state
+ * Monitoring Integration: Structured data for Aegis project dashboards
+ */
+rift_result_t rift_accessibility_get_error_statistics(rift_error_statistics_t* stats);
+
+/**
+ * Validate waterfall methodology compliance based on error thresholds
+ * 
+ * @return RIFT_SUCCESS if phase gate criteria met, error level otherwise
+ * 
+ * Waterfall Implementation: Systematic phase gate validation
+ * Quality Assurance: Automated compliance checking for project progression
+ */
+rift_result_t rift_accessibility_validate_waterfall_compliance(void);
+
+/**
+ * Cleanup accessibility error system and release resources
+ * 
+ * Technical Implementation: Systematic resource cleanup and final reporting
+ * Aegis Integration: Generate final error summary for project documentation
+ */
+void rift_accessibility_error_cleanup(void);
+
+/* =============================================================================
+ * Convenience Macros for Systematic Error Reporting
+ * Design Philosophy: Methodical error handling with minimal code overhead
+ * =============================================================================
+ */
+
+/**
+ * Report basic level error with automatic function/file/line context
+ * Usage: RIFT_ERROR_BASIC("Token validation failed for input: %s", token_name);
+ */
+#define RIFT_ERROR_BASIC(format, ...) \
+    rift_accessibility_error_report(RIFT_EXCEPTION_BASIC, __func__, __FILE__, __LINE__, format, ##__VA_ARGS__)
+
+/**
+ * Report moderate level error with systematic context capture
+ * Usage: RIFT_ERROR_MODERATE("Memory allocation failed: %zu bytes", requested_size);
+ */
+#define RIFT_ERROR_MODERATE(format, ...) \
+    rift_accessibility_error_report(RIFT_EXCEPTION_MODERATE, __func__, __FILE__, __LINE__, format, ##__VA_ARGS__)
+
+/**
+ * Report high level error requiring governance escalation
+ * Usage: RIFT_ERROR_HIGH("Parse tree validation failed: depth %d exceeds limit", depth);
+ */
+#define RIFT_ERROR_HIGH(format, ...) \
+    rift_accessibility_error_report(RIFT_EXCEPTION_HIGH, __func__, __FILE__, __LINE__, format, ##__VA_ARGS__)
+
+/**
+ * Report critical level error with potential panic mode activation
+ * Usage: RIFT_ERROR_CRITICAL("Corrupted governance state detected: checksum mismatch");
+ */
+#define RIFT_ERROR_CRITICAL(format, ...) \
+    rift_accessibility_error_report(RIFT_EXCEPTION_CRITICAL, __func__, __FILE__, __LINE__, format, ##__VA_ARGS__)
+
+/**
+ * Report stage-specific error with pipeline context
+ * Usage: RIFT_STAGE_ERROR(2, RIFT_EXCEPTION_HIGH, "semantic_analysis", "Type mismatch: %s vs %s", expected, actual);
+ */
+#define RIFT_STAGE_ERROR(stage, level, operation, format, ...) \
+    rift_accessibility_stage_error(stage, level, operation, format, ##__VA_ARGS__)
+
+/* =============================================================================
+ * Advanced Error Handling for Specialized Use Cases
+ * Technical Implementation: Extended functionality for complex scenarios
+ * =============================================================================
+ */
+
+/**
+ * Conditional error reporting based on governance state
+ * 
+ * @param condition Boolean condition for error reporting
+ * @param level Exception severity level
+ * @param format Printf-style format string
+ * @param ... Variable arguments
+ * @return RIFT_SUCCESS if condition false, error code if condition true
+ */
+#define RIFT_ERROR_IF(condition, level, format, ...) \
+    ((condition) ? rift_accessibility_error_report(level, __func__, __FILE__, __LINE__, format, ##__VA_ARGS__) : RIFT_SUCCESS)
+
+/**
+ * Assert-style error reporting for systematic validation
+ * 
+ * @param condition Boolean condition that should be true
+ * @param format Error message format if condition fails
+ * @param ... Variable arguments for format string
+ * @return RIFT_SUCCESS if condition true, RIFT_ERROR_HIGH if condition false
+ */
+#define RIFT_ASSERT(condition, format, ...) \
+    RIFT_ERROR_IF(!(condition), RIFT_EXCEPTION_HIGH, "Assertion failed: " format, ##__VA_ARGS__)
+
+/**
+ * Null pointer validation with systematic error reporting
+ * 
+ * @param pointer Pointer to validate
+ * @param name Human-readable name for the pointer
+ * @return RIFT_SUCCESS if pointer valid, RIFT_ERROR_BASIC if null
+ */
+#define RIFT_CHECK_NULL(pointer, name) \
+    RIFT_ERROR_IF((pointer) == NULL, RIFT_EXCEPTION_BASIC, "Null pointer: %s", name)
+
+/**
+ * Range validation with accessibility error reporting
+ * 
+ * @param value Value to validate
+ * @param min Minimum acceptable value (inclusive)
+ * @param max Maximum acceptable value (inclusive)
+ * @param name Human-readable name for the value
+ * @return RIFT_SUCCESS if in range, RIFT_ERROR_MODERATE if out of range
+ */
+#define RIFT_CHECK_RANGE(value, min, max, name) \
+    RIFT_ERROR_IF((value) < (min) || (value) > (max), RIFT_EXCEPTION_MODERATE, \
+                  "Range validation failed: %s = %d (expected %d-%d)", name, (int)(value), (int)(min), (int)(max))
+
+/* =============================================================================
+ * Waterfall Methodology Integration Macros
+ * Design: Systematic phase gate validation and progression tracking
+ * =============================================================================
+ */
+
+/**
+ * Waterfall phase entry validation
+ * Usage: RIFT_PHASE_ENTER("Requirements Analysis"); 
+ */
+#define RIFT_PHASE_ENTER(phase_name) \
+    rift_accessibility_error_report(RIFT_EXCEPTION_BASIC, __func__, __FILE__, __LINE__, \
+                                   "Waterfall Phase Entry: %s", phase_name)
+
+/**
+ * Waterfall phase exit validation with compliance check
+ * Usage: RIFT_PHASE_EXIT("Design Specification");
+ */
+#define RIFT_PHASE_EXIT(phase_name) \
+    do { \
+        rift_result_t _compliance = rift_accessibility_validate_waterfall_compliance(); \
+        if (_compliance == RIFT_SUCCESS) { \
+            rift_accessibility_error_report(RIFT_EXCEPTION_BASIC, __func__, __FILE__, __LINE__, \
+                                           "Waterfall Phase Exit: %s (PASSED)", phase_name); \
+        } else { \
+            rift_accessibility_error_report(RIFT_EXCEPTION_HIGH, __func__, __FILE__, __LINE__, \
+                                           "Waterfall Phase Exit: %s (FAILED - compliance check)", phase_name); \
+        } \
+    } while(0)
+
+/**
+ * Technical review checkpoint for systematic validation
+ * Usage: RIFT_TECH_REVIEW("Architecture Design Review", reviewer_name);
+ */
+#define RIFT_TECH_REVIEW(review_name, reviewer) \
+    rift_accessibility_error_report(RIFT_EXCEPTION_BASIC, __func__, __FILE__, __LINE__, \
+                                   "Technical Review: %s (Reviewer: %s)", review_name, reviewer)
+
+/* =============================================================================
+ * Aegis Project Integration Constants
+ * Technical Specification: Project-specific configuration values
+ * =============================================================================
+ */
+
+/* Default error thresholds for Aegis project compliance */
+#define RIFT_AEGIS_BASIC_THRESHOLD       10   /* Basic errors before escalation */
+#define RIFT_AEGIS_MODERATE_THRESHOLD    5    /* Moderate errors before escalation */
+#define RIFT_AEGIS_HIGH_THRESHOLD        2    /* High errors before escalation */
+#define RIFT_AEGIS_CRITICAL_THRESHOLD    1    /* Critical errors before panic */
+
+/* Aegis project telemetry configuration */
+#define RIFT_AEGIS_TELEMETRY_ENABLED     true
+#define RIFT_AEGIS_COLOR_GOVERNANCE      true
+#define RIFT_AEGIS_BIAFRAN_COMPLIANCE    true
+
+/* Stage-specific maximum severity levels for RIFT pipeline */
+#define RIFT_STAGE_0_MAX_SEVERITY        RIFT_EXCEPTION_MODERATE  /* Tokenizer */
+#define RIFT_STAGE_1_MAX_SEVERITY        RIFT_EXCEPTION_HIGH      /* Parser */
+#define RIFT_STAGE_2_MAX_SEVERITY        RIFT_EXCEPTION_CRITICAL  /* Semantic */
+#define RIFT_STAGE_3_MAX_SEVERITY        RIFT_EXCEPTION_HIGH      /* Validator */
+#define RIFT_STAGE_4_MAX_SEVERITY        RIFT_EXCEPTION_HIGH      /* Bytecode */
+#define RIFT_STAGE_5_MAX_SEVERITY        RIFT_EXCEPTION_CRITICAL  /* Optimizer */
+#define RIFT_STAGE_6_MAX_SEVERITY        RIFT_EXCEPTION_CRITICAL  /* Emitter */
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* RIFT_ACCESSIBILITY_ERROR_H */

@@ -1,0 +1,22 @@
+{
+  "project": "RIFT",
+  "version": "0.1.0-alpha",
+  "generated": "2025-06-22T15:01:17+01:00",
+  "uuid": "4b4d66c3-342a-4f75-a674-e24c0ffd0bdb",
+  "files": {
+    "c_sources": [
+      "/mnt/c/Users/OBINexus/Projects/github/rift/tools/ad-hoc/rift-core/src/common/core.c",      "/mnt/c/Users/OBINexus/Projects/github/rift/tools/ad-hoc/rift-core/src/thread/lifecycle.c",      "/mnt/c/Users/OBINexus/Projects/github/rift/tools/ad-hoc/rift-core/tests/unit/test_core.c"
+    ],
+    "headers": [
+      "/mnt/c/Users/OBINexus/Projects/github/rift/tools/ad-hoc/rift-core/include/rift-core/audit/tracer.h",      "/mnt/c/Users/OBINexus/Projects/github/rift/tools/ad-hoc/rift-core/include/rift-core/core.h",      "/mnt/c/Users/OBINexus/Projects/github/rift/tools/ad-hoc/rift-core/include/rift-core/thread/lifecycle.h"
+    ],
+    "cmake_files": [
+
+    ]
+  },
+  "statistics": {
+    "total_c_files": 3,
+    "total_h_files": 3,
+    "total_cmake_files": 3
+  }
+}

@@ -1,0 +1,111 @@
+[0;32m[INFO][0m Starting RIFT production bootstrap...
+[0;32m[INFO][0m Timestamp: 20250618_235357
+[0;32m[INFO][0m OBINexus Session Status: ACTIVE
+[0;32m[INFO][0m Checking system prerequisites...
+[0;32m[SUCCESS][0m Prerequisites validation complete
+[0;32m[INFO][0m Creating base directory structure...
+[0;34m[DEBUG][0m Created directory: /mnt/c/Users/OBINexus/Projects/github/rift/rift/src/core
+[0;34m[DEBUG][0m Created directory: /mnt/c/Users/OBINexus/Projects/github/rift/rift/src/cli
+[0;34m[DEBUG][0m Created directory: /mnt/c/Users/OBINexus/Projects/github/rift/rift/src/config
+[0;34m[DEBUG][0m Created directory: /mnt/c/Users/OBINexus/Projects/github/rift/rift/include/rift/core
+[0;34m[DEBUG][0m Created directory: /mnt/c/Users/OBINexus/Projects/github/rift/rift/include/rift/cli
+[0;34m[DEBUG][0m Created directory: /mnt/c/Users/OBINexus/Projects/github/rift/rift/include/rift/config
+[0;34m[DEBUG][0m Created directory: /mnt/c/Users/OBINexus/Projects/github/rift/rift/lib
+[0;34m[DEBUG][0m Created directory: /mnt/c/Users/OBINexus/Projects/github/rift/rift/bin
+[0;34m[DEBUG][0m Created directory: /mnt/c/Users/OBINexus/Projects/github/rift/rift/obj
+[0;34m[DEBUG][0m Created directory: /mnt/c/Users/OBINexus/Projects/github/rift/rift/logs
+[0;34m[DEBUG][0m Created directory: /mnt/c/Users/OBINexus/Projects/github/rift/rift/tests/unit
+[0;34m[DEBUG][0m Created directory: /mnt/c/Users/OBINexus/Projects/github/rift/rift/tests/integration
+[0;34m[DEBUG][0m Created directory: /mnt/c/Users/OBINexus/Projects/github/rift/rift/tests/benchmark
+[0;34m[DEBUG][0m Created directory: /mnt/c/Users/OBINexus/Projects/github/rift/rift/scripts/validation
+[0;34m[DEBUG][0m Created directory: /mnt/c/Users/OBINexus/Projects/github/rift/rift/scripts/deployment
+[0;34m[DEBUG][0m Created directory: /mnt/c/Users/OBINexus/Projects/github/rift/rift/cmake/common
+[0;34m[DEBUG][0m Created directory: /mnt/c/Users/OBINexus/Projects/github/rift/rift/cmake/modules
+[0;34m[DEBUG][0m Created directory: /mnt/c/Users/OBINexus/Projects/github/rift/rift/docs
+[0;34m[DEBUG][0m Created directory: /mnt/c/Users/OBINexus/Projects/github/rift/rift/examples
+[0;34m[DEBUG][0m Created directory: /mnt/c/Users/OBINexus/Projects/github/rift/rift/security/polic
+[0;34m[DEBUG][0m Created directory: /mnt/c/Users/OBINexus/Projects/github/rift/rift/governance
+[0;34m[DEBUG][0m Created component directories for: tokenizer
+[0;34m[DEBUG][0m Created component directories for: token_type
+[0;34m[DEBUG][0m Created component directories for: token_value
+[0;34m[DEBUG][0m Created component directories for: lexer
+[0;34m[DEBUG][0m Created component directories for: parser
+[0;34m[DEBUG][0m Created component directories for: semantic
+[0;34m[DEBUG][0m Created component directories for: validator
+[0;34m[DEBUG][0m Created component directories for: bytecode
+[0;34m[DEBUG][0m Created component directories for: verifier
+[0;34m[DEBUG][0m Created component directories for: emitter
+[0;34m[DEBUG][0m Created component directories for: cli
+[0;34m[DEBUG][0m Created component directories for: core
+[0;34m[DEBUG][0m Created component directories for: config
+[0;34m[DEBUG][0m Created component directories for: governance
+[0;32m[SUCCESS][0m Base directory structure created
+[0;32m[INFO][0m Creating pipeline stage directories...
+[0;34m[DEBUG][0m Created stage directories for: rift-0
+[0;34m[DEBUG][0m Created stage directories for: rift-1
+[0;34m[DEBUG][0m Created stage directories for: rift-2
+[0;34m[DEBUG][0m Created stage directories for: rift-3
+[0;34m[DEBUG][0m Created stage directories for: rift-4
+[0;34m[DEBUG][0m Created stage directories for: rift-5
+[0;34m[DEBUG][0m Created stage directories for: rift-6
+[0;32m[SUCCESS][0m Pipeline stage directories created
+[0;32m[INFO][0m Generating .gitkeep files for empty directories...
+[0;32m[SUCCESS][0m .gitkeep files generated
+[0;32m[INFO][0m Generating .gitignore file...
+[0;32m[SUCCESS][0m .gitignore file generated
+[0;32m[INFO][0m Generating .riftrc configuration file...
+[0;32m[SUCCESS][0m .riftrc configuration file generated
+[0;32m[INFO][0m Generating main CMakeLists.txt...
+[0;32m[SUCCESS][0m Main CMakeLists.txt generated
+[0;32m[INFO][0m Generating common CMake configuration...
+[0;32m[SUCCESS][0m Common CMake configuration generated
+[0;32m[INFO][0m Generating stage-specific CMakeLists.txt files...
+[0;34m[DEBUG][0m Generated CMakeLists.txt for rift-0
+[0;34m[DEBUG][0m Generated CMakeLists.txt for rift-1
+[0;34m[DEBUG][0m Generated CMakeLists.txt for rift-2
+[0;34m[DEBUG][0m Generated CMakeLists.txt for rift-3
+[0;34m[DEBUG][0m Generated CMakeLists.txt for rift-4
+[0;34m[DEBUG][0m Generated CMakeLists.txt for rift-5
+[0;34m[DEBUG][0m Generated CMakeLists.txt for rift-6
+[0;32m[SUCCESS][0m Stage CMakeLists.txt files generated
+[0;32m[INFO][0m Generating core header files...
+[0;34m[DEBUG][0m Generated header for component: tokenizer
+[0;34m[DEBUG][0m Generated header for component: token_type
+[0;34m[DEBUG][0m Generated header for component: token_value
+[0;34m[DEBUG][0m Generated header for component: lexer
+[0;34m[DEBUG][0m Generated header for component: parser
+[0;34m[DEBUG][0m Generated header for component: semantic
+[0;34m[DEBUG][0m Generated header for component: validator
+[0;34m[DEBUG][0m Generated header for component: bytecode
+[0;34m[DEBUG][0m Generated header for component: verifier
+[0;34m[DEBUG][0m Generated header for component: emitter
+[0;34m[DEBUG][0m Generated header for component: cli
+[0;34m[DEBUG][0m Generated header for component: core
+[0;34m[DEBUG][0m Generated header for component: config
+[0;34m[DEBUG][0m Generated header for component: governance
+[0;32m[SUCCESS][0m Core header files generated
+[0;32m[INFO][0m Generating core source files...
+[0;34m[DEBUG][0m Generated source for component: tokenizer
+[0;34m[DEBUG][0m Generated source for component: token_type
+[0;34m[DEBUG][0m Generated source for component: token_value
+[0;34m[DEBUG][0m Generated source for component: lexer
+[0;34m[DEBUG][0m Generated source for component: parser
+[0;34m[DEBUG][0m Generated source for component: semantic
+[0;34m[DEBUG][0m Generated source for component: validator
+[0;34m[DEBUG][0m Generated source for component: bytecode
+[0;34m[DEBUG][0m Generated source for component: verifier
+[0;34m[DEBUG][0m Generated source for component: emitter
+[0;34m[DEBUG][0m Generated source for component: cli
+[0;34m[DEBUG][0m Generated source for component: core
+[0;34m[DEBUG][0m Generated source for component: config
+[0;34m[DEBUG][0m Generated source for component: governance
+[0;32m[SUCCESS][0m Core source files generated
+[0;32m[INFO][0m Generating CLI interface...
+[0;32m[SUCCESS][0m CLI interface generated
+[0;32m[INFO][0m Generating IOC configuration system...
+[0;32m[SUCCESS][0m IOC configuration system generated
+[0;32m[INFO][0m Generating demo pipeline script...
+[0;32m[SUCCESS][0m Demo pipeline script and test files generated
+[0;32m[INFO][0m Generating validation scripts...
+[0;32m[SUCCESS][0m Validation scripts generated
+[0;32m[SUCCESS][0m RIFT production bootstrap completed successfully!

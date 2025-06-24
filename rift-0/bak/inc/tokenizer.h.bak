@@ -1,0 +1,277 @@
+/*
+ * =================================================================
+ * tokenizer.h - RIFT-0 Core Tokenizer Interface (AEGIS Compliant)
+ * RIFT: RIFT Is a Flexible Translator
+ * Component: DFA-based tokenization with regex composition
+ * OBINexus Computing Framework - Stage 0 Implementation
+ * 
+ * R.AND(TokenTriplet, DFAState, RegexComposition) -> Unified Interface
+ * R.FLAGS(aligned(4), strict_types, static_allocation)
+ * R.COMPOSE(TokenizerContext, ValidationLevel, ThreadSafety)
+ * 
+ * Toolchain: riftlang.exe → .so.a → rift.exe → gosilang
+ * Build Orchestration: nlink → polybuild (AEGIS Framework)
+ * Author: Nnamdi Michael Okpala & AEGIS Integration Team
+ * =================================================================
+ */
+
+#ifndef RIFT_0_CORE_TOKENIZER_H
+#define RIFT_0_CORE_TOKENIZER_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#include <stdint.h>
+#include <stdbool.h>
+#include <stddef.h>
+
+/* =================================================================
+ * RIFT-0 POLICY PRAGMA GUARDS (AEGIS FRAMEWORK)
+ * =================================================================
+ */
+
+#ifdef RIFT_COMPILER_EXTENSIONS
+#pragma rift_policy memory(aligned(4)) type(strict) value(static)
+#pragma rift_policy governance_triangle(autonomous)
+#pragma rift_policy validation_level(strict)
+#endif
+
+/* =================================================================
+ * VERSION & COMPILE-TIME CONSTANTS
+ * =================================================================
+ */
+
+#define RIFT_TOKENIZER_VERSION "0.4.0"
+#define RIFT_VERSION 0x040000
+#define RIFT_VERSION_STRING "0.4.0"
+#define RIFT_TOKENIZER_MAX_TOKENS 65536
+#define RIFT_TOKENIZER_MAX_PATTERNS 256
+#define RIFT_TOKENIZER_DEFAULT_CAPACITY 1024
+
+/* =================================================================
+ * CORE TOKEN DEFINITIONS (CANONICAL)
+ * =================================================================
+ */
+
+/* Bitfield Token Format (32-bit packed structure) - AEGIS Compliant */
+typedef struct __attribute__((packed)) {
+    uint32_t type    : 8;   /* Token type identifier (0-255) */
+    uint32_t mem_ptr : 16;  /* Memory pointer/offset (0-65535) */
+    uint32_t value   : 8;   /* Token value/flags (0-255) */
+} TokenTriplet;
+
+/* Token Type Enumeration - Canonical Definition */
+typedef enum {
+    TOKEN_UNKNOWN = 0,
+    TOKEN_IDENTIFIER,
+    TOKEN_KEYWORD,
+    TOKEN_LITERAL_STRING,
+    TOKEN_LITERAL_NUMBER,
+    TOKEN_OPERATOR,
+    TOKEN_PUNCTUATION,
+    TOKEN_DELIMITER,
+    TOKEN_WHITESPACE,
+    TOKEN_COMMENT,
+    TOKEN_EOF,
+    TOKEN_ERROR = 255
+} TokenType;
+
+/* Token Flags (stored in value field) */
+typedef enum {
+    TOKEN_FLAG_NONE       = 0x00,
+    TOKEN_FLAG_GLOBAL     = 0x01,  /* g flag */
+    TOKEN_FLAG_MULTILINE  = 0x02,  /* m flag */
+    TOKEN_FLAG_IGNORECASE = 0x04,  /* i flag */
+    TOKEN_FLAG_TOPDOWN    = 0x08,  /* t flag */
+    TOKEN_FLAG_BOTTOMUP   = 0x10,  /* b flag */
+    TOKEN_FLAG_COMPOSED   = 0x20,  /* Composed regex */
+    TOKEN_FLAG_VALIDATED = 0x40,  /* DFA validated */
+    TOKEN_FLAG_ERROR      = 0x80   /* Error state */
+} TokenFlags;
+
+/* =================================================================
+ * DFA STATE MACHINE STRUCTURES
+ * =================================================================
+ */
+
+/* Forward declarations */
+typedef struct DFAState DFAState;
+typedef struct RegexComposition RegexComposition;
+typedef struct TokenizerContext TokenizerContext;
+
+/* DFA State Structure */
+struct DFAState {
+    uint32_t    state_id;           /* Unique state identifier */
+    bool        is_final;           /* Final/accepting state flag */
+    bool        is_start;           /* Start state flag */
+    char        transition_char;    /* Character for transition */
+    DFAState*   next_state;         /* Next state on match */
+    DFAState*   fail_state;         /* Failure transition */
+    TokenType   token_type;         /* Associated token type */
+    uint32_t    match_count;        /* Number of matches */
+};
+
+/* Regex Composition Structure */
+struct RegexComposition {
+    char*       pattern;            /* Original pattern string */
+    TokenFlags  flags;              /* Compilation flags */
+    DFAState*   start_state;        /* DFA start state */
+    DFAState*   current_state;      /* Current processing state */
+    bool        is_composed;        /* Composition complete flag */
+    size_t      pattern_length;     /* Pattern length */
+};
+
+/* =================================================================
+ * TOKENIZER CONTEXT & STATISTICS
+ * =================================================================
+ */
+
+/* Tokenizer Statistics */
+typedef struct {
+    size_t      tokens_processed;   /* Total tokens processed */
+    size_t      tokens_generated;   /* Total tokens generated */
+    size_t      memory_allocated;   /* Memory currently allocated */
+    size_t      memory_peak;        /* Peak memory usage */
+    size_t      dfa_states_created; /* Total DFA states */
+    size_t      regex_patterns;     /* Compiled regex patterns */
+    double      processing_time;    /* Total processing time */
+    uint32_t    error_count;        /* Total errors encountered */
+} TokenizerStats;
+
+/* Main Tokenizer Context Structure */
+struct TokenizerContext {
+    /* Core data */
+    TokenTriplet*       tokens;             /* Token array */
+    size_t              token_count;        /* Current token count */
+    size_t              token_capacity;     /* Maximum token capacity */
+    
+    /* Input management */
+    char*               input_buffer;       /* Input text buffer */
+    size_t              input_length;       /* Input buffer length */
+    size_t              input_position;     /* Current processing position */
+    
+    /* DFA state machine */
+    DFAState*           dfa_root;           /* Root DFA state machine */
+    
+    /* Pattern management */
+    RegexComposition**  compositions;       /* Compiled regex patterns */
+    size_t              composition_count;  /* Number of patterns */
+    size_t              composition_capacity; /* Pattern array capacity */
+    
+    /* Error handling */
+    char*               error_message;      /* Last error message */
+    bool                has_error;          /* Error state flag */
+    
+    /* Thread safety */
+    bool                thread_safe;        /* Thread safety enabled */
+    void*               mutex;              /* Thread synchronization */
+    
+    /* Statistics */
+    TokenizerStats      stats;              /* Performance statistics */
+    
+    /* AEGIS Framework Compliance */
+    bool                aegis_compliant;    /* AEGIS validation flag */
+    uint32_t            governance_score;   /* Governance triangle score */
+};
+
+/* =================================================================
+ * FUNCTION TYPE DEFINITIONS
+ * =================================================================
+ */
+
+/* Function pointer types for DFA operations */
+typedef TokenTriplet (*TokenCreateFunc)(uint8_t type, uint16_t mem_ptr, uint8_t value);
+typedef bool (*TokenValidateFunc)(const TokenTriplet* token);
+typedef TokenType (*DFAGetTokenTypeFunc)(DFAState* state);
+typedef RegexComposition* (*RegexCompileFunc)(const char* pattern, TokenFlags flags);
+
+/* =================================================================
+ * CORE TOKENIZER FUNCTIONS
+ * =================================================================
+ */
+
+/* Lifecycle management */
+TokenizerContext* rift_tokenizer_create(size_t initial_capacity);
+void rift_tokenizer_destroy(TokenizerContext* ctx);
+bool rift_tokenizer_reset(TokenizerContext* ctx);
+
+/* Input handling */
+bool rift_tokenizer_set_input(TokenizerContext* ctx, const char* input, size_t length);
+bool rift_tokenizer_set_input_file(TokenizerContext* ctx, const char* filename);
+
+/* Processing */
+bool rift_tokenizer_process(TokenizerContext* ctx);
+TokenTriplet* rift_tokenizer_get_tokens(TokenizerContext* ctx, size_t* count);
+TokenTriplet rift_tokenizer_next_token(TokenizerContext* ctx);
+
+/* Pattern management */
+bool rift_tokenizer_cache_pattern(TokenizerContext* ctx, const char* name,
+                                   const char* pattern, TokenFlags flags);
+RegexComposition* rift_tokenizer_get_cached_pattern(TokenizerContext* ctx, const char* name);
+
+/* Error handling */
+const char* rift_tokenizer_get_error(const TokenizerContext* ctx);
+bool rift_tokenizer_has_error(const TokenizerContext* ctx);
+void rift_tokenizer_clear_error(TokenizerContext* ctx);
+
+/* Thread safety */
+bool rift_tokenizer_enable_thread_safety(TokenizerContext* ctx);
+bool rift_tokenizer_disable_thread_safety(TokenizerContext* ctx);
+bool rift_tokenizer_is_thread_safe(const TokenizerContext* ctx);
+
+/* Statistics & diagnostics */
+TokenizerStats rift_tokenizer_get_stats(const TokenizerContext* ctx);
+void rift_tokenizer_reset_stats(TokenizerContext* ctx);
+void rift_tokenizer_print_stats(const TokenizerContext* ctx);
+void rift_tokenizer_print_tokens(const TokenizerContext* ctx);
+bool rift_tokenizer_validate_dfa(const TokenizerContext* ctx);
+
+/* =================================================================
+ * DFA STATE MACHINE FUNCTIONS
+ * =================================================================
+ */
+
+/* DFA state management */
+DFAState* rift_dfa_create_state(uint32_t state_id, bool is_final);
+void rift_dfa_destroy_states(DFAState* root);
+void rift_dfa_add_transition(DFAState* from, DFAState* to, char transition_char);
+
+/* DFA processing */
+DFAState* rift_dfa_process_input(DFAState* start, const char* input, size_t length);
+bool rift_dfa_is_accepting_state(DFAState* state);
+TokenType rift_dfa_get_token_type(DFAState* state);
+
+/* =================================================================
+ * REGEX COMPOSITION FUNCTIONS
+ * =================================================================
+ */
+
+/* Regex compilation and management */
+RegexComposition* rift_regex_compile(const char* pattern, TokenFlags flags);
+void rift_regex_destroy(RegexComposition* regex);
+bool rift_regex_match(const RegexComposition* regex, const char* input, size_t length);
+
+/* =================================================================
+ * TOKEN UTILITY FUNCTIONS
+ * =================================================================
+ */
+
+/* TokenTriplet operations */
+TokenTriplet rift_token_create(uint8_t type, uint16_t mem_ptr, uint8_t value);
+bool rift_token_is_valid(const TokenTriplet* token);
+const char* rift_token_type_to_string(TokenType type);
+
+/* =================================================================
+ * VERSION & UTILITY FUNCTIONS
+ * =================================================================
+ */
+
+const char* rift_tokenizer_version(void);
+const char* rift_tokenizer_build_info(void);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* RIFT_0_CORE_TOKENIZER_H */
