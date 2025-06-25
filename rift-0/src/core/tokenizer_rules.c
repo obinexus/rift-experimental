@@ -464,28 +464,173 @@ void rift_rules_clear_error(TokenizerContext* ctx) {
 static bool _compile_simple_pattern(RegexComposition* regex, const char* pattern) {
     if (!regex || !pattern) return false;
     
-    /* Simple literal string matching for now */
-    /* TODO: Implement full regex compilation */
-    
+    /*
+     * Minimal regex compiler supporting character classes, wildcards and
+     * basic quantifiers (*, +, ?).  The implementation is intentionally
+     * conservative but is sufficient for the patterns used in the unit
+     * tests.  We avoid full-blown NFA→DFA conversion by restricting the
+     * grammar to concatenated elements with optional postfix modifiers.
+     */
+
+    typedef struct SkipNode {
+        DFAState* from;
+        struct SkipNode* next;
+    } SkipNode;
+
+    SkipNode* skip_list = NULL;
     DFAState* current = regex->start_state;
+    uint32_t state_id = 1;
+    size_t i = 0;
+
+    /* Skip anchors if present */
+    if (pattern[0] == '^') {
+        i++;
+    }
     size_t pattern_len = strlen(pattern);
-    
-    for (size_t i = 0; i < pattern_len; i++) {
-        DFAState* next = rift_dfa_create_state(i + 1, i == pattern_len - 1);
-        if (!next) return false;
-        
-        if (!rift_dfa_add_transition(current, next, pattern[i])) {
-            rift_dfa_destroy_states(next);
+    if (pattern_len > 0 && pattern[pattern_len - 1] == '$') {
+        pattern_len--; /* Ignore trailing '$' */
+    }
+
+    while (i < pattern_len) {
+        bool char_set[256] = {false};
+        bool negate = false;
+
+        /* ------------------- Parse single unit ------------------- */
+        if (pattern[i] == '\\' && i + 1 < pattern_len) {
+            /* Escaped literal character */
+            char_set[(unsigned char)pattern[i + 1]] = true;
+            i += 2;
+        } else if (pattern[i] == '[') {
+            /* Character class */
+            i++; /* skip '[' */
+            if (pattern[i] == '^') {
+                negate = true;
+                i++;
+            }
+            bool temp_set[256] = {false};
+            while (i < pattern_len && pattern[i] != ']') {
+                unsigned char c1 = (unsigned char)pattern[i];
+                if (c1 == '\\' && i + 1 < pattern_len) {
+                    c1 = (unsigned char)pattern[i + 1];
+                    i += 2;
+                } else {
+                    i++;
+                }
+
+                if (i < pattern_len - 1 && pattern[i] == '-' && pattern[i + 1] != ']') {
+                    unsigned char c2 = (unsigned char)pattern[i + 1];
+                    if (c2 == '\\' && i + 2 < pattern_len) {
+                        c2 = (unsigned char)pattern[i + 2];
+                        i += 2;
+                    } else {
+                        i += 1;
+                    }
+                    for (unsigned char ch = c1; ch <= c2; ch++) {
+                        temp_set[ch] = true;
+                    }
+                    i++; /* consume end char */
+                } else {
+                    temp_set[c1] = true;
+                }
+            }
+            if (i < pattern_len && pattern[i] == ']') {
+                i++; /* skip ']' */
+            }
+
+            if (negate) {
+                for (int ch = 0; ch < 256; ch++) {
+                    char_set[ch] = !temp_set[ch];
+                }
+            } else {
+                memcpy(char_set, temp_set, sizeof(temp_set));
+            }
+        } else if (pattern[i] == '.') {
+            /* Wildcard */
+            for (int ch = 0; ch < 256; ch++) {
+                char_set[ch] = true;
+            }
+            i++;
+        } else {
+            /* Literal character */
+            char_set[(unsigned char)pattern[i]] = true;
+            i++;
+        }
+
+        /* Look ahead for quantifier */
+        char quant = '\0';
+        if (i < pattern_len && (pattern[i] == '*' || pattern[i] == '+' || pattern[i] == '?')) {
+            quant = pattern[i];
+            i++;
+        }
+
+        /* Create next DFA state */
+        DFAState* next = rift_dfa_create_state(state_id++, false);
+        if (!next) {
+            while (skip_list) {
+                SkipNode* tmp = skip_list->next;
+                free(skip_list);
+                skip_list = tmp;
+            }
             return false;
         }
-        
-        current = next;
-        
-        if (i == pattern_len - 1) {
-            /* Add to accept states */
-            regex->accept_states[regex->accept_count++] = current;
+
+        /* Helper to add transitions for a character set */
+        for (int ch = 0; ch < 256; ch++) {
+            if (char_set[ch]) {
+                if (!rift_dfa_add_transition(current, next, (char)ch)) {
+                    rift_dfa_destroy_states(next);
+                    while (skip_list) {
+                        SkipNode* tmp = skip_list->next;
+                        free(skip_list);
+                        skip_list = tmp;
+                    }
+                    return false;
+                }
+                for (SkipNode* sk = skip_list; sk; sk = sk->next) {
+                    rift_dfa_add_transition(sk->from, next, (char)ch);
+                }
+                if (quant == '*' || quant == '+') {
+                    rift_dfa_add_transition(next, next, (char)ch);
+                }
+            }
         }
+
+        /* Update skip list for optional segments */
+        if (quant == '*' || quant == '?') {
+            SkipNode* node = malloc(sizeof(SkipNode));
+            if (!node) {
+                rift_dfa_destroy_states(next);
+                while (skip_list) {
+                    SkipNode* tmp = skip_list->next;
+                    free(skip_list);
+                    skip_list = tmp;
+                }
+                return false;
+            }
+            node->from = current;
+            node->next = skip_list;
+            skip_list = node;
+        } else {
+            while (skip_list) {
+                SkipNode* tmp = skip_list->next;
+                free(skip_list);
+                skip_list = tmp;
+            }
+        }
+
+        current = next;
     }
-    
+
+    /* Mark accept states */
+    current->is_final = true;
+    regex->accept_states[regex->accept_count++] = current;
+    while (skip_list) {
+        skip_list->from->is_final = true;
+        regex->accept_states[regex->accept_count++] = skip_list->from;
+        SkipNode* tmp = skip_list->next;
+        free(skip_list);
+        skip_list = tmp;
+    }
+
     return true;
 }
