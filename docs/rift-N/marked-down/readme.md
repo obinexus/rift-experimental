@@ -24,10 +24,10 @@ This project follows the RIFTLang Implementation Specification v1.0 with waterfa
 - docs/certification/ - Certification requirements
 
 ### Testing
-- 	ests/unit/ - Unit tests
-- 	ests/integration/ - Integration tests
-- 	ests/policy/ - Policy validation tests
-- 	ests/concurrency/ - Thread safety tests
+- 	tests/unit/ - Unit tests
+- 	tests/integration/ - Integration tests
+- 	tests/policy/ - Policy validation tests
+- 	tests/concurrency/ - Thread safety tests
 
 ### Governance
 - governance/thread_safety/ - Thread safety governance
