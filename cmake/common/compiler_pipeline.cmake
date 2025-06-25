@@ -131,11 +131,17 @@ function(add_rift_stage STAGE_NAME COMPONENT_NAME)
     
     # Generate dependency files for incremental builds
     set(DEP_FILE "${STAGE_OBJ_DIR}/stage_${STAGE_NUM}.d")
-    add_custom_command(
-        TARGET ${OBJECTS_TARGET} POST_BUILD
+    set(DEP_TARGET "${STAGE_NAME}_depfile")
+    add_custom_target(${DEP_TARGET}
         COMMAND ${CMAKE_COMMAND} -E touch "${DEP_FILE}"
+        DEPENDS ${OBJECTS_TARGET}
         COMMENT "Generating dependency file for stage ${STAGE_NUM}"
     )
+
+    add_dependencies(${STATIC_TARGET} ${DEP_TARGET})
+    if(BUILD_SHARED_LIBS)
+        add_dependencies(${SHARED_TARGET} ${DEP_TARGET})
+    endif()
     
     # Configure stage-specific .riftrc file
     configure_riftrc_stage(${STAGE_NUM} ${COMPONENT_NAME})
