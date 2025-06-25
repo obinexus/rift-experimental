@@ -121,26 +121,36 @@ static bool test_basic_token_patterns(void) {
     consumed = match_token_pattern("identifier", &token);
     TEST_ASSERT(consumed > 0, "Failed to tokenize identifier");
     TEST_ASSERT(token.type == TOKEN_IDENTIFIER, "Wrong token type for identifier");
+    TEST_ASSERT(token.line_number == 1 && token.column_number == 1,
+                "Identifier token position incorrect");
     
     /* Test string literal */
     consumed = match_token_pattern("\"hello world\"", &token);
     TEST_ASSERT(consumed > 0, "Failed to tokenize string literal");
     TEST_ASSERT(token.type == TOKEN_LITERAL_STRING, "Wrong token type for string");
+    TEST_ASSERT(token.line_number == 1 && token.column_number == 1,
+                "String literal token position incorrect");
     
     /* Test number literal */
     consumed = match_token_pattern("42", &token);
     TEST_ASSERT(consumed > 0, "Failed to tokenize number");
     TEST_ASSERT(token.type == TOKEN_LITERAL_NUMBER, "Wrong token type for number");
+    TEST_ASSERT(token.line_number == 1 && token.column_number == 1,
+                "Number token position incorrect");
     
     /* Test operator */
     consumed = match_token_pattern("+", &token);
     TEST_ASSERT(consumed > 0, "Failed to tokenize operator");
     TEST_ASSERT(token.type == TOKEN_OPERATOR, "Wrong token type for operator");
+    TEST_ASSERT(token.line_number == 1 && token.column_number == 1,
+                "Operator token position incorrect");
     
     /* Test delimiter */
     consumed = match_token_pattern("(", &token);
     TEST_ASSERT(consumed > 0, "Failed to tokenize delimiter");
     TEST_ASSERT(token.type == TOKEN_DELIMITER, "Wrong token type for delimiter");
+    TEST_ASSERT(token.line_number == 1 && token.column_number == 1,
+                "Delimiter token position incorrect");
     
     TEST_PASS("Basic token pattern recognition");
 }
