@@ -273,6 +273,7 @@ static int tokenize_string(rift_tokenizer_state_t* state, rift_token_t* token) {
     size_t start_pos = state->position;
     char quote_char = peek_current(state);
     size_t value_index = 0;
+    bool terminated = false;
 
     advance_tokenizer(state); // Skip opening quote
 
@@ -280,6 +281,7 @@ static int tokenize_string(rift_tokenizer_state_t* state, rift_token_t* token) {
         char current = peek_current(state);
         if (current == quote_char) {
             advance_tokenizer(state); // Skip closing quote
+            terminated = true;
             break;
         } else if (current == '\\') {
             // Handle escape sequences
@@ -304,8 +306,15 @@ static int tokenize_string(rift_tokenizer_state_t* state, rift_token_t* token) {
     }
 
     token->value[value_index] = '\0';
-    token->type = TOKEN_LITERAL_STRING;
     token->matched_state = start_pos;
+
+    if (!terminated) {
+        token->type = TOKEN_ERROR;
+        token->complexity_cost = calculate_complexity_cost(token->type, token->value);
+        return -RIFT_ERROR_UNTERMINATED_STRING;
+    }
+
+    token->type = TOKEN_LITERAL_STRING;
     token->complexity_cost = calculate_complexity_cost(token->type, token->value);
 
     return RIFT_SUCCESS;
