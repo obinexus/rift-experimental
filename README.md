@@ -662,6 +662,7 @@ RIFT development maintains alignment with NASA-STD-8739.8 software safety assura
 - **Documentation**: Comprehensive technical specifications in `/docs/`
 - **Issue Tracking**: GitHub Issues with systematic problem reporting templates
 - **QA Framework**: Automated validation through `./tools/qa_framework.sh`
+- **Incremental Edit Helper**: `./scripts/rift_incremental_edit.sh`
 
 **Development Coordination:**
 - **Technical Leadership**: Systematic problem identification with collaborative resolution
