@@ -27,6 +27,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/rift-core/include)
 
 # Add RIFT-Core subdirectory
 add_subdirectory(rift-core)
+add_subdirectory(governance)
 
 # Add RIFT stages in dependency order
 add_subdirectory(rift-0)
