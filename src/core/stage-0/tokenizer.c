@@ -81,6 +81,8 @@ static size_t calculate_complexity_cost(rift_token_type_t type, const char* valu
 static int advance_tokenizer(rift_tokenizer_state_t* state);
 static char peek_current(const rift_tokenizer_state_t* state);
 static char peek_next(const rift_tokenizer_state_t* state);
+static int tokenize_operator(rift_tokenizer_state_t* state, rift_token_t* token);
+static int tokenize_punctuation(rift_tokenizer_state_t* state, rift_token_t* token);
 
 /*
  * rift_tokenizer_init - Initialize tokenizer with AEGIS compliance
@@ -316,6 +318,58 @@ static int tokenize_string(rift_tokenizer_state_t* state, rift_token_t* token) {
 
     token->type = TOKEN_LITERAL_STRING;
     token->complexity_cost = calculate_complexity_cost(token->type, token->value);
+
+    return RIFT_SUCCESS;
+}
+
+/*
+ * tokenize_operator - Process operator tokens
+ */
+static int tokenize_operator(rift_tokenizer_state_t* state, rift_token_t* token) {
+    size_t start_pos = state->position;
+    size_t value_index = 0;
+
+    char current = peek_current(state);
+    token->value[value_index++] = current;
+    advance_tokenizer(state);
+
+    char next = peek_current(state);
+    if ((current == '=' && next == '=') ||
+        (current == '!' && next == '=') ||
+        (current == '<' && (next == '=' || next == '<')) ||
+        (current == '>' && (next == '=' || next == '>')) ||
+        (current == '+' && (next == '+' || next == '=')) ||
+        (current == '-' && (next == '-' || next == '=')) ||
+        ((current == '*' || current == '/' || current == '%' ||
+          current == '&' || current == '|' || current == '^') && next == '=') ||
+        (current == '&' && next == '&') ||
+        (current == '|' && next == '|')) {
+        token->value[value_index++] = next;
+        advance_tokenizer(state);
+    }
+
+    token->value[value_index] = '\0';
+    token->type = TOKEN_OPERATOR;
+    token->matched_state = start_pos;
+    token->complexity_cost = calculate_complexity_cost(token->type, token->value);
+
+    return RIFT_SUCCESS;
+}
+
+/*
+ * tokenize_punctuation - Process punctuation tokens
+ */
+static int tokenize_punctuation(rift_tokenizer_state_t* state, rift_token_t* token) {
+    size_t start_pos = state->position;
+
+    char current = peek_current(state);
+    token->value[0] = current;
+    token->value[1] = '\0';
+    token->type = TOKEN_PUNCTUATION;
+    token->matched_state = start_pos;
+    token->complexity_cost = calculate_complexity_cost(token->type, token->value);
+
+    advance_tokenizer(state);
 
     return RIFT_SUCCESS;
 }
