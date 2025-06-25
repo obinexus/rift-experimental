@@ -20,6 +20,16 @@
 extern "C" {
 #endif
 
+typedef struct DFAState DFAState;
+typedef struct RegexComposition RegexComposition;
+
+typedef struct {
+    TokenTriplet token;
+    int match_length;
+    bool success;
+    const char* error_msg;
+} PatternMatchResult;
+
 /* =================================================================
  * DFA STATE MANAGEMENT - CORE OPERATIONS
  * =================================================================
@@ -277,6 +287,40 @@ TokenizerErrorCode rift_rules_get_last_error_code(const TokenizerContext* ctx);
  * @param ctx Tokenizer context
  */
 void rift_rules_clear_error(TokenizerContext* ctx);
+
+/* =================================================================
+ * SIMPLE MATCHING HELPERS (LEGACY TEST SUPPORT)
+ * ================================================================= */
+
+typedef struct {
+    TokenTriplet* tokens;
+    size_t count;
+    bool success;
+    char* error_message;
+} TokenizationResult;
+
+int init_tokenizer_rules(void);
+void cleanup_tokenizer_rules(void);
+
+int match_token_pattern(const char* src, TokenTriplet* out_token);
+int match_token_pattern_ex(const char* src, const char* pattern,
+                           uint32_t flags, PatternMatchResult* result);
+
+TokenizationResult tokenize_source(const char* src, size_t length);
+void free_tokenization_result(TokenizationResult* result);
+int tokenize_source_into(const char* src, TokenTriplet* tokens,
+                         size_t max_tokens, size_t* token_count);
+
+TokenTriplet R_encode_safe(TokenType type, uint16_t mem_ptr, uint8_t value);
+bool validate_token_separation(const TokenTriplet* token);
+TokenType classify_null_nil_semantic(const char* text, size_t length);
+
+typedef struct DFAStateMachine DFAStateMachine;
+DFAStateMachine* dfa_create(void);
+bool dfa_process_char(DFAStateMachine* dfa, char c);
+bool dfa_is_accepting(DFAStateMachine* dfa);
+void dfa_reset(DFAStateMachine* dfa);
+void dfa_destroy(DFAStateMachine* dfa);
 
 #ifdef __cplusplus
 }
