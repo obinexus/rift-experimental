@@ -29,7 +29,7 @@ if(TARGET rift-0_static)
 endif()
 
 configure_file(
-  ${CMAKE_SOURCE_DIR}/config_templates/rift-0.pc.in
+  ${CMAKE_CURRENT_SOURCE_DIR}/config_templates/rift-0.pc.in
   ${CMAKE_BINARY_DIR}/lib/pkgconfig/rift-0.pc @ONLY
 )
 
