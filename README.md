@@ -553,6 +553,8 @@ stage_transition_result_t validate_stage_transition(int from_stage, int to_stage
 ./tools/dependency_validation.sh --circular-check
 
 # Governance compliance verification
+# The `policy_validation.sh` script checks for all `.riftrc.N` governance files
+# and exits with a non-zero status if any are missing.
 ./rift-gov/policy_validation.sh --stage=all
 ./tools/aegis_recovery.sh --validate-governance
 ```
