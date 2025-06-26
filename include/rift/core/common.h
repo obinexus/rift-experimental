@@ -51,6 +51,7 @@ typedef enum {
     RIFT_ERROR_OUT_OF_BOUNDS = -8,
     RIFT_ERROR_TIMEOUT = -9,
     RIFT_ERROR_INTERRUPTED = -10,
+    RIFT_ERROR_NOT_IMPLEMENTED = -11,
     
     // Tokenizer Error Codes (-100 to -199)
     RIFT_ERROR_TOKEN_BUFFER_OVERFLOW = -100,

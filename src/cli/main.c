@@ -496,10 +496,37 @@ static void print_performance_summary(const rift_performance_metrics_t* metrics)
 }
 
 // Stub implementations for remaining commands
-static int cmd_parse(void) { RIFT_LOG_INFO("Parse command - implementation pending"); return RIFT_SUCCESS; }
-static int cmd_analyze(void) { RIFT_LOG_INFO("Analyze command - implementation pending"); return RIFT_SUCCESS; }
-static int cmd_validate(void) { RIFT_LOG_INFO("Validate command - implementation pending"); return RIFT_SUCCESS; }
-static int cmd_generate(void) { RIFT_LOG_INFO("Generate command - implementation pending"); return RIFT_SUCCESS; }
-static int cmd_verify(void) { RIFT_LOG_INFO("Verify command - implementation pending"); return RIFT_SUCCESS; }
-static int cmd_emit(void) { RIFT_LOG_INFO("Emit command - implementation pending"); return RIFT_SUCCESS; }
-static int cmd_governance(void) { RIFT_LOG_INFO("Governance command - implementation pending"); return RIFT_SUCCESS; }
+static int cmd_parse(void) {
+    RIFT_LOG_INFO("Parse command not implemented");
+    return RIFT_ERROR_NOT_IMPLEMENTED;
+}
+
+static int cmd_analyze(void) {
+    RIFT_LOG_INFO("Analyze command not implemented");
+    return RIFT_ERROR_NOT_IMPLEMENTED;
+}
+
+static int cmd_validate(void) {
+    RIFT_LOG_INFO("Validate command not implemented");
+    return RIFT_ERROR_NOT_IMPLEMENTED;
+}
+
+static int cmd_generate(void) {
+    RIFT_LOG_INFO("Generate command not implemented");
+    return RIFT_ERROR_NOT_IMPLEMENTED;
+}
+
+static int cmd_verify(void) {
+    RIFT_LOG_INFO("Verify command not implemented");
+    return RIFT_ERROR_NOT_IMPLEMENTED;
+}
+
+static int cmd_emit(void) {
+    RIFT_LOG_INFO("Emit command not implemented");
+    return RIFT_ERROR_NOT_IMPLEMENTED;
+}
+
+static int cmd_governance(void) {
+    RIFT_LOG_INFO("Governance command not implemented");
+    return RIFT_ERROR_NOT_IMPLEMENTED;
+}
