@@ -570,26 +570,26 @@ index_project_files() {
         echo ""
         
         echo "## C Source Files"
-        find "${ROOT_DIR}" -name "*.c" -type f | sort
+        find "${ROOT_DIR}" -name "*.c" -type f -exec realpath --relative-to="${ROOT_DIR}" {} \; | sort
         echo ""
         
         echo "## Header Files"
-        find "${ROOT_DIR}" -name "*.h" -type f | sort
+        find "${ROOT_DIR}" -name "*.h" -type f -exec realpath --relative-to="${ROOT_DIR}" {} \; | sort
         echo ""
         
         echo "## CMake Files"
-        find "${ROOT_DIR}" -name "CMakeLists.txt" -type f | sort
-        find "${ROOT_DIR}" -name "*.cmake" -type f | sort
+        find "${ROOT_DIR}" -name "CMakeLists.txt" -type f -exec realpath --relative-to="${ROOT_DIR}" {} \; | sort
+        find "${ROOT_DIR}" -name "*.cmake" -type f -exec realpath --relative-to="${ROOT_DIR}" {} \; | sort
         echo ""
         
         echo "## Configuration Files"
-        find "${ROOT_DIR}" -name "*.pc.in" -type f | sort
-        find "${ROOT_DIR}" -name "*.json" -type f | sort
+        find "${ROOT_DIR}" -name "*.pc.in" -type f -exec realpath --relative-to="${ROOT_DIR}" {} \; | sort
+        find "${ROOT_DIR}" -name "*.json" -type f -exec realpath --relative-to="${ROOT_DIR}" {} \; | sort
         echo ""
         
         echo "## Documentation Files"
-        find "${ROOT_DIR}" -name "*.md" -type f | sort
-        find "${ROOT_DIR}" -name "*.pdf" -type f | sort
+        find "${ROOT_DIR}" -name "*.md" -type f -exec realpath --relative-to="${ROOT_DIR}" {} \; | sort
+        find "${ROOT_DIR}" -name "*.pdf" -type f -exec realpath --relative-to="${ROOT_DIR}" {} \; | sort
         
     } > "${index_file}"
     
@@ -603,17 +603,20 @@ index_project_files() {
         echo "  \"files\": {"
         
         echo "    \"c_sources\": ["
-        find "${ROOT_DIR}" -name "*.c" -type f -printf '      "%p",' | sed '$s/,$//'
+        find "${ROOT_DIR}" -name "*.c" -type f -exec realpath --relative-to="${ROOT_DIR}" {} \; \
+            | sort | sed 's/^/      "&",/' | sed '$s/,$//' 
         echo ""
         echo "    ],"
         
         echo "    \"headers\": ["
-        find "${ROOT_DIR}" -name "*.h" -type f -printf '      "%p",' | sed '$s/,$//'
+        find "${ROOT_DIR}" -name "*.h" -type f -exec realpath --relative-to="${ROOT_DIR}" {} \; \
+            | sort | sed 's/^/      "&",/' | sed '$s/,$//' 
         echo ""
         echo "    ],"
         
         echo "    \"cmake_files\": ["
-        find "${ROOT_DIR}" -name "CMakeLists.txt" -o -name "*.cmake" -type f -printf '      "%p",' | sed '$s/,$//'
+        find "${ROOT_DIR}" \( -name "CMakeLists.txt" -o -name "*.cmake" \) -type f -exec realpath --relative-to="${ROOT_DIR}" {} \; \
+            | sort | sed 's/^/      "&",/' | sed '$s/,$//' 
         echo ""
         echo "    ]"
         
