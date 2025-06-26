@@ -290,10 +290,13 @@ rift/
 │   ├── wasm/               # WebAssembly compilation targets
 │   ├── repl/               # Interactive development environment
 │   └── bindings/           # Language-specific integration APIs
-├── rift-gov/               # Governance contracts & policy enforcement
-│   ├── .riftrc.0 ... .riftrc.6  # Stage-specific governance files
-│   ├── cost_thresholds.json     # Sinphasé cost configuration
-│   └── policy_validation.sh     # Automated compliance verification
+├── rift-gov/               # Governance utilities & docs
+│   ├── accessibility_error_header.txt  # Error handling header notes
+│   ├── accessibility_error_system.txt  # Error handling implementation
+│   ├── cmake_utility_modules.txt       # CMake module list
+│   ├── rift-dir-to-fix-clutterd.txt    # Directory cleanup plan
+│   ├── rift_consolidated_setup.sh      # Infrastructure setup helper
+│   └── policy_validation.sh            # Compliance automation
 └── rift-telemetry/         # Cryptographic tracking & monitoring
     ├── prng_generators/    # Secure random number generation
     ├── uuid_tracking/      # Unique identifier management
@@ -464,9 +467,12 @@ rift/
 │   ├── .audit-2                   # Output verification logs
 │   └── 📁 telemetry-stream/        # Real-time monitoring
 ├── ⚖️ rift-gov/                    # Governance & Policy
-│   ├── .riftrc.0 ... .riftrc.6    # Stage governance contracts
-│   ├── cost_thresholds.json       # Sinphasé configuration
-│   └── policy_validation.sh       # Compliance automation
+│   ├── accessibility_error_header.txt  # Header notes
+│   ├── accessibility_error_system.txt  # Implementation details
+│   ├── cmake_utility_modules.txt       # CMake modules
+│   ├── rift-dir-to-fix-clutterd.txt    # Cleanup notes
+│   ├── rift_consolidated_setup.sh      # Setup helper
+│   └── policy_validation.sh            # Compliance automation
 ├── 📊 rift-telemetry/              # Cryptographic Tracking
 │   ├── 📁 prng_generators/         # Secure randomization
 │   ├── 📁 uuid_tracking/           # Identifier management
