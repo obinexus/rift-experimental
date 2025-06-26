@@ -1,0 +1,24 @@
+# RIFT Project File Index
+# Generated: Wed Jun 25 23:53:13 UTC 2025
+# Version: 0.1.0-alpha
+
+## C Source Files
+rift-core/src/common/core.c
+rift-core/src/thread/lifecycle.c
+rift-core/tests/unit/test_core.c
+
+## Header Files
+rift-core/include/rift-core/audit/tracer.h
+rift-core/include/rift-core/core.h
+rift-core/include/rift-core/thread/lifecycle.h
+
+## CMake Files
+CMakeLists.txt
+rift-core/CMakeLists.txt
+rift-core/tests/CMakeLists.txt
+
+## Configuration Files
+rift-core/config/governance.json
+
+## Documentation Files
+rift-core/README.md
