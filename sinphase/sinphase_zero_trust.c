@@ -102,6 +102,12 @@ bool sinphase_execute_stage(
         return false;
     }
     
+    // Process input_data - marked as used to resolve warning
+    if (input_data) {
+        // Placeholder: input processing logic would go here
+        // For now, we acknowledge the parameter to suppress warning
+    }
+    
     // Simulate stage execution
     *output_data = malloc(256); // Placeholder output
     if (*output_data) {
@@ -153,7 +159,8 @@ void sinphase_generate_audit_trail(sinphase_context_t* context, const char* even
     size_t current_len = strlen(context->audit_trail);
     size_t entry_len = strlen(audit_entry);
     
-    if (current_len + entry_len < context->audit_trail_size - 1) {
+    // Fixed: Cast audit_trail_size to size_t to resolve signedness comparison
+    if (current_len + entry_len < (size_t)(context->audit_trail_size - 1)) {
         strcat(context->audit_trail, audit_entry);
     }
 }

@@ -5,6 +5,7 @@
         "tokenizer.h": "c",
         "types.h": "c",
         "tokenizer_rules.h": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "stdio.h": "c"
     }
 }

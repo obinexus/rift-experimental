@@ -8,6 +8,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include <stddef.h>  /* Added for size_t definition */
 
 #ifdef __cplusplus
 extern "C" {
@@ -41,7 +42,7 @@ typedef struct {
     bool stage_validated[SINPHASE_STAGE_COUNT];
     void* stage_implementations[SINPHASE_STAGE_COUNT];
     char* audit_trail;
-    size_t audit_trail_size;
+    size_t audit_trail_size;  /* Now properly defined with stddef.h inclusion */
 } sinphase_context_t;
 
 // Sinphase operations
