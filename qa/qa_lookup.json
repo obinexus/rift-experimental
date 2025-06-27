@@ -1,0 +1,94 @@
+{
+  "version": "1.2.0",
+  "platform": "linux",
+  "methodology": "AEGIS_WATERFALL",
+  "hash_table_enabled": true,
+  "test_levels": {
+    "0": {
+      "name": "unit",
+      "test_dir": "/mnt/c/Users/OBINexus/Projects/github/rift-old/qa/tests/unit",
+      "log_dir": "/mnt/c/Users/OBINexus/Projects/github/rift-old/qa/logs/unit",
+      "report_dir": "/mnt/c/Users/OBINexus/Projects/github/rift-old/qa/reports/unit",
+      "hash": "8864b17444ee3d899a854dc9b28317e33e241780fcc642313ab21e4d1882ddfe"
+    },
+    "1": {
+      "name": "integration",
+      "test_dir": "/mnt/c/Users/OBINexus/Projects/github/rift-old/qa/tests/integration",
+      "log_dir": "/mnt/c/Users/OBINexus/Projects/github/rift-old/qa/logs/integration",
+      "report_dir": "/mnt/c/Users/OBINexus/Projects/github/rift-old/qa/reports/integration",
+      "hash": "f8680584ffd90f2979d8630cd460515778751621a7268b40040b1e06c310c687"
+    },
+    "2": {
+      "name": "system",
+      "test_dir": "/mnt/c/Users/OBINexus/Projects/github/rift-old/qa/tests/system",
+      "log_dir": "/mnt/c/Users/OBINexus/Projects/github/rift-old/qa/logs/system",
+      "report_dir": "/mnt/c/Users/OBINexus/Projects/github/rift-old/qa/reports/system",
+      "hash": "9eec28886f411e97b83706b08ee7d886d0de99dd2b8498ecea86208e10cfc712"
+    },
+    "3": {
+      "name": "acceptance",
+      "test_dir": "/mnt/c/Users/OBINexus/Projects/github/rift-old/qa/tests/acceptance",
+      "log_dir": "/mnt/c/Users/OBINexus/Projects/github/rift-old/qa/logs/acceptance",
+      "report_dir": "/mnt/c/Users/OBINexus/Projects/github/rift-old/qa/reports/acceptance",
+      "hash": "93682060bf3e8203a105bcda6ef7ee727d90fbe3db4f8848fa2f97e5e7c2bf9f"
+    },
+    "4": {
+      "name": "performance",
+      "test_dir": "/mnt/c/Users/OBINexus/Projects/github/rift-old/qa/tests/performance",
+      "log_dir": "/mnt/c/Users/OBINexus/Projects/github/rift-old/qa/logs/performance",
+      "report_dir": "/mnt/c/Users/OBINexus/Projects/github/rift-old/qa/reports/performance",
+      "hash": "4cab62e134aeb01974c0134f6d31d72fc01a21c863ab2e3022c64178df3b763a"
+    },
+    "5": {
+      "name": "security",
+      "test_dir": "/mnt/c/Users/OBINexus/Projects/github/rift-old/qa/tests/security",
+      "log_dir": "/mnt/c/Users/OBINexus/Projects/github/rift-old/qa/logs/security",
+      "report_dir": "/mnt/c/Users/OBINexus/Projects/github/rift-old/qa/reports/security",
+      "hash": "d5412ba2881932dc58ee856fca78a38d863b758736a2357eb466c1c6cc8cd6ba"
+    }
+  },
+  "stages": {
+    "0": {
+      "name": "tokenizer",
+      "test_status": "pending",
+      "last_run": null,
+      "hash": "b22fcbc66e2a6021d2fa34e47eefb64ec137ca69346628b1ab138091b1070e63"
+    },
+    "1": {
+      "name": "parser",
+      "test_status": "pending",
+      "last_run": null,
+      "hash": "0bb65faae5895926737972b4de53c49335c466d60f18e1cad55c755e173f5e98"
+    },
+    "2": {
+      "name": "semantic",
+      "test_status": "pending",
+      "last_run": null,
+      "hash": "d73c0612ebd6f6c3a0723550bfbac8e0432ce27ae4db7af8bed4a43631438f12"
+    },
+    "3": {
+      "name": "validator",
+      "test_status": "pending",
+      "last_run": null,
+      "hash": "964630d110d8c36150b61cf52bed3e7a428b2d9e4ef8f3e1a0bfa2857822372c"
+    },
+    "4": {
+      "name": "bytecode",
+      "test_status": "pending",
+      "last_run": null,
+      "hash": "d535c5ff20a885e2fbfbb2a71033f0dd631d8e32db512ab2354958940c73b905"
+    },
+    "5": {
+      "name": "verifier",
+      "test_status": "pending",
+      "last_run": null,
+      "hash": "480a414a3c710b27b1d0e0ff9e51548e96288e9ea9051ef40086a483f23b19c5"
+    },
+    "6": {
+      "name": "emitter",
+      "test_status": "pending",
+      "last_run": null,
+      "hash": "bc46f0ad36b615dc8dbed2861af36ca62c5380f079e0674c7bd3aab8a433f74e"
+    }
+  }
+}

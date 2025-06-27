@@ -1,0 +1,24 @@
+{
+  "stage_id": 4,
+  "stage_name": "bytecode",
+  "platform": "linux",
+  "version": "1.3.0",
+  "created": "2025-06-27T01:51:12+01:00",
+  "directories": {
+    "obj": "obj/rift-4",
+    "src_core": "rift/src/core/stage-4",
+    "src_cli": "rift/src/cli/stage-4",
+    "include": "rift/include/rift/core/stage-4",
+    "hash_lookup": "build/hash_lookup/stage-4"
+  },
+  "artifacts": {
+    "library": "lib/librift-4.a",
+    "executable": "bin/rift-4",
+    "object": "obj/rift-4/stage4.o"
+  },
+  "qa_compliance": {
+    "aegis_methodology": true,
+    "waterfall_progression": true,
+    "systematic_validation": true
+  }
+}

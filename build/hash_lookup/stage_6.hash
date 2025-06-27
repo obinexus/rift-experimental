@@ -1,0 +1,10 @@
+stage_id:6
+stage_name:emitter
+platform:linux
+version:1.3.0
+hash:50c8fe1cad466a16d2bd5d24a6e29bcf8d556cb7561df85beb6a4b827dc728b3
+timestamp:1750985472
+description:Target code emission and linking
+lib_path:lib/librift-6.a
+bin_path:bin/rift-6
+lookup_time:O(1)

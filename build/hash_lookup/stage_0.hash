@@ -1,0 +1,10 @@
+stage_id:0
+stage_name:tokenizer
+platform:linux
+version:1.3.0
+hash:ac7563029a94db823f25e8192f89e787d487fc81a217e035f1b658d5346b3621
+timestamp:1750985472
+description:Lexical analysis and token generation
+lib_path:lib/librift-0.a
+bin_path:bin/rift-0
+lookup_time:O(1)

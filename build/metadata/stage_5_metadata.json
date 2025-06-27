@@ -1,0 +1,24 @@
+{
+  "stage_id": 5,
+  "stage_name": "verifier",
+  "platform": "linux",
+  "version": "1.3.0",
+  "created": "2025-06-27T01:51:12+01:00",
+  "directories": {
+    "obj": "obj/rift-5",
+    "src_core": "rift/src/core/stage-5",
+    "src_cli": "rift/src/cli/stage-5",
+    "include": "rift/include/rift/core/stage-5",
+    "hash_lookup": "build/hash_lookup/stage-5"
+  },
+  "artifacts": {
+    "library": "lib/librift-5.a",
+    "executable": "bin/rift-5",
+    "object": "obj/rift-5/stage5.o"
+  },
+  "qa_compliance": {
+    "aegis_methodology": true,
+    "waterfall_progression": true,
+    "systematic_validation": true
+  }
+}
