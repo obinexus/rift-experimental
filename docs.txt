@@ -1,0 +1,112 @@
+docs/
+├── bachelor
+│   ├── bachelor_back.jpg
+│   ├── bachelor_front.jpg
+│   └── gateway_theory_2.pdf
+├── canonical
+│   ├── Automaton State Minimization and AST Optimization.pdf
+│   ├── Cryptographic_Standard_V1_0.pdf
+│   ├── Dimensional_Game_Theory.md
+│   ├── Dimensional_Game_Theory.pdf
+│   ├── Enhanced Chapter 6_ Git-RAF Integration.pdf
+│   ├── enhanced_chapter_6.md
+│   ├── Formal_Analysis_of_Game_Theory_for_Algorithm.md
+│   ├── Formal_Mathemitical_Reasoning_System.pdf
+│   ├── Formal Proof of Zzero-Knowledge Protocol.pdf
+│   ├── hotwiring_architecture.md
+│   ├── hotwiring_overview.md
+│   ├── implementation_strategy.md
+│   ├── Isomorphic_Reduction__Not_a_Bug__But_a_Feature.pdf
+│   ├── phantom_decoder.py
+│   ├── README.md
+│   ├── repo_structure.md
+│   ├── RIFT-0 Tokenizer Header Files_ Clean Structure for AEGIS Framework Compatibility.pdf
+│   ├── Rift Architecture Gossip (11).pdf
+│   ├── RIFT Repository README.md.pdf
+│   ├── RIFT Stage 0 Tokenization System_ Complete Implementation Plan.pdf
+│   ├── Telemetry Debugging via GUID and Timestamp Integration.pdf
+│   ├── Unicode_Only_Structural_Charset_Normalizer.md
+│   ├── Variadic Strategy in Multi-Dimensional Context.pdf
+│   ├── Varidaic_Strategy.md
+│   └── ZERO_KNOWLEDGE_PROOF.md
+├── Doxyfile.in
+├── img
+│   ├── crypto_std.jpg
+│   ├── favicon.png
+│   ├── OBINexusNnamdi.png
+│   ├── rift_bytecode.webp
+│   ├── rift_flow.png
+│   ├── rift_raf.png
+│   └── rift_stage-N.png
+├── incremental_edit_loop.md
+├── pr-proof
+│   ├── Aegis.pdf
+│   ├── Automaton State Minimization and AST Optimization.pdf
+│   ├── Cryptographic_Standard_V1_0.pdf
+│   ├── Extended Automaton-AST Minimization and Validation.pdf
+│   ├── Formal_Mathemitical_Reasoning_System (1).pdf
+│   ├── Formal Proof of Zzero-Knowledge Protocol.pdf
+│   ├── Mathematical_Framework_for_Zero_Overhead_Data_Marshalling.pdf
+│   ├── README.md
+│   ├── README.pdf
+│   ├── sinphase_documentation.pdf
+│   ├── State Machine Minization - An Application Based Case Study  on Tennis.pdf
+│   └── Thread Safety Implementation in Gosilang - A Formal Analysis (1).pdf
+└── rift-N
+    ├── marked-down
+    │   ├── $i8io2l9.md
+    │   ├── $i8rf64o.md
+    │   ├── $icu90ow.md
+    │   ├── $ing7ua6.md
+    │   ├── $r8io2l9.md
+    │   ├── $r8rf64o.md
+    │   ├── $rcu90ow.md
+    │   ├── $rng7ua6.md
+    │   ├── building_belief_into_code.md
+    │   ├── contextual swiichting.md
+    │   ├── directory_for_riftlang_ugly_as_.md
+    │   ├── memory_self_role_mask.md
+    │   ├── Quantum_Superposition.md
+    │   ├── readme2.md
+    │   ├── readme.md
+    │   ├── rift-documentation-build.md
+    │   ├── rift_goverance_file.md
+    │   ├── riftlang_with_quantum_governnce.md
+    │   ├── rifttoken_model.md
+    │   └── rift-token-spec.md
+    ├── rift-7
+    │   ├── Gossip Language Governance Layer.pdf
+    │   ├── gossip-language-governance.md
+    │   ├── import-enforcement-guide.md
+    │   ├── rift-7-hardware-deployment.md
+    │   ├── RIFT-7 Secure Hardware Deployment Layer.pdf
+    │   ├── RIFT-Bridge Governance Relay Interface.pdf
+    │   ├── rift-bridge-governance-relay.md
+    │   └── RIFT Import Enforcement Guide.pdf
+    └── specification
+        ├── $i2lqwin.pdf
+        ├── $ixd9ode.pdf
+        ├── $r2lqwin.pdf
+        ├── $rxd9ode.pdf
+        ├── building_belief_into_code.pdf
+        ├── contextual swiichting.pdf
+        ├── Gossip Language Governance Layer.pdf
+        ├── governing meaning_ the rift architecture of certainty - copy.pdf
+        ├── memory_self_role_mask.pdf
+        ├── OBINexus RIFT-N Sinphasé Integration Plan.pdf
+        ├── readme2.pdf
+        ├── readme.pdf
+        ├── rifter_ecosystem_whitepaper (8) - copy.pdf
+        ├── rifter_ecosystem_whitepaper (8).pdf
+        ├── rifter_ecosystem_whitepaper.pdf
+        ├── riftlang_implementation_specification.pdf
+        ├── riftlang_lexer_specification.md
+        ├── riftlang self-governing driver & binding specification.md
+        ├── riftlang self-governing driver & binding specification.pdf
+        ├── RIFT Stage 0 Tokenization System_ Complete Implementation Plan.pdf
+        ├── rift token architecture_ memory-type associations.pdf
+        ├── RIFT Toolchain Governance Compliance Framework.pdf
+        ├── specification_classic_and
+        └── technical documentation - memory goveranace in the rift ecosystem.pdf
+
+9 directories, 101 files
