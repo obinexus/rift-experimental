@@ -1,0 +1,27 @@
+[AUDIT] 2025-06-27T01:09:05+01:00 Policy validation started for stage(s): all
+[AUDIT] 2025-06-27T01:09:05+01:00 ERROR: Missing stage configuration: /mnt/c/Users/OBINexus/Projects/github/rift-old/rift-gov/.riftrc.0
+[AUDIT] 2025-06-27T01:09:05+01:00 ERROR: Missing stage configuration: /mnt/c/Users/OBINexus/Projects/github/rift-old/rift-gov/.riftrc.1
+[AUDIT] 2025-06-27T01:09:05+01:00 ERROR: Missing stage configuration: /mnt/c/Users/OBINexus/Projects/github/rift-old/rift-gov/.riftrc.2
+[AUDIT] 2025-06-27T01:09:05+01:00 ERROR: Missing stage configuration: /mnt/c/Users/OBINexus/Projects/github/rift-old/rift-gov/.riftrc.3
+[AUDIT] 2025-06-27T01:09:05+01:00 ERROR: Missing stage configuration: /mnt/c/Users/OBINexus/Projects/github/rift-old/rift-gov/.riftrc.4
+[AUDIT] 2025-06-27T01:09:05+01:00 ERROR: Missing stage configuration: /mnt/c/Users/OBINexus/Projects/github/rift-old/rift-gov/.riftrc.5
+[AUDIT] 2025-06-27T01:09:05+01:00 ERROR: Missing stage configuration: /mnt/c/Users/OBINexus/Projects/github/rift-old/rift-gov/.riftrc.6
+[AUDIT] 2025-06-27T01:09:05+01:00 FAILURE: Validation incomplete
+[AUDIT] 2025-06-27T01:09:05+01:00 Policy validation completed with exit code: 1
+[AUDIT] 2025-06-27T01:10:28+01:00 Policy validation started for stage(s): all
+[AUDIT] 2025-06-27T01:10:28+01:00 VALID: Stage 0 configuration exists
+[AUDIT] 2025-06-27T01:10:28+01:00 ERROR: Missing governance input: /mnt/c/Users/OBINexus/Projects/github/rift-old/rift-gov/gov..riftrc.0.in
+[AUDIT] 2025-06-27T01:10:28+01:00 VALID: Stage 1 configuration exists
+[AUDIT] 2025-06-27T01:10:28+01:00 ERROR: Missing governance input: /mnt/c/Users/OBINexus/Projects/github/rift-old/rift-gov/gov..riftrc.1.in
+[AUDIT] 2025-06-27T01:10:28+01:00 VALID: Stage 2 configuration exists
+[AUDIT] 2025-06-27T01:10:28+01:00 ERROR: Missing governance input: /mnt/c/Users/OBINexus/Projects/github/rift-old/rift-gov/gov..riftrc.2.in
+[AUDIT] 2025-06-27T01:10:28+01:00 VALID: Stage 3 configuration exists
+[AUDIT] 2025-06-27T01:10:28+01:00 ERROR: Missing governance input: /mnt/c/Users/OBINexus/Projects/github/rift-old/rift-gov/gov..riftrc.3.in
+[AUDIT] 2025-06-27T01:10:28+01:00 VALID: Stage 4 configuration exists
+[AUDIT] 2025-06-27T01:10:28+01:00 ERROR: Missing governance input: /mnt/c/Users/OBINexus/Projects/github/rift-old/rift-gov/gov..riftrc.4.in
+[AUDIT] 2025-06-27T01:10:28+01:00 VALID: Stage 5 configuration exists
+[AUDIT] 2025-06-27T01:10:28+01:00 ERROR: Missing governance input: /mnt/c/Users/OBINexus/Projects/github/rift-old/rift-gov/gov..riftrc.5.in
+[AUDIT] 2025-06-27T01:10:28+01:00 VALID: Stage 6 configuration exists
+[AUDIT] 2025-06-27T01:10:28+01:00 ERROR: Missing governance input: /mnt/c/Users/OBINexus/Projects/github/rift-old/rift-gov/gov..riftrc.6.in
+[AUDIT] 2025-06-27T01:10:28+01:00 FAILURE: Validation incomplete
+[AUDIT] 2025-06-27T01:10:28+01:00 Policy validation completed with exit code: 1

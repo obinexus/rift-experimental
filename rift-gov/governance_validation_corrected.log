@@ -1,0 +1,54 @@
+🔍 RIFT Governance Validation (Corrected Implementation)
+📁 Directory: /mnt/c/Users/OBINexus/Projects/github/rift-old/rift-gov
+
+[INFO] Validating RIFT Stage 0 governance files (corrected logic)
+[INFO] ✅ Found stage configuration: /mnt/c/Users/OBINexus/Projects/github/rift-old/rift-gov/.riftrc.0
+[INFO] ✅ Configuration structure validated
+[INFO] ✅ Found governance input: /mnt/c/Users/OBINexus/Projects/github/rift-old/rift-gov/gov.riftrc.0.in
+[WARN] ⚠️  Governance input JSON validation failed
+[SUCCESS] ✅ Stage 0 governance validation passed
+
+[INFO] Validating RIFT Stage 1 governance files (corrected logic)
+[INFO] ✅ Found stage configuration: /mnt/c/Users/OBINexus/Projects/github/rift-old/rift-gov/.riftrc.1
+[INFO] ✅ Configuration structure validated
+[INFO] ✅ Found governance input: /mnt/c/Users/OBINexus/Projects/github/rift-old/rift-gov/gov.riftrc.1.in
+[WARN] ⚠️  Governance input JSON validation failed
+[SUCCESS] ✅ Stage 1 governance validation passed
+
+[INFO] Validating RIFT Stage 2 governance files (corrected logic)
+[INFO] ✅ Found stage configuration: /mnt/c/Users/OBINexus/Projects/github/rift-old/rift-gov/.riftrc.2
+[INFO] ✅ Configuration structure validated
+[INFO] ✅ Found governance input: /mnt/c/Users/OBINexus/Projects/github/rift-old/rift-gov/gov.riftrc.2.in
+[WARN] ⚠️  Governance input JSON validation failed
+[SUCCESS] ✅ Stage 2 governance validation passed
+
+[INFO] Validating RIFT Stage 3 governance files (corrected logic)
+[INFO] ✅ Found stage configuration: /mnt/c/Users/OBINexus/Projects/github/rift-old/rift-gov/.riftrc.3
+[INFO] ✅ Configuration structure validated
+[INFO] ✅ Found governance input: /mnt/c/Users/OBINexus/Projects/github/rift-old/rift-gov/gov.riftrc.3.in
+[WARN] ⚠️  Governance input JSON validation failed
+[SUCCESS] ✅ Stage 3 governance validation passed
+
+[INFO] Validating RIFT Stage 4 governance files (corrected logic)
+[INFO] ✅ Found stage configuration: /mnt/c/Users/OBINexus/Projects/github/rift-old/rift-gov/.riftrc.4
+[INFO] ✅ Configuration structure validated
+[INFO] ✅ Found governance input: /mnt/c/Users/OBINexus/Projects/github/rift-old/rift-gov/gov.riftrc.4.in
+[WARN] ⚠️  Governance input JSON validation failed
+[SUCCESS] ✅ Stage 4 governance validation passed
+
+[INFO] Validating RIFT Stage 5 governance files (corrected logic)
+[INFO] ✅ Found stage configuration: /mnt/c/Users/OBINexus/Projects/github/rift-old/rift-gov/.riftrc.5
+[INFO] ✅ Configuration structure validated
+[INFO] ✅ Found governance input: /mnt/c/Users/OBINexus/Projects/github/rift-old/rift-gov/gov.riftrc.5.in
+[WARN] ⚠️  Governance input JSON validation failed
+[SUCCESS] ✅ Stage 5 governance validation passed
+
+[INFO] Validating RIFT Stage 6 governance files (corrected logic)
+[INFO] ✅ Found stage configuration: /mnt/c/Users/OBINexus/Projects/github/rift-old/rift-gov/.riftrc.6
+[INFO] ✅ Configuration structure validated
+[INFO] ✅ Found governance input: /mnt/c/Users/OBINexus/Projects/github/rift-old/rift-gov/gov.riftrc.6.in
+[WARN] ⚠️  Governance input JSON validation failed
+[SUCCESS] ✅ Stage 6 governance validation passed
+
+🎉 All RIFT governance stages validated successfully
+📋 Infrastructure ready for AEGIS waterfall progression

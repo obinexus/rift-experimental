@@ -1,0 +1,24 @@
+[INFO] RIFT Governance Policy Validation initiated
+🔍 Validating all RIFT stages (0-6)...
+[INFO] Validating RIFT Stage 0 governance files
+[INFO] Found stage configuration: /mnt/c/Users/OBINexus/Projects/github/rift-old/rift-gov/.riftrc.0
+[ERROR] Missing governance input: /mnt/c/Users/OBINexus/Projects/github/rift-old/rift-gov/gov..riftrc.0.in
+[INFO] Validating RIFT Stage 1 governance files
+[INFO] Found stage configuration: /mnt/c/Users/OBINexus/Projects/github/rift-old/rift-gov/.riftrc.1
+[ERROR] Missing governance input: /mnt/c/Users/OBINexus/Projects/github/rift-old/rift-gov/gov..riftrc.1.in
+[INFO] Validating RIFT Stage 2 governance files
+[INFO] Found stage configuration: /mnt/c/Users/OBINexus/Projects/github/rift-old/rift-gov/.riftrc.2
+[ERROR] Missing governance input: /mnt/c/Users/OBINexus/Projects/github/rift-old/rift-gov/gov..riftrc.2.in
+[INFO] Validating RIFT Stage 3 governance files
+[INFO] Found stage configuration: /mnt/c/Users/OBINexus/Projects/github/rift-old/rift-gov/.riftrc.3
+[ERROR] Missing governance input: /mnt/c/Users/OBINexus/Projects/github/rift-old/rift-gov/gov..riftrc.3.in
+[INFO] Validating RIFT Stage 4 governance files
+[INFO] Found stage configuration: /mnt/c/Users/OBINexus/Projects/github/rift-old/rift-gov/.riftrc.4
+[ERROR] Missing governance input: /mnt/c/Users/OBINexus/Projects/github/rift-old/rift-gov/gov..riftrc.4.in
+[INFO] Validating RIFT Stage 5 governance files
+[INFO] Found stage configuration: /mnt/c/Users/OBINexus/Projects/github/rift-old/rift-gov/.riftrc.5
+[ERROR] Missing governance input: /mnt/c/Users/OBINexus/Projects/github/rift-old/rift-gov/gov..riftrc.5.in
+[INFO] Validating RIFT Stage 6 governance files
+[INFO] Found stage configuration: /mnt/c/Users/OBINexus/Projects/github/rift-old/rift-gov/.riftrc.6
+[ERROR] Missing governance input: /mnt/c/Users/OBINexus/Projects/github/rift-old/rift-gov/gov..riftrc.6.in
+❌ RIFT governance validation failed for one or more stages
