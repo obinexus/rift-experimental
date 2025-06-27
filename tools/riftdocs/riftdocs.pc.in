@@ -1,0 +1,8 @@
+prefix=@CMAKE_INSTALL_PREFIX@
+exec_prefix=${prefix}
+bindir=${exec_prefix}/bin
+
+Name: RIFT Documentation Generator
+Description: Comprehensive documentation generation with spec validation
+Version: @PROJECT_VERSION@
+Requires: rift-core-qa

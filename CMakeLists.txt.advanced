@@ -1,0 +1,109 @@
+cmake_minimum_required(VERSION 3.12)
+project(RIFTComprehensive VERSION 1.0.0 LANGUAGES C)
+
+# RIFT Comprehensive Build System - AEGIS Waterfall Integration
+# Hash tables, sinphase, rifttest, riftdocs, arion coordination
+
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_C_STANDARD_REQUIRED ON)
+
+# Build options
+option(BUILD_HASH_TABLES "Build O(1) hash table system" ON)
+option(BUILD_SINPHASE "Build sinphase zero trust system" ON)
+option(BUILD_RIFTTEST "Build rifttest QA framework" ON)
+option(BUILD_RIFTDOCS "Build riftdocs system" ON)
+option(BUILD_ARION "Build arion orchestration" ON)
+option(ENABLE_ZERO_TRUST "Enable zero trust enforcement" ON)
+
+# Global include directories
+include_directories(
+    tools/build_orchestration
+    sinphase
+    tools/rift-core/include
+    zero_trust
+)
+
+# Hash table system
+if(BUILD_HASH_TABLES)
+    add_library(rift_hash_table STATIC
+        tools/build_orchestration/hash_table_builder.c
+    )
+    
+    target_include_directories(rift_hash_table PUBLIC
+        tools/build_orchestration
+    )
+endif()
+
+# Sinphase zero trust system
+if(BUILD_SINPHASE)
+    add_library(rift_sinphase STATIC
+        sinphase/sinphase_zero_trust.c
+    )
+    
+    target_include_directories(rift_sinphase PUBLIC
+        sinphase
+    )
+    
+    if(BUILD_HASH_TABLES)
+        target_link_libraries(rift_sinphase rift_hash_table)
+    endif()
+endif()
+
+# rifttest QA framework
+if(BUILD_RIFTTEST)
+    add_subdirectory(tools/rift-core)
+endif()
+
+# riftdocs documentation system
+if(BUILD_RIFTDOCS)
+    add_subdirectory(tools/riftdocs)
+endif()
+
+# arion orchestration engine
+if(BUILD_ARION)
+    add_executable(arion
+        tools/arion/src/main.c
+    )
+    
+    if(BUILD_HASH_TABLES)
+        target_link_libraries(arion rift_hash_table)
+    endif()
+    
+    if(BUILD_SINPHASE)
+        target_link_libraries(arion rift_sinphase)
+    endif()
+endif()
+
+# Testing
+enable_testing()
+
+if(BUILD_RIFTTEST)
+    add_test(NAME RiftTestQA COMMAND rifttest --help)
+endif()
+
+if(BUILD_HASH_TABLES)
+    add_test(NAME HashTableSystem COMMAND test_hash_table)
+endif()
+
+# Installation
+install(TARGETS rift_hash_table rift_sinphase
+    LIBRARY DESTINATION lib
+    ARCHIVE DESTINATION lib
+)
+
+if(BUILD_ARION)
+    install(TARGETS arion
+        RUNTIME DESTINATION bin
+    )
+endif()
+
+# Comprehensive pkg-config
+configure_file(
+    "${CMAKE_CURRENT_SOURCE_DIR}/rift-comprehensive.pc.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/rift-comprehensive.pc"
+    @ONLY
+)
+
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/rift-comprehensive.pc"
+    DESTINATION lib/pkgconfig
+)
