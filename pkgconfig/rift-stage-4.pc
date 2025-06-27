@@ -1,0 +1,23 @@
+# RIFT AEGIS Stage 4 (bytecode) PKG-Config File
+# Platform: linux
+# Version: 1.2.0
+
+prefix=/mnt/c/Users/OBINexus/Projects/github/rift-old
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+bindir=${exec_prefix}/bin
+stage_name=bytecode
+stage_id=4
+
+Name: RIFT Stage 4 - bytecode
+Description: RIFT AEGIS Stage 4: bytecode processing module
+Version: 1.2.0
+URL: https://github.com/obinexus/rift-aegis
+
+# Stage-specific configuration
+Libs: -L${libdir} -lrift-4
+Cflags: -I${includedir} -I${includedir}/rift/core/stage-4
+
+# Dependencies on previous stages
+Requires: rift-stage-3, rift-aegis

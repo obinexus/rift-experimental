@@ -1,0 +1,23 @@
+# RIFT AEGIS Main PKG-Config File
+# Platform: linux
+# Version: 1.2.0
+
+prefix=/mnt/c/Users/OBINexus/Projects/github/rift-old
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+bindir=${exec_prefix}/bin
+
+Name: RIFT AEGIS
+Description: RIFT AEGIS Flexible Translator Framework
+Version: 1.2.0
+URL: https://github.com/obinexus/rift-aegis
+
+# Platform-specific library configuration
+Libs: -L${libdir} -lrift-core -lrift-bridge
+Libs.private: -lpthread -ldl -lm
+Cflags: -I${includedir} -I${includedir}/rift/core -D_GNU_SOURCE -D_REENTRANT
+
+# Dependencies
+Requires: openssl >= 1.1.0, zlib >= 1.2.0
+Requires.private: libcrypto, libssl

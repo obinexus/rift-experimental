@@ -1,0 +1,23 @@
+# RIFT AEGIS Stage 6 (emitter) PKG-Config File
+# Platform: linux
+# Version: 1.2.0
+
+prefix=/mnt/c/Users/OBINexus/Projects/github/rift-old
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+bindir=${exec_prefix}/bin
+stage_name=emitter
+stage_id=6
+
+Name: RIFT Stage 6 - emitter
+Description: RIFT AEGIS Stage 6: emitter processing module
+Version: 1.2.0
+URL: https://github.com/obinexus/rift-aegis
+
+# Stage-specific configuration
+Libs: -L${libdir} -lrift-6
+Cflags: -I${includedir} -I${includedir}/rift/core/stage-6
+
+# Dependencies on previous stages
+Requires: rift-stage-5, rift-aegis

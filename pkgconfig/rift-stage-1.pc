@@ -1,0 +1,23 @@
+# RIFT AEGIS Stage 1 (parser) PKG-Config File
+# Platform: linux
+# Version: 1.2.0
+
+prefix=/mnt/c/Users/OBINexus/Projects/github/rift-old
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+bindir=${exec_prefix}/bin
+stage_name=parser
+stage_id=1
+
+Name: RIFT Stage 1 - parser
+Description: RIFT AEGIS Stage 1: parser processing module
+Version: 1.2.0
+URL: https://github.com/obinexus/rift-aegis
+
+# Stage-specific configuration
+Libs: -L${libdir} -lrift-1
+Cflags: -I${includedir} -I${includedir}/rift/core/stage-1
+
+# Dependencies on previous stages
+Requires: rift-stage-0, rift-aegis
