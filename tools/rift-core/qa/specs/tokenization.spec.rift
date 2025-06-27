@@ -1,0 +1,72 @@
+// RIFT Unit Test Specification - R-syntax Tokenization
+// Comprehensive type-case matching with method assertions
+
+unit_test "R_syntax_tokenization_validation" {
+    description: "Validates R-syntax regular expression tokenization"
+    stage: 0
+    
+    test_case "bottom_up_r_quote_matching" {
+        input: R"(?P<identifier>[a-zA-Z_][a-zA-Z0-9_]*)"
+        expected_token_type: R_REGEX_BOTTOM_UP
+        expected_flags: BOTTOM_MATCHING | SCOPE_DEFAULT
+        assertion: assert_token_type_match(input, expected_token_type)
+        qa_matrix_impact: TRUE_POSITIVE
+    }
+    
+    test_case "top_down_r_apostrophe_matching" {
+        input: R'(?P<block_pattern>\{[^}]*\})'
+        expected_token_type: R_REGEX_TOP_DOWN  
+        expected_flags: TOP_DOWN_MATCHING | SCOPE_USER_OUTPUT
+        assertion: assert_token_flags_match(input, expected_flags)
+        qa_matrix_impact: TRUE_POSITIVE
+    }
+    
+    test_case "invalid_r_syntax_rejection" {
+        input: "invalid_pattern_without_r_prefix"
+        expected_token_type: R_REGEX_INVALID
+        assertion: assert_token_type_match(input, expected_token_type)
+        qa_matrix_impact: TRUE_NEGATIVE
+    }
+    
+    test_case "memory_scope_validation" {
+        input: R"(?P<test>[a-z]+)"
+        expected_scope: {
+            default_channel: true,
+            user_output_channel: false,
+            scope_region_id: 0
+        }
+        assertion: assert_token_memory_scope(input, expected_scope)
+        qa_matrix_impact: TRUE_POSITIVE
+    }
+}
+
+// Model-Agnostic Method Testing
+unit_test "model_agnostic_matrix_operations" {
+    description: "Validates matrix operations work across model types"
+    stage: "cross_stage"
+    
+    test_case "square_matrix_multiplication" {
+        square_model: MatrixSquare(3, 3)
+        triangular_model: MatrixTriangular(3, 3)
+        method: matrix_multiply_method
+        assertion: assert_matrix_method_agnostic(method, square_model, triangular_model)
+        qa_matrix_impact: TRUE_POSITIVE
+    }
+    
+    test_case "matrix_transpose_agnostic" {
+        square_model: MatrixSquare(4, 4)
+        triangular_model: MatrixTriangular(4, 4)
+        method: matrix_transpose_method
+        assertion: assert_matrix_method_agnostic(method, square_model, triangular_model)
+        qa_matrix_impact: TRUE_POSITIVE
+    }
+}
+
+// Assertion library configuration
+assertion_library RiftAssertions {
+    assert_token_type_match(token, expected_type) -> QA_MATRIX_UPDATE
+    assert_token_memory_scope(token, expected_scope) -> QA_MATRIX_UPDATE  
+    assert_token_flags_match(token, expected_flags) -> QA_MATRIX_UPDATE
+    assert_r_syntax_compliance(token, regex_pattern) -> QA_MATRIX_UPDATE
+    assert_matrix_method_agnostic(method, model1, model2) -> QA_MATRIX_UPDATE
+}
